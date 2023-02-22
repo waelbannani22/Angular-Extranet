@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import Validation from 'src/app/helper/Validation';
 import { Pharmacien } from 'src/app/models/pharmacien.model';
 import { LoginPharmacienService } from 'src/app/services/login-pharmacien.service';
 import { TokenStorageService } from 'src/app/services/token-storage-service.service';
@@ -25,6 +26,8 @@ export class SignupPharmacienComponent implements OnInit {
     matricule: new FormControl(''),
     password: new FormControl(''),
     email: new FormControl(''),
+    confirmPassword:new FormControl('')
+
    
    
   });
@@ -45,6 +48,9 @@ export class SignupPharmacienComponent implements OnInit {
       nom: ['', [Validators.required, Validators.minLength(3)]],
       prenom: ['', [Validators.required, Validators.minLength(4)]],
       matricule: ['', [Validators.required, Validators.minLength(5)]],
+      confirmPassword:['', [Validators.required]],
+    },{
+      validators: [Validation.match('password', 'confirmPassword')]
     });
   }
   //getter
@@ -60,6 +66,9 @@ export class SignupPharmacienComponent implements OnInit {
     this.pharmacien.password=this.detailUser.value.password
     this.pharmacien.email=this.detailUser.value.email
    
+    if (this.detailUser.invalid) {
+      return;
+    }
     this.pharmacien.role="PHARMACIEN"
     //console.log(this.pharmacien)
 

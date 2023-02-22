@@ -4,7 +4,7 @@ import { TokenStorageService } from './services/token-storage-service.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
   title = 'AngularApp';
@@ -14,8 +14,8 @@ export class AppComponent {
   showAdminBoard = false;
   showModeratorBoard = false;
   username?: string;
-  
-  constructor(private tokenStorageService: TokenStorageService) { }
+
+  constructor(private tokenStorageService: TokenStorageService) {}
 
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenStorageService.getToken();
@@ -23,9 +23,9 @@ export class AppComponent {
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
       this.roles = user.roles;
-      this.showAdminBoard = this.roles.includes('ADMIN');
-      this.showModeratorBoard = this.roles.includes('PHARMACIEN');
 
+      this.showAdminBoard = user.role == 'ADMIN' ? true : false;
+      this.showModeratorBoard = user.role == 'PHARMACIEN' ? true : false;
       this.username = user.username;
     }
   }

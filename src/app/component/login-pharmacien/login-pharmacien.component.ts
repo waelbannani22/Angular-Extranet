@@ -11,6 +11,7 @@ import { TokenStorageService } from 'src/app/services/token-storage-service.serv
   templateUrl: './login-pharmacien.component.html',
   styleUrls: ['./login-pharmacien.component.css']
 })
+
 export class LoginPharmacienComponent implements OnInit {
 
   submitted = false;
@@ -63,26 +64,32 @@ export class LoginPharmacienComponent implements OnInit {
     if (this.detailClient.invalid) {
       return;
     }
+   
     this.pharmacienService.login(this.pharamacien.email, this.pharamacien.password).subscribe(res => {
       console.log(res.status)
       if( res.status ==200){
-        this.toastr.error('welcome back!','',{
+        this.toastr.success('Ravi de vous revoir!','',{
           timeOut:3500
         });
+        //console.log(res.body.token)
+        
+        this.tokenStorage.saveToken(res.body.token)
+        this.tokenStorage.saveUser(res.body.user)
+        this.isLoggedIn = true
+        this.isLoginFailed = false
+       this.roles = this.tokenStorage.getUser().roles;
         this.router.navigate(['/DashboardPharmacien'])
+      
       }
       
-      this.tokenStorage.saveToken(res.token)
-      this.tokenStorage.saveUser(res.user)
-      this.isLoggedIn = true
-      this.isLoginFailed = false
-      this.roles = this.tokenStorage.getUser().roles;
+      
+     
       // this.reloadPage();
 
     }, err => {
       
       if( err.status ==405){
-        this.toastr.error(' user not verified','please wait for the admin to verify you!',{
+        this.toastr.error('Utilisateur non vérifié','veuillez attendre que l\'administrateur vous vérifie!',{
           timeOut:3500
         });
       }
