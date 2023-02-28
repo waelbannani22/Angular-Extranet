@@ -12,6 +12,9 @@ import { authInterceptorProviders } from './helper/AuthInterceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardPharmacienComponent } from './component/dashboard-pharmacien/dashboard-pharmacien.component';
 import { JwtModule } from '@auth0/angular-jwt';
+import { ForgetPasswordComponent } from './component/forget-password/forget-password.component';
+import { ChangePasswordComponent } from './component/change-password/change-password.component';
+
 
 export function tokenGetter() {
   return sessionStorage.getItem("token");
@@ -22,6 +25,9 @@ export function tokenGetter() {
     LoginPharmacienComponent,
    SignupPharmacienComponent,
    DashboardPharmacienComponent,
+   ForgetPasswordComponent,
+   ChangePasswordComponent,
+  
   ],
   imports: [
     BrowserModule,

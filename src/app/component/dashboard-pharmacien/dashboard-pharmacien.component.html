@@ -1,16 +1,6 @@
 <!DOCTYPE html>
 
-<!-- =========================================================
-* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
-==============================================================
 
-* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
-* Created by: ThemeSelection
-* License: You must have a valid license purchased in order to legally use the theme for your project.
-* Copyright ThemeSelection (https://themeselection.com)
-
-=========================================================
- -->
 <!-- beautify ignore:start -->
 <html
   lang="en"
@@ -79,6 +69,7 @@
     <!-- Page CSS -->
     <!-- Page -->
     <link rel="stylesheet" href="/assets/vendor/css/pages/page-auth.css" />
+    
     <!-- Page CSS -->
 
     <!-- Helpers -->
@@ -303,7 +294,7 @@
                           class="d-flex align-items-start align-items-sm-center gap-4"
                         >
                           <img
-                            src="../assets/img/avatars/1.png"
+                            src="/assets/img/avatars/1.png"
                             alt="user-avatar"
                             class="d-block rounded"
                             height="100"
@@ -359,7 +350,7 @@
                                 id="Nom"
                                 name="Nom"
                                 value=""
-                                autofocus
+                                [readOnly]="disabled"
                               />
                             </div>
                             <div class="mb-3 col-md-6">
@@ -373,6 +364,7 @@
                                 name="Prenom"
                                 id="Prenom"
                                 value=""
+                                [readOnly]="disabled"
                               />
                             </div>
                             <div class="mb-3 col-md-6">
@@ -401,6 +393,7 @@
                                   id="tel"
                                   name="tel"
                                   class="form-control"
+                                  [readOnly]="disabled"
                                 />
                               </div>
                             </div>
@@ -413,6 +406,7 @@
                                 class="form-control"
                                 formControlName="adresse"
                                 id="Addresse"
+                                [readOnly]="disabled"
                                 name="Addresse"
                               />
                             </div>
@@ -424,6 +418,7 @@
                                 class="form-control"
                                 formControlName="ville"
                                 type="text"
+                                [readOnly]="disabled"
                                 id="Ville"
                                 name="Ville"
                               />
@@ -437,6 +432,7 @@
                                 formControlName="zip"
                                 class="form-control"
                                 id="zipCode"
+                                [readOnly]="disabled"
                                 name="zipCode"
                               />
                             </div>
@@ -477,19 +473,19 @@
                                 formControlName="cin"
                                 id="Cin"
                                 name="Cin"
-                               readonly
+                               [readOnly]="disabled"
                               />
                             </div>
                           </div>
                           <div class="mt-2">
-                            <button type="submit" class="btn btn-primary me-2">
-                              Save changes
+                            <button (click)="updateInfo()" [disabled]="disabled" class="btn btn-primary me-2">
+                              Enregistrer
                             </button>
-                            <button
-                              type="reset"
+                            <button (click)="disableChamps()"
+                            [innerHTML]="buttonLabel"
                               class="btn btn-outline-secondary"
                             >
-                              Cancel
+                             
                             </button>
                           </div>
                         </form>
@@ -517,6 +513,7 @@
                             <input
                               class="form-check-input"
                               type="checkbox"
+                              (click)="clickIamSure()"
                               name="accountActivation"
                               id="accountActivation"
                             />
@@ -527,7 +524,7 @@
                             >
                           </div>
                           <button
-                            type="submit"
+                            (click)="logOut()"
                             class="btn btn-danger deactivate-account"
                           >
                             Déconnecter

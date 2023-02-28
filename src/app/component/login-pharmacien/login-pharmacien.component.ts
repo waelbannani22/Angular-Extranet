@@ -58,6 +58,7 @@ export class LoginPharmacienComponent implements OnInit {
   }
   login() {
     this.submitted = true
+    window.sessionStorage.clear();
     this.pharamacien.email = this.detailClient.value.email
     this.pharamacien.password = this.detailClient.value.password
 
@@ -77,7 +78,7 @@ export class LoginPharmacienComponent implements OnInit {
         this.tokenStorage.saveUser(res.body.user)
         this.isLoggedIn = true
         this.isLoginFailed = false
-       this.roles = this.tokenStorage.getUser().roles;
+        this.roles = this.tokenStorage.getUser().roles;
         this.router.navigate(['/DashboardPharmacien'])
       
       }

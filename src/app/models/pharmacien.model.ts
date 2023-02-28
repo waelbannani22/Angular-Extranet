@@ -7,4 +7,9 @@ export class Pharmacien {
     email!:string;
     role!:string;
     isActivated!:boolean;
+    cin!:string;
+    tel!:string;
+    ville!:string;
+    addresse!:string
+    zip!:string
 }
