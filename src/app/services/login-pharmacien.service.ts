@@ -17,6 +17,7 @@ const httpOptions = {
 
 const AUTH_API = 'http://localhost:8089/Stage/Pharmacien/';
 const AUTH_API_PASSWORD = 'http://localhost:8089/Stage/managePassword/forgot-password/';
+const AUTH_API_TOKEN = 'http://localhost:8089/Stage/managePassword/confirm-password';
 
 @Injectable({
   providedIn: 'root',
@@ -60,6 +61,14 @@ export class LoginPharmacienService {
       { observe: 'response' }
     );
   }
+  //Change password and verify token
+  changePassword(password:string,token:string):Observable<any>{
+    const params ={token:token,password:password}
+    return this.http.post(
+      AUTH_API_TOKEN+"?token="+token+"&password="+password,{observe:'response'}
+    )
+  }
+
   //test
   welcome(): Observable<any> {
     const token = sessionStorage.getItem('token');
