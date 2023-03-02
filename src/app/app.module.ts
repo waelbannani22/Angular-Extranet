@@ -14,6 +14,7 @@ import { DashboardPharmacienComponent } from './component/dashboard-pharmacien/d
 import { JwtModule } from '@auth0/angular-jwt';
 import { ForgetPasswordComponent } from './component/forget-password/forget-password.component';
 import { ChangePasswordComponent } from './component/change-password/change-password.component';
+import { FooterComponent } from './component/footer/footer.component';
 
 
 export function tokenGetter() {
@@ -27,6 +28,7 @@ export function tokenGetter() {
    DashboardPharmacienComponent,
    ForgetPasswordComponent,
    ChangePasswordComponent,
+   FooterComponent,
   
   ],
   imports: [

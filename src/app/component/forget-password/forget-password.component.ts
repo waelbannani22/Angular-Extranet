@@ -18,6 +18,7 @@ import { LoginPharmacienService } from 'src/app/services/login-pharmacien.servic
 })
 export class ForgetPasswordComponent implements OnInit {
   disabled:boolean=false;
+  submitted = false;
   ema: string = '';
   details: FormGroup = new FormGroup({
     email: new FormControl(''),

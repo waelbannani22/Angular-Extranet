@@ -16,6 +16,7 @@ export class ChangePasswordComponent implements OnInit {
     password: new FormControl(''),
     token : new FormControl('')
   });
+submitted: any;
   constructor( 
     private formBuilder: FormBuilder,
     private loginService: LoginPharmacienService,
@@ -25,8 +26,8 @@ export class ChangePasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.details = this.formBuilder.group({
-      password: ['', [Validators.required]],
-      token:['', [Validators.required]]
+      password: ['', [Validators.required,Validators.minLength(8)]],
+      token:['', [Validators.required,Validators.minLength(8)]]
     });
   }
   get f(): { [key: string]: AbstractControl } {
