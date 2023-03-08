@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Pharmacien } from 'src/app/models/pharmacien.model';
+import { DynamicScriptLoaderService } from 'src/app/services/dynamic-script-loader.service';
 import { LoginPharmacienService } from 'src/app/services/login-pharmacien.service';
 import { TokenStorageService } from 'src/app/services/token-storage-service.service';
 
@@ -35,12 +36,25 @@ export class DashboardPharmacienComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private pharmacienService:LoginPharmacienService,
-    private http:HttpClient
+    private http:HttpClient,
+    private dynamicScriptLoader:DynamicScriptLoaderService
   ) {}
 
   pharamacien: Pharmacien = new Pharmacien();
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+   // this.loadScripts()
+  }
+  private loadScripts() {
+    // You can load multiple scripts by just providing the key as argument into load method of the service
+    this.dynamicScriptLoader.load('main','config').then(data => {
+      // Script Loaded Successfully
+    }).catch(error => console.log(error));
+  }
+  isShowDivIf = true;
+  toggleDisplayDivIf() {
+    this.isShowDivIf = !this.isShowDivIf;
+  }
   clickIamSure() {
     
     this.iamSure= !this.iamSure

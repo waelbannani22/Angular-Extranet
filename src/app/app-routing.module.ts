@@ -4,6 +4,8 @@ import { ChangePasswordComponent } from './component/change-password/change-pass
 import { DashboardPharmacienComponent } from './component/dashboard-pharmacien/dashboard-pharmacien.component';
 import { ForgetPasswordComponent } from './component/forget-password/forget-password.component';
 import { LoginPharmacienComponent } from './component/login-pharmacien/login-pharmacien.component';
+import { MenuComponent } from './component/menu/menu.component';
+import { OrdonnanceComponent } from './component/ordonnance/ordonnance.component';
 import { SignupPharmacienComponent } from './component/signup-pharmacien/signup-pharmacien.component';
 import { AuthGuardService as AuthGuard} from './services/auth-guard.service';
 import { RoleGuardService } from './services/role-guard.service';
@@ -24,6 +26,8 @@ const routes: Routes = [
   },
   { path: 'forget-password', component: ForgetPasswordComponent },
   { path: 'change-password', component: ChangePasswordComponent },
+  { path: 'ordonnance', component: OrdonnanceComponent },
+  { path: 'menu', component: MenuComponent },
   
  
 

@@ -15,6 +15,9 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { ForgetPasswordComponent } from './component/forget-password/forget-password.component';
 import { ChangePasswordComponent } from './component/change-password/change-password.component';
 import { FooterComponent } from './component/footer/footer.component';
+import { OrdonnanceComponent } from './component/ordonnance/ordonnance.component';
+import { MenuComponent } from './component/menu/menu.component';
+import { NavBarComponent } from './component/nav-bar/nav-bar.component';
 
 
 export function tokenGetter() {
@@ -29,6 +32,9 @@ export function tokenGetter() {
    ForgetPasswordComponent,
    ChangePasswordComponent,
    FooterComponent,
+   OrdonnanceComponent,
+   MenuComponent,
+   NavBarComponent,
   
   ],
   imports: [

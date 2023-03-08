@@ -137,9 +137,9 @@ export class LoginPharmacienService {
   public isAuthenticated(): boolean {
     const token = sessionStorage.getItem('token');
     const tokenNew: string = token ?? '';
-    // Check whether the token is expired and return
+   
     // true or false
     console.log('is it expired :', this.tokenExpired(tokenNew as string));
-    return !this.jwtHelper.isTokenExpired(token);
+    return !this.tokenExpired(tokenNew as string);
   }
 }

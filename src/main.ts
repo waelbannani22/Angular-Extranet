@@ -10,3 +10,13 @@ if (environment.production) {
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
+  /*  
+              "src/js/menu.js",
+              "src/js/bootstrap.js",
+              "src/js/helpers.js",
+              "src/assets/js/main.js",
+              "src/assets/vendor/js/menu.js",
+              "src/assets/vendor/js/helpers.js",
+              "src/assets/vendor/js/bootstrap.js",
+              "src/assets/vendor/libs/jquery/jquery.js"
+              **/
