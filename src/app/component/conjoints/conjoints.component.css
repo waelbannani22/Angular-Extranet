@@ -85,6 +85,9 @@ button{
 a{
   margin-left: 15px;
 }
+.spacing{
+  margin: 10px;
+}
 li{
   margin: 10px;
 }
@@ -104,6 +107,3 @@ option{
       height: 0;
     }
   }
-
-  
-  

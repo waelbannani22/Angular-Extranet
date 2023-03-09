@@ -11,6 +11,7 @@ export class NavBarComponent implements OnInit {
 
   constructor(private router:Router) { }
   isShowDivIf = true;
+  iamSure: boolean = false;
   toggleDisplayDivIf() {
     this.isShowDivIf = !this.isShowDivIf;
   }
@@ -25,5 +26,19 @@ export class NavBarComponent implements OnInit {
    this.router.navigate(['/DashboardPharmacien'], { replaceUrl: true });
     
   }
+  logOut() {
+   
+      console.log("logout clicked")
+      window.sessionStorage.clear();
+      console.log("session cleaned")
+      this.router.navigate(['/login'], { replaceUrl: true });
+    
+  }
+  Profile() {
+   
+    console.log("session cleaned")
+    this.router.navigate(['/DashboardPharmacien'], { replaceUrl: false }); 
+}
+
 
 }

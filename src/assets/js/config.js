@@ -25,8 +25,3 @@ let config = {
     borderColor: '#eceef1'
   }
 };
-function greet(){
-  alert("Hello");
-}
-
-alert("Pop up");

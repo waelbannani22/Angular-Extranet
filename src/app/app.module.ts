@@ -18,6 +18,8 @@ import { FooterComponent } from './component/footer/footer.component';
 import { OrdonnanceComponent } from './component/ordonnance/ordonnance.component';
 import { MenuComponent } from './component/menu/menu.component';
 import { NavBarComponent } from './component/nav-bar/nav-bar.component';
+import { PassComponent } from './component/pass/pass.component';
+import { ConjointsComponent } from './component/conjoints/conjoints.component';
 
 
 export function tokenGetter() {
@@ -35,6 +37,8 @@ export function tokenGetter() {
    OrdonnanceComponent,
    MenuComponent,
    NavBarComponent,
+   PassComponent,
+   ConjointsComponent,
   
   ],
   imports: [

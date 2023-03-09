@@ -130,4 +130,14 @@ export class DashboardPharmacienComponent implements OnInit {
       alert("nooooooooo")
     });
   }
+  Profile() {
+   
+    
+    this.router.navigate(['/DashboardPharmacien'], { replaceUrl: false }); 
+  }
+  Pass() {
+   
+    
+    this.router.navigate(['/Pass'], { replaceUrl: false }); 
+}
 }

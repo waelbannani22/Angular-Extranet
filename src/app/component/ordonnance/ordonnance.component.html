@@ -27,12 +27,19 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Without menu - Layouts | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>
+      Without menu - Layouts | Sneat - Bootstrap 5 HTML Admin Template - Pro
+    </title>
 
     <meta name="description" content="" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/assets/img/favicon/favicon.ico" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="/assets/img/favicon/favicon.ico"
+    />
+    <base href="./" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -46,12 +53,23 @@
     <link rel="stylesheet" href="/assets/vendor/fonts/boxicons.css" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="/assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link
+      rel="stylesheet"
+      href="/assets/vendor/css/core.css"
+      class="template-customizer-core-css"
+    />
+    <link
+      rel="stylesheet"
+      href="/assets/vendor/css/theme-default.css"
+      class="template-customizer-theme-css"
+    />
     <link rel="stylesheet" href="/assets/css/demo.css" />
 
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link
+      rel="stylesheet"
+      href="/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css"
+    />
 
     <!-- Page CSS -->
 
@@ -71,7 +89,7 @@
         <div class="layout-page">
           <!-- Navbar -->
 
-      <app-nav-bar></app-nav-bar>
+          <app-nav-bar></app-nav-bar>
 
           <!-- / Navbar -->
 
@@ -81,13 +99,379 @@
 
             <div class="container-xxl flex-grow-1 container-p-y">
               <!-- Layout Demo -->
-            
-              <!--/ Layout Demo -->
+              <div id="myDiv">
+                <div id="box">
+                  <p style="font-size: medium; position: relative">
+                    Contractant:
+                  </p>
+                  <div class="align-items-center">
+                    <div data-select2-id="45">
+                      <div class="position-relative">
+                        <select
+                          id="select2Basic"
+                          class="select2 form-select form-select-lg select2-hidden-accessible"
+                          data-allow-clear="true"
+                          data-select2-id="select2Basic"
+                          tabindex="-1"
+                          aria-hidden="true"
+                        >
+                          <option value="AK" data-select2-id="2">Alaska</option>
+                          <option value="HI" data-select2-id="46">
+                            Hawaii
+                          </option>
+                          <option value="CA" data-select2-id="47">
+                            California
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <br />
+                    <p style="font-size: medium; position: left">Matricule:</p>
+                    <div class="nav-item d-flex align-items-center">
+                      <input
+                        type="text"
+                        class="form-control border-0 shadow-none"
+                        placeholder="Search..."
+                        aria-label="Search..."
+                      />
+                    </div>
+
+                    <button
+                      id="myButton"
+                      type="button"
+                      class="btn rounded-pill btn-primary"
+                    >
+                      Rechercher
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- User row -->
+              <div id="myDiv1" style="display: none">
+                <div class="row">
+                  <!-- User Sidebar -->
+                  <div class="col-xl-4 col-lg-5 col-md-5 order-1 order-md-0">
+                    <!-- User Card -->
+                    <div class="card mb-4">
+                      <div class="card-body">
+                        <div class="user-avatar-section">
+                          <div class="d-flex align-items-center flex-column">
+                            <img
+                              class="img-fluid rounded my-4"
+                              src="../../assets/img/avatars/1.png"
+                              height="110"
+                              width="110"
+                              alt="User avatar"
+                            />
+                            <div class="user-info text-center">
+                              <h4 class="mb-2">Violet Mendoza</h4>
+                              <span class="badge bg-label-secondary"
+                                >Pharmacien</span
+                              >
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="d-flex justify-content-around flex-wrap my-4 py-3"
+                        >
+                          <div class="d-flex align-items-start me-4 mt-3 gap-3">
+                            <span class="badge bg-label-primary p-2 rounded"
+                              ><i class="bx bx-check bx-sm"></i
+                            ></span>
+                            <div>
+                              <h5 class="mb-0">1.23k</h5>
+                              <span>Consultations</span>
+                            </div>
+                          </div>
+                          <div class="d-flex align-items-start mt-3 gap-3">
+                            <span class="badge bg-label-primary p-2 rounded"
+                              ><i class="bx bx-customize bx-sm"></i
+                            ></span>
+                            <div>
+                              <h5 class="mb-0">568</h5>
+                              <span>Réclamations</span>
+                            </div>
+                          </div>
+                        </div>
+                        <h5 class="pb-2 border-bottom mb-4">Details</h5>
+                        <div class="info-container">
+                          <ul class="list-unstyled">
+                            <li class="mb-3">
+                              <span class="fw-bold me-2">Username:</span>
+                              <span>violet.dev</span>
+                            </li>
+                            <li class="mb-3">
+                              <span class="fw-bold me-2">Email:</span>
+                              <span>vafgot@vultukir.org</span>
+                            </li>
+                            <li class="mb-3">
+                              <span class="fw-bold me-2">Status:</span>
+                              <span class="badge bg-label-success">Active</span>
+                            </li>
+                            <li class="mb-3">
+                              <span class="fw-bold me-2">Role:</span>
+                              <span>Author</span>
+                            </li>
+                            <li class="mb-3">
+                              <span class="fw-bold me-2">Tax id:</span>
+                              <span>Tax-8965</span>
+                            </li>
+                            <li class="mb-3">
+                              <span class="fw-bold me-2">Contact:</span>
+                              <span>(123) 456-7890</span>
+                            </li>
+                            <li class="mb-3">
+                              <span class="fw-bold me-2">Languages:</span>
+                              <span>French</span>
+                            </li>
+                            <li class="mb-3">
+                              <span class="fw-bold me-2">Country:</span>
+                              <span>England</span>
+                            </li>
+                          </ul>
+                          <div class="d-flex justify-content-center pt-3">
+                            <a
+                              href="javascript:;"
+                              class="btn btn-primary me-3"
+                              data-bs-target="#editUser"
+                              data-bs-toggle="modal"
+                              >Ajouter Consultation</a
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /User Card -->
+                    <!-- Plan Card -->
+
+                    <!-- /Plan Card -->
+                  </div>
+                  <!--/ User Sidebar -->
+
+                  <!-- User Content -->
+                  <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
+                    <!-- User Pills -->
+                    <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                      <li class="nav-item">
+                        <a class="nav-link active" (click)="reload()"
+                          ><i class="bx bx-user me-1"></i>Ordonance</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <div>
+                          <a
+                            class="nav-link"
+                            id="toggleButton"
+                            style="border: 1px solid black; cursor: pointer"
+                            data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasBoth"
+                            ><i class="bx bx-face" style="color: #0a0a0a"></i>
+                            Conjoints</a
+                          >
+                          <div
+                            class="offcanvas offcanvas-end"
+                            aria-controls="offcanvasBoth"
+                            data-bs-scroll="true"
+                            tabindex="-1"
+                            id="offcanvasBoth"
+                            aria-labelledby="offcanvasBothLabel"
+                            aria-modal="true"
+                            role="dialog"
+                          >
+                            <div class="offcanvas-header">
+                              <h5
+                                id="offcanvasBothLabel"
+                                class="offcanvas-title"
+                              >
+                                Conjoints
+                              </h5>
+                              <button
+                                type="button"
+                                class="btn-close text-reset"
+                                data-bs-dismiss="offcanvas"
+                                aria-label="Close"
+                              ></button>
+                            </div>
+                            <div
+                              class="offcanvas-body my-auto mx-0 flex-grow-0"
+                            >
+                            <div class="card mb-4">
+
+                           
+                            <div class="accordion-item card spacing">
+                              <h2 class="accordion-header">
+                                <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionStyle1-1" aria-expanded="false">
+                                  <strong>Conjoints -1-</strong>
+                                </button>
+                              </h2>
+                      
+                              <div id="accordionStyle1-1" class="accordion-collapse collapse" data-bs-parent="#accordionStyle1" style="">
+                                <div class="accordion-body">
+                                  <div class="table-responsive text-nowrap">
+                                      <table class="table">
+                                       
+                                        <tbody class="table-border-bottom-0">
+                                          <tr>
+                                              <td><strong>Nom et prénom:</strong> </td>
+                                              <td>sana foulen</td>
+                                            </tr>
+                                            <tr>
+                                              <td><strong>Date de naissance:</strong> </td>
+                                              <td>1970-07-09</td>
+                                            </tr>
+                                        
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                    <button
+                                    type="button"
+                                    class="btn btn-primary mb-2 d-grid w-100"
+                                  >
+                                    Ajouter Consultation
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            <br/>
+                            <div class="accordion-item card spacing">
+                              <h2 class="accordion-header">
+                                <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionStyle1-1" aria-expanded="false">
+                                  <strong>Conjoints -1-</strong>
+                                </button>
+                              </h2>
+                      
+                              <div id="accordionStyle1-1" class="accordion-collapse collapse" data-bs-parent="#accordionStyle1" style="">
+                                <div class="accordion-body">
+                                  <div class="table-responsive text-nowrap">
+                                      <table class="table">
+                                       
+                                        <tbody class="table-border-bottom-0">
+                                          <tr>
+                                              <td><strong>Nom et prénom:</strong> </td>
+                                              <td>sana foulen</td>
+                                            </tr>
+                                            <tr>
+                                              <td><strong>Date de naissance:</strong> </td>
+                                              <td>1970-07-09</td>
+                                            </tr>
+                                        
+                                        </tbody>
+                                      </table>
+                                    </div>
+                                    <button
+                                    type="button"
+                                    class="btn btn-primary mb-2 d-grid w-100"
+                                  >
+                                    Ajouter Consultation
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            
+                          </div>
+                             
+                            
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          style="
+                            background-color: green;
+                            color: white;
+                            cursor: pointer;
+                          "
+                          (click)="reload()"
+                          ><i class="bx bx-repeat" style="color: #f3f3f3"></i>
+                          Rechercher un autre adhérent</a
+                        >
+                      </li>
+                    </ul>
+                    <!--/ User Pills -->
+
+                    <!-- Project table -->
+                    <div class="card mb-4">
+                      <h5 class="card-header">Historique</h5>
+                      <div class="table-responsive mb-3">
+                        <div
+                          id="DataTables_Table_0_wrapper"
+                          class="dataTables_wrapper dt-bootstrap5 no-footer"
+                        >
+                          <div class="card">
+                            <div class="table-responsive text-nowrap">
+                              <table class="table table-hover">
+                                <thead>
+                                  <tr>
+                                    <th>N° Consultation</th>
+                                    <th>Date</th>
+                                    <th>Nom de l'assuré</th>
+                                    <th>Nom du Bénéficiaire</th>
+                                    <th>Médecin</th>
+                                    <th>Actions</th>
+                                  </tr>
+                                </thead>
+                                <tbody class="table-border-bottom-0">
+                                  <tr>
+                                    <td>
+                                      <i
+                                        class="fab fa-angular fa-lg text-danger me-3"
+                                      ></i>
+                                      <strong>12228288282</strong>
+                                    </td>
+                                    <td>22/01/1988</td>
+                                    <td>
+                                      <span class="badge bg-info"
+                                        >Albert Cook
+                                      </span>
+                                    </td>
+                                    <td>
+                                      <span class="badge bg-label-primary me-1"
+                                        >Terasa cook</span
+                                      >
+                                    </td>
+                                    <td>
+                                      <span class="badge bg-label-success"
+                                        >Doc Felix</span
+                                      >
+                                    </td>
+                                    <td style="size: 32px">
+                                      <i
+                                        class="bx bx-add-to-queue bx-flashing bx-flip-horizontal"
+                                        style="color: #a673fd"
+                                        (click)="click()"
+                                      ></i>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /Project table -->
+
+                    <!-- Activity Timeline -->
+
+                    <!-- /Activity Timeline -->
+
+                    <!-- Invoice table -->
+
+                    <!-- /Invoice table -->
+                  </div>
+
+                  <!--/ User Content -->
+                </div>
+              </div>
             </div>
             <!-- / Content -->
 
             <!-- Footer -->
-           <app-footer></app-footer>
+            <app-footer></app-footer>
             <!-- / Footer -->
 
             <div class="content-backdrop fade"></div>
@@ -98,8 +482,6 @@
       </div>
     </div>
     <!-- / Layout wrapper -->
-
-   
 
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
