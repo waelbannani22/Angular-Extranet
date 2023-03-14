@@ -51,10 +51,12 @@ export class DashboardPharmacienComponent implements OnInit {
       // Script Loaded Successfully
     }).catch(error => console.log(error));
   }
+  //************* */ responsive nav
   isShowDivIf = true;
   toggleDisplayDivIf() {
     this.isShowDivIf = !this.isShowDivIf;
   }
+  //*********** */
   clickIamSure() {
     
     this.iamSure= !this.iamSure

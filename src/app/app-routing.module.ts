@@ -4,6 +4,7 @@ import { ChangePasswordComponent } from './component/change-password/change-pass
 import { ConjointsComponent } from './component/conjoints/conjoints.component';
 import { DashboardPharmacienComponent } from './component/dashboard-pharmacien/dashboard-pharmacien.component';
 import { ForgetPasswordComponent } from './component/forget-password/forget-password.component';
+import { HistoriqueOrdonnanceComponent } from './component/historique-ordonnance/historique-ordonnance.component';
 import { LoginPharmacienComponent } from './component/login-pharmacien/login-pharmacien.component';
 import { MenuComponent } from './component/menu/menu.component';
 import { OrdonnanceComponent } from './component/ordonnance/ordonnance.component';
@@ -31,6 +32,8 @@ const routes: Routes = [
   { path: 'menu', component: MenuComponent },
   { path: 'Pass', component: PassComponent },
   { path: 'Conjoints', component: ConjointsComponent },
+  { path: 'HistoriqueOrdonnance', component: HistoriqueOrdonnanceComponent },
+
 ];
 
 @NgModule({

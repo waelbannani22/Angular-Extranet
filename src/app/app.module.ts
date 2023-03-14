@@ -20,8 +20,12 @@ import { MenuComponent } from './component/menu/menu.component';
 import { NavBarComponent } from './component/nav-bar/nav-bar.component';
 import { PassComponent } from './component/pass/pass.component';
 import { ConjointsComponent } from './component/conjoints/conjoints.component';
-
-
+import { HistoriqueOrdonnanceComponent } from './component/historique-ordonnance/historique-ordonnance.component';
+import { CountryPipe } from './helper/CountryPipe';
+import { SortableHeaderDirective } from './helper/sortable-header.directive';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { NgxPaginationModule } from 'ngx-pagination';
 export function tokenGetter() {
   return sessionStorage.getItem("token");
 }
@@ -39,12 +43,17 @@ export function tokenGetter() {
    NavBarComponent,
    PassComponent,
    ConjointsComponent,
+   HistoriqueOrdonnanceComponent,
+   CountryPipe,
+    SortableHeaderDirective
   
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatPaginatorModule,
+    MatTableModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
@@ -55,6 +64,8 @@ export function tokenGetter() {
        
       },
     }),
+    NgxPaginationModule,
+    
    
   ],
   providers: [authInterceptorProviders],

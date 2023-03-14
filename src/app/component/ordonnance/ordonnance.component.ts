@@ -12,7 +12,14 @@ export class OrdonnanceComponent implements OnInit {
 
   constructor(private router:Router,private location: Location) { }
  
-  
+  recherche(){
+    const myButton = document.getElementById("myButton");
+    const myDiv = document.getElementById("myDiv");
+    const myDiv1 = document.getElementById("myDiv1");
+    myDiv!.style.display="none";
+    myDiv1!.style.display="initial";
+
+  }
   
   ngOnInit(): void {
     const myButton = document.getElementById("myButton");
@@ -24,6 +31,7 @@ export class OrdonnanceComponent implements OnInit {
     myDiv1!.style.display="none";
     if(myButton && myDiv){
         myButton.addEventListener("click",()=>{
+          console.log("clicked")
           myDiv.style.display="none";
           myDiv1!.style.display="initial";
         })
