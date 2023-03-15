@@ -15,6 +15,7 @@ export class CountryModule { }export interface Country {
   alpha3Code: string;
   population: number;
   flag: string;
+  date:string;
 }
 
 export const dataset: Array<Country> = [
@@ -24,6 +25,7 @@ export const dataset: Array<Country> = [
     alpha3Code: 'IRN',
     population: 79369900,
     flag: 'https://restcountries.eu/data/irn.svg',
+    date: '2022-01-11'
   },
   {
     name: 'Turkey',
@@ -31,6 +33,7 @@ export const dataset: Array<Country> = [
     alpha3Code: 'TUR',
     population: 78741053,
     flag: 'https://restcountries.eu/data/tur.svg',
+    date: '2022-01-11'
   },
   {
     name: 'Germany',
@@ -38,6 +41,7 @@ export const dataset: Array<Country> = [
     alpha3Code: 'DEU',
     population: 81770900,
     flag: 'https://restcountries.eu/data/deu.svg',
+    date: '2022-12-01'
   },
   {
     name: 'France',
@@ -45,6 +49,7 @@ export const dataset: Array<Country> = [
     alpha3Code: 'FRA',
     population: 66710000,
     flag: 'https://restcountries.eu/data/fra.svg',
+    date: '2022-11-01'
   },
   {
     name: 'Italy',
@@ -52,6 +57,7 @@ export const dataset: Array<Country> = [
     alpha3Code: 'ITA',
     population: 60665551,
     flag: 'https://restcountries.eu/data/ita.svg',
+    date: '2022-10-01'
   },
   {
     name: 'Serbia',
@@ -59,6 +65,7 @@ export const dataset: Array<Country> = [
     alpha3Code: 'SRB',
     population: 7076372,
     flag: 'https://restcountries.eu/data/srb.svg',
+    date: '2022-09-01'
   },
   {
     name: 'United Kingdom',
@@ -66,6 +73,7 @@ export const dataset: Array<Country> = [
     alpha3Code: 'GBR',
     population: 65110000,
     flag: 'https://restcountries.eu/data/gbr.svg',
+    date: '2022-05-01'
   },
   {
     name: 'United States',
@@ -73,6 +81,7 @@ export const dataset: Array<Country> = [
     alpha3Code: 'USA',
     population: 323947000,
     flag: 'https://restcountries.eu/data/usa.svg',
+    date: '2022-08-01'
   },
   {
     name: 'Russia',
@@ -80,6 +89,7 @@ export const dataset: Array<Country> = [
     alpha3Code: 'RUS',
     population: 146599183,
     flag: 'https://restcountries.eu/data/rus.svg',
+    date: '2022-06-01'
   },
   {
     name: 'China',
@@ -87,6 +97,7 @@ export const dataset: Array<Country> = [
     alpha3Code: 'CHN',
     population: 1377422166,
     flag: 'https://restcountries.eu/data/chn.svg',
+    date: '2022-05-01'
   },
   {
     name: 'India',
@@ -94,5 +105,6 @@ export const dataset: Array<Country> = [
     alpha3Code: 'IND',
     population: 1295210000,
     flag: 'https://restcountries.eu/data/ind.svg',
+    date: '2022-04-01'
   },
 ];

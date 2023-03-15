@@ -93,6 +93,9 @@ li{
 option{
     height: 30px;
 }
+input{
+    width: 200px;
+}
 #hideMeAfter5Seconds {
     animation: hideAnimation 0s ease-in 5s;
    

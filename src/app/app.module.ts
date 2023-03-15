@@ -26,6 +26,12 @@ import { SortableHeaderDirective } from './helper/sortable-header.directive';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { DateRangeFilterPipe } from './helper/DateRangeFilterPipe';
+import { MatNativeDateModule } from '@angular/material/core';
+//
 export function tokenGetter() {
   return sessionStorage.getItem("token");
 }
@@ -45,10 +51,12 @@ export function tokenGetter() {
    ConjointsComponent,
    HistoriqueOrdonnanceComponent,
    CountryPipe,
-    SortableHeaderDirective
+  SortableHeaderDirective,
+  DateRangeFilterPipe
   
   ],
   imports: [
+    MatNativeDateModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -65,7 +73,9 @@ export function tokenGetter() {
       },
     }),
     NgxPaginationModule,
-    
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule
    
   ],
   providers: [authInterceptorProviders],
