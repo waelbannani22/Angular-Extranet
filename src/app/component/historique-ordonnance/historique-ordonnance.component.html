@@ -384,39 +384,38 @@
               <!-- Layout Demo -->
               <div id="myDiv">
                 <div id="box1">
-                  <p style="font-size: medium; position: relative">
-                    Contractant:
-                  </p>
-                  <div class="align-items-center">
-                    <div data-select2-id="45">
-                      <div class="position-relative">
+                    <div style="display: flex; align-items: center;justify-content: center;">
+                        <label style="font-size: medium; " for="select-option">Contractant:</label>
                         <select
-                          id="select2Basic"
-                          class="select2 form-select form-select-lg select2-hidden-accessible"
-                          data-allow-clear="true"
-                          data-select2-id="select2Basic"
-                          tabindex="-1"
-                          aria-hidden="true"
-                        >
-                          <option value="AK" data-select2-id="2">Alaska</option>
-                          <option value="HI" data-select2-id="46">
-                            Hawaii
-                          </option>
-                          <option value="CA" data-select2-id="47">
-                            California
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <button
+                        style="margin: 10px; width: 200px;"
+                        id="select2Basic"
+                        class="select2 form-select form-select-lg select2-hidden-accessible"
+                        data-allow-clear="true"
+                        data-select2-id="select2Basic"
+                        tabindex="-1"
+                        aria-hidden="true"
+                      >
+                        <option value="AK" data-select2-id="2">Alaska</option>
+                        <option value="HI" data-select2-id="46">
+                          Hawaii
+                        </option>
+                        <option value="CA" data-select2-id="47">
+                          California
+                        </option>
+                      </select>
+                      <button
                       id="myButton"
                       type="button"
+                      style="justify-content: right;"
                       class="btn rounded-pill btn-primary"
                     >
                       Rechercher
                     </button>
-                  </div>
+                      </div>
+
+               
+               
+                 
                 </div>
               </div>
               <hr />
@@ -751,6 +750,7 @@
 
                     <div class="form-inline justify-content-end">
                       <div class="form-group mr-2">
+                        <span>De</span>
                         <input
                           type="date"
                           [(ngModel)]="startDate"
@@ -759,7 +759,7 @@
                           class="form-control"
                         />
                       </div>
-                      <p>TO</p>
+                      <span>à</span>
                       <div class="form-group mr-2">
                         <input
                           type="date"
@@ -770,15 +770,14 @@
                         />
                       </div>
                       <div class="form-group mr-2">
-                         <button
-                        type="button"
-                        class="btn btn-outline-secondary"
-                        (click)="filterList()"
-                      >
-                        filtrer
-                      </button>
+                        <button
+                          type="button"
+                          class="btn btn-outline-secondary"
+                          (click)="filterList()"
+                        >
+                          filtrer
+                        </button>
                       </div>
-                     
                     </div>
 
                     <div class="form-group">
@@ -794,7 +793,7 @@
                       <table class="table">
                         <thead>
                           <tr>
-                            <th style="width: 20px;"></th>
+                            <th style="width: 20px"></th>
                             <th
                               scope="col"
                               sortable="name"
@@ -814,7 +813,6 @@
                             <th>Reste à payer</th>
 
                             <th>Statut</th>
-                           
                           </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
@@ -826,10 +824,13 @@
                                   : { itemsPerPage: 10, currentPage: p }
                             "
                           >
-                          <td >
-                            <input type="checkbox" [checked]="isSelected(country)" (change)="onSelectItem($event, country)">
-
-                          </td>
+                            <td>
+                              <input
+                                type="checkbox"
+                                [checked]="isSelected(country)"
+                                (change)="onSelectItem($event, country)"
+                              />
+                            </td>
                             <td>
                               <i
                                 class="fab fa-angular fa-lg text-danger me-3"
@@ -921,7 +922,6 @@
                             <td></td>
                             <td></td>
                             <td>x</td>
-                         
                           </tr>
                         </tbody>
                       </table>
@@ -930,11 +930,9 @@
                           (pageChange)="p = $event"
                         ></pagination-controls>
                       </div>
-                     
                     </div>
                     <div class="justify-content-end">
-                        <button
-                        
+                      <button
                         type="button"
                         class="btn btn-success justify-content-end"
                         (click)="onSubmit()"
@@ -958,56 +956,108 @@
                             <div class="modal-dialog" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h3><strong
-                                    >Générer bordereau</strong></h3>
-                                  
+                                  <h3><strong>Générer bordereau</strong></h3>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="card mb-4">
-                                       
-                                        <div class="card-body">
-                                          <form>
-                                            <div class="row mb-3">
-                                              <label class="col-sm-6 col-form-label" for="basic-default-name">Contractant:</label>
-                                              <div class="col-sm-6">
-                                                <input type="text" class="form-control" id="basic-default-name" readonly>
-                                              </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                              <label class="col-sm-6 col-form-label" for="basic-default-company">Nombre de prestations facturées:</label>
-                                              <div class="col-sm-6">
-                                                <input type="text" class="form-control" id="basic-default-company" readonly >
-                                              </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                              <label class="col-sm-6 col-form-label" for="basic-default-email">Date de facturation:</label>
-                                              <div class="col-sm-6">
-                                                <div class="input-group input-group-merge">
-                                                  <input type="text" id="basic-default-email" class="form-control" readonly aria-label="john.doe" aria-describedby="basic-default-email2">
-                                                </div>
-                                               
-                                              </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                              <label class="col-sm-6 col-form-label" for="basic-default-phone">N° Facture :</label>
-                                              <div class="col-sm-6">
-                                                <input type="text" id="basic-default-phone" class="form-control phone-mask" placeholder="658 799 8941" aria-label="658 799 8941" aria-describedby="basic-default-phone">
-                                              </div>
-                                            </div>
-                                            <div class="row mb-3">
-                                              <label class="col-sm-6 col-form-label" for="basic-default-message">Commentaire:</label>
-                                              <div class="col-sm-6">
-                                                <textarea id="basic-default-message" class="form-control"   aria-describedby="basic-icon-default-message2"></textarea>
-                                              </div>
-                                            </div>
-                                            <div class="row justify-content-center">
-                                              <div >
-                                                <button type="submit" class="btn btn-primary">Valider</button>
-                                              </div>
-                                            </div>
-                                          </form>
+                                  <div class="card mb-4">
+                                    <div class="card-body">
+                                      <form>
+                                        <div class="row mb-3">
+                                          <label
+                                            class="col-sm-6 col-form-label"
+                                            for="basic-default-name"
+                                            >Contractant:</label
+                                          >
+                                          <div class="col-sm-6">
+                                            <input
+                                              type="text"
+                                              class="form-control"
+                                              id="basic-default-name"
+                                              readonly
+                                            />
+                                          </div>
                                         </div>
-                                      </div>
+                                        <div class="row mb-3">
+                                          <label
+                                            class="col-sm-6 col-form-label"
+                                            for="basic-default-company"
+                                            >Nombre de prestations
+                                            facturées:</label
+                                          >
+                                          <div class="col-sm-6">
+                                            <input
+                                              type="text"
+                                              class="form-control"
+                                              id="basic-default-company"
+                                              readonly
+                                            />
+                                          </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                          <label
+                                            class="col-sm-6 col-form-label"
+                                            for="basic-default-email"
+                                            >Date de facturation:</label
+                                          >
+                                          <div class="col-sm-6">
+                                            <div
+                                              class="input-group input-group-merge"
+                                            >
+                                              <input
+                                                type="text"
+                                                id="basic-default-email"
+                                                class="form-control"
+                                                readonly
+                                                aria-label="john.doe"
+                                                aria-describedby="basic-default-email2"
+                                              />
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                          <label
+                                            class="col-sm-6 col-form-label"
+                                            for="basic-default-phone"
+                                            >N° Facture :</label
+                                          >
+                                          <div class="col-sm-6">
+                                            <input
+                                              type="text"
+                                              id="basic-default-phone"
+                                              class="form-control phone-mask"
+                                              placeholder="658 799 8941"
+                                              aria-label="658 799 8941"
+                                              aria-describedby="basic-default-phone"
+                                            />
+                                          </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                          <label
+                                            class="col-sm-6 col-form-label"
+                                            for="basic-default-message"
+                                            >Commentaire:</label
+                                          >
+                                          <div class="col-sm-6">
+                                            <textarea
+                                              id="basic-default-message"
+                                              class="form-control"
+                                              aria-describedby="basic-icon-default-message2"
+                                            ></textarea>
+                                          </div>
+                                        </div>
+                                        <div class="row justify-content-center">
+                                          <div>
+                                            <button
+                                              type="submit"
+                                              class="btn btn-primary"
+                                            >
+                                              Valider
+                                            </button>
+                                          </div>
+                                        </div>
+                                      </form>
+                                    </div>
+                                  </div>
                                 </div>
                                 <div class="modal-footer">
                                   <button
@@ -1023,7 +1073,7 @@
                           </div>
                         </div>
                       </div>
-                      </div>
+                    </div>
                   </div>
 
                   <!-- BORDEREAU -->
@@ -1033,8 +1083,718 @@
                     id="navs-pills-justified-messages"
                     role="tabpanel"
                   >
-                
-                </div>
+                    <div class="form-inline justify-content-end">
+                      <div class="form-group mr-2">
+                        <input
+                          type="date"
+                          [(ngModel)]="startDate"
+                          id="bs-datepicker-options"
+                          placeholder="MM/DD/YYYY"
+                          class="form-control"
+                        />
+                      </div>
+                      <p>TO</p>
+                      <div class="form-group mr-2">
+                        <input
+                          type="date"
+                          [(ngModel)]="endDate"
+                          id="bs-datepicker-options"
+                          placeholder="MM/DD/YYYY"
+                          class="form-control"
+                        />
+                      </div>
+                      <div class="form-group mr-2">
+                        <button
+                          type="button"
+                          class="btn btn-outline-secondary"
+                          (click)="filterList()"
+                        >
+                          filtrer
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <input
+                        type="search"
+                        class="form-control"
+                        [(ngModel)]="filter"
+                        placeholder="Filtrer par nom "
+                      />
+                    </div>
+
+                    <div class="table-responsive text-nowrap">
+                      <table class="table">
+                        <thead>
+                          <tr>
+                            <th
+                              scope="col"
+                              sortable="name"
+                              (sort)="onSort($event)"
+                            >
+                              Référence
+                            </th>
+                            <th>Date de facturation</th>
+                            <th>Nombre de prestations</th>
+                            <th>Numero Facture</th>
+                            <th>Montant Bordereau</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0">
+                          <tr
+                            *ngFor="
+                              let country of countries
+                                | country : filter
+                                | paginate
+                                  : { itemsPerPage: 10, currentPage: p }
+                            "
+                          >
+                            <td>
+                              <i
+                                class="fab fa-angular fa-lg text-danger me-3"
+                              ></i>
+                              <strong>{{ country.name }}</strong>
+                            </td>
+                            <td>Albert Cook</td>
+                            <td>
+                              <ul
+                                class="list-unstyled users-list m-0 avatar-group d-flex align-items-center"
+                              >
+                                <li
+                                  data-bs-toggle="tooltip"
+                                  data-popup="tooltip-custom"
+                                  data-bs-placement="top"
+                                  class="avatar avatar-xs pull-up"
+                                  title=""
+                                  data-bs-original-title="Lilian Fuller"
+                                >
+                                  <img
+                                    src="../assets/img/avatars/5.png"
+                                    alt="Avatar"
+                                    class="rounded-circle"
+                                  />
+                                </li>
+                                <li
+                                  data-bs-toggle="tooltip"
+                                  data-popup="tooltip-custom"
+                                  data-bs-placement="top"
+                                  class="avatar avatar-xs pull-up"
+                                  title=""
+                                  data-bs-original-title="Sophia Wilkerson"
+                                >
+                                  <img
+                                    src="../assets/img/avatars/6.png"
+                                    alt="Avatar"
+                                    class="rounded-circle"
+                                  />
+                                </li>
+                                <li
+                                  data-bs-toggle="tooltip"
+                                  data-popup="tooltip-custom"
+                                  data-bs-placement="top"
+                                  class="avatar avatar-xs pull-up"
+                                  title=""
+                                  data-bs-original-title="Christina Parker"
+                                >
+                                  <img
+                                    src="../assets/img/avatars/7.png"
+                                    alt="Avatar"
+                                    class="rounded-circle"
+                                  />
+                                </li>
+                              </ul>
+                            </td>
+                            <td>
+                              <span class="badge bg-label-primary me-1"
+                                >Active</span
+                              >
+                            </td>
+                            <td>
+                              <div class="dropdown">
+                                <button
+                                  type="button"
+                                  class="btn p-0 dropdown-toggle hide-arrow"
+                                  data-bs-toggle="dropdown"
+                                >
+                                  <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                  <a
+                                    class="dropdown-item"
+                                    href="javascript:void(0);"
+                                    ><i class="bx bx-edit-alt me-1"></i> Edit</a
+                                  >
+                                  <a
+                                    class="dropdown-item"
+                                    href="javascript:void(0);"
+                                    ><i class="bx bx-trash me-1"></i> Delete</a
+                                  >
+                                </div>
+                              </div>
+                            </td>
+
+                            <td>{{ country.date }}</td>
+
+                            <td style="size: 32px">
+                              <div class="row mb-3">
+                                <i
+                                  class="bx bxs-file bx-flashing bx-flip-horizontal col-md-2"
+                                  style="color: #a673fd"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#basicModall"
+                                ></i>
+                                <i
+                                  class="bx bx-printer col-md-2"
+                                  style="color: #a673fd"
+                                ></i>
+                                <i
+                                  class="bx bx-edit col-md-2"
+                                  style="color: #a673fd"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#basicModall2"
+                                ></i>
+                                <div>
+                                  <div class="mt-3">
+                                    <!-- Button trigger modal -->
+
+                                    <!-- Modal -->
+                                    <div
+                                      class="modal fade fullscreen-modal"
+                                      id="basicModall"
+                                      tabindex="-1"
+                                      style="display: none"
+                                      aria-hidden="true"
+                                    >
+                                      <div
+                                        class="modal-dialog modal-fullscreen"
+                                        role="document"
+                                      >
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h3>
+                                              <strong
+                                                >Bordereau num9888888</strong
+                                              >
+                                            </h3>
+                                          </div>
+                                          <div class="modal-body">
+                                            <div class="form-group">
+                                              <input
+                                                type="search"
+                                                class="form-control"
+                                                [(ngModel)]="filter"
+                                                placeholder="Filtrer par nom "
+                                              />
+                                            </div>
+
+                                            <div
+                                              class="table-responsive text-nowrap"
+                                            >
+                                              <table class="table">
+                                                <thead>
+                                                  <tr>
+                                                    <th
+                                                      scope="col"
+                                                      sortable="name"
+                                                      (sort)="onSort($event)"
+                                                    >
+                                                      N° Transaction
+                                                    </th>
+                                                    <th>N° Bordereau</th>
+                                                    <th>Contractant</th>
+                                                    <th>
+                                                      Matricule de l'assuré
+                                                    </th>
+                                                    <th>Nom de l'assuré</th>
+                                                    <th>Nom du bénéficiaire</th>
+                                                    <th>
+                                                      Oualité du bénéficiaire
+                                                    </th>
+                                                    <th>Date transaction</th>
+                                                    <th>N° Consultation</th>
+                                                    <th>
+                                                      Montant du Ticket
+                                                      Modérateur
+                                                    </th>
+                                                    <th>Reste à payer</th>
+
+                                                    <th>Statut</th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody
+                                                  class="table-border-bottom-0"
+                                                >
+                                                  <tr
+                                                    *ngFor="
+                                                      let country of countries
+                                                        | country : filter
+                                                        | paginate
+                                                          : {
+                                                              itemsPerPage: 10,
+                                                              currentPage: p
+                                                            }
+                                                    "
+                                                  >
+                                                    <td>
+                                                      <i
+                                                        class="fab fa-angular fa-lg text-danger me-3"
+                                                      ></i>
+                                                      <strong>{{
+                                                        country.name
+                                                      }}</strong>
+                                                    </td>
+                                                    <td>Albert Cook</td>
+                                                    <td>
+                                                      <ul
+                                                        class="list-unstyled users-list m-0 avatar-group d-flex align-items-center"
+                                                      >
+                                                        <li
+                                                          data-bs-toggle="tooltip"
+                                                          data-popup="tooltip-custom"
+                                                          data-bs-placement="top"
+                                                          class="avatar avatar-xs pull-up"
+                                                          title=""
+                                                          data-bs-original-title="Lilian Fuller"
+                                                        >
+                                                          <img
+                                                            src="../assets/img/avatars/5.png"
+                                                            alt="Avatar"
+                                                            class="rounded-circle"
+                                                          />
+                                                        </li>
+                                                        <li
+                                                          data-bs-toggle="tooltip"
+                                                          data-popup="tooltip-custom"
+                                                          data-bs-placement="top"
+                                                          class="avatar avatar-xs pull-up"
+                                                          title=""
+                                                          data-bs-original-title="Sophia Wilkerson"
+                                                        >
+                                                          <img
+                                                            src="../assets/img/avatars/6.png"
+                                                            alt="Avatar"
+                                                            class="rounded-circle"
+                                                          />
+                                                        </li>
+                                                        <li
+                                                          data-bs-toggle="tooltip"
+                                                          data-popup="tooltip-custom"
+                                                          data-bs-placement="top"
+                                                          class="avatar avatar-xs pull-up"
+                                                          title=""
+                                                          data-bs-original-title="Christina Parker"
+                                                        >
+                                                          <img
+                                                            src="../assets/img/avatars/7.png"
+                                                            alt="Avatar"
+                                                            class="rounded-circle"
+                                                          />
+                                                        </li>
+                                                      </ul>
+                                                    </td>
+                                                    <td>
+                                                      <span
+                                                        class="badge bg-label-primary me-1"
+                                                        >Active</span
+                                                      >
+                                                    </td>
+                                                    <td>
+                                                      <div class="dropdown">
+                                                        <button
+                                                          type="button"
+                                                          class="btn p-0 dropdown-toggle hide-arrow"
+                                                          data-bs-toggle="dropdown"
+                                                        >
+                                                          <i
+                                                            class="bx bx-dots-vertical-rounded"
+                                                          ></i>
+                                                        </button>
+                                                        <div
+                                                          class="dropdown-menu"
+                                                        >
+                                                          <a
+                                                            class="dropdown-item"
+                                                            href="javascript:void(0);"
+                                                            ><i
+                                                              class="bx bx-edit-alt me-1"
+                                                            ></i>
+                                                            Edit</a
+                                                          >
+                                                          <a
+                                                            class="dropdown-item"
+                                                            href="javascript:void(0);"
+                                                            ><i
+                                                              class="bx bx-trash me-1"
+                                                            ></i>
+                                                            Delete</a
+                                                          >
+                                                        </div>
+                                                      </div>
+                                                    </td>
+
+                                                    <td></td>
+                                                    <td>xx</td>
+                                                    <td>{{ country.date }}</td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td>x</td>
+                                                  </tr>
+                                                </tbody>
+                                              </table>
+                                              <div style="text-align: center">
+                                                <pagination-controls
+                                                  (pageChange)="p = $event"
+                                                ></pagination-controls>
+                                              </div>
+                                              <div
+                                                _ngcontent-chf-c64=""
+                                                class="col mb-3"
+                                              >
+                                                <label
+                                                  _ngcontent-chf-c64=""
+                                                  for="nameBasic"
+                                                  class="form-label"
+                                                  >Numéro Facture </label
+                                                ><input
+                                                  _ngcontent-chf-c64=""
+                                                  readonly
+                                                  type="text"
+                                                  id="nameBasic"
+                                                  placeholder=""
+                                                  class="form-control"
+                                                  style="width: 500px"
+                                                />
+                                              </div>
+                                              <div
+                                                _ngcontent-chf-c64=""
+                                                class="col mb-3"
+                                              >
+                                                <label
+                                                  _ngcontent-chf-c64=""
+                                                  for="nameBasic"
+                                                  class="form-label"
+                                                  >Commentaire </label
+                                                ><input
+                                                  style="width: 500px"
+                                                  _ngcontent-chf-c64=""
+                                                  readonly
+                                                  type="text"
+                                                  id="nameBasic"
+                                                  placeholder=""
+                                                  class="form-control"
+                                                />
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button
+                                              type="button"
+                                              class="btn btn-outline-secondary"
+                                              data-bs-dismiss="modal"
+                                            >
+                                              Fermer
+                                            </button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div>
+                                  <div class="mt-3">
+                                    <!-- Button trigger modal -->
+
+                                    <!-- Modal -->
+                                    <div
+                                      class="modal fade fullscreen-modal"
+                                      id="basicModall2"
+                                      tabindex="-1"
+                                      style="display: none"
+                                      aria-hidden="true"
+                                    >
+                                      <div
+                                        class="modal-dialog modal-fullscreen"
+                                        role="document"
+                                      >
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h3>
+                                              <strong
+                                                >Bordereau num9888888</strong
+                                              >
+                                            </h3>
+                                          </div>
+                                          <div class="modal-body">
+                                            <div class="form-group">
+                                              <input
+                                                type="search"
+                                                class="form-control"
+                                                [(ngModel)]="filter"
+                                                placeholder="Filtrer par nom "
+                                              />
+                                            </div>
+
+                                            <div
+                                              class="table-responsive text-nowrap"
+                                            >
+                                              <table class="table">
+                                                <thead>
+                                                  <tr>
+                                                    <th
+                                                      style="width: 10px"
+                                                    ></th>
+                                                    <th
+                                                      scope="col"
+                                                      sortable="name"
+                                                      (sort)="onSort($event)"
+                                                    >
+                                                      N° transaction
+                                                    </th>
+                                                    <th>
+                                                      Matricule de l'assuré
+                                                    </th>
+                                                    <th>Nom du Bénéficiaire</th>
+                                                    <th>
+                                                      Qualité du Bénéficiaire
+                                                    </th>
+                                                    <th>
+                                                      Référence transaction
+                                                      extranet
+                                                    </th>
+                                                    <th>
+                                                      Date de presetations
+                                                    </th>
+                                                    <th>
+                                                      Montant du Ticket
+                                                      Modérateur
+                                                    </th>
+                                                    <th>
+                                                      Reste à payer en TTC
+                                                    </th>
+                                                  </tr>
+                                                </thead>
+                                                <tbody
+                                                  class="table-border-bottom-0"
+                                                >
+                                                  <tr
+                                                    *ngFor="
+                                                      let country of countries
+                                                        | country : filter
+                                                        | paginate
+                                                          : {
+                                                              itemsPerPage: 10,
+                                                              currentPage: p
+                                                            }
+                                                    "
+                                                  >
+                                                    <td style="width: 10px">
+                                                      <input
+                                                        type="checkbox"
+                                                        [checked]="
+                                                          isSelected(country)
+                                                        "
+                                                        (change)="
+                                                          onSelectItem(
+                                                            $event,
+                                                            country
+                                                          )
+                                                        "
+                                                      />
+                                                    </td>
+                                                    <td>
+                                                      <i
+                                                        class="fab fa-angular fa-lg text-danger me-3"
+                                                      ></i>
+                                                      <strong>{{
+                                                        country.name
+                                                      }}</strong>
+                                                    </td>
+                                                    <td>Albert Cook</td>
+                                                    <td>
+                                                      <ul
+                                                        class="list-unstyled users-list m-0 avatar-group d-flex align-items-center"
+                                                      >
+                                                        <li
+                                                          data-bs-toggle="tooltip"
+                                                          data-popup="tooltip-custom"
+                                                          data-bs-placement="top"
+                                                          class="avatar avatar-xs pull-up"
+                                                          title=""
+                                                          data-bs-original-title="Lilian Fuller"
+                                                        >
+                                                          <img
+                                                            src="../assets/img/avatars/5.png"
+                                                            alt="Avatar"
+                                                            class="rounded-circle"
+                                                          />
+                                                        </li>
+                                                        <li
+                                                          data-bs-toggle="tooltip"
+                                                          data-popup="tooltip-custom"
+                                                          data-bs-placement="top"
+                                                          class="avatar avatar-xs pull-up"
+                                                          title=""
+                                                          data-bs-original-title="Sophia Wilkerson"
+                                                        >
+                                                          <img
+                                                            src="../assets/img/avatars/6.png"
+                                                            alt="Avatar"
+                                                            class="rounded-circle"
+                                                          />
+                                                        </li>
+                                                        <li
+                                                          data-bs-toggle="tooltip"
+                                                          data-popup="tooltip-custom"
+                                                          data-bs-placement="top"
+                                                          class="avatar avatar-xs pull-up"
+                                                          title=""
+                                                          data-bs-original-title="Christina Parker"
+                                                        >
+                                                          <img
+                                                            src="../assets/img/avatars/7.png"
+                                                            alt="Avatar"
+                                                            class="rounded-circle"
+                                                          />
+                                                        </li>
+                                                      </ul>
+                                                    </td>
+                                                    <td>
+                                                      <span
+                                                        class="badge bg-label-primary me-1"
+                                                        >Active</span
+                                                      >
+                                                    </td>
+                                                    <td>
+                                                      <div class="dropdown">
+                                                        <button
+                                                          type="button"
+                                                          class="btn p-0 dropdown-toggle hide-arrow"
+                                                          data-bs-toggle="dropdown"
+                                                        >
+                                                          <i
+                                                            class="bx bx-dots-vertical-rounded"
+                                                          ></i>
+                                                        </button>
+                                                        <div
+                                                          class="dropdown-menu"
+                                                        >
+                                                          <a
+                                                            class="dropdown-item"
+                                                            href="javascript:void(0);"
+                                                            ><i
+                                                              class="bx bx-edit-alt me-1"
+                                                            ></i>
+                                                            Edit</a
+                                                          >
+                                                          <a
+                                                            class="dropdown-item"
+                                                            href="javascript:void(0);"
+                                                            ><i
+                                                              class="bx bx-trash me-1"
+                                                            ></i>
+                                                            Delete</a
+                                                          >
+                                                        </div>
+                                                      </div>
+                                                    </td>
+
+                                                    <td></td>
+                                                    <td>xx</td>
+                                                    <td>{{ country.date }}</td>
+                                                  </tr>
+                                                </tbody>
+                                              </table>
+                                              <div style="text-align: center">
+                                                <pagination-controls
+                                                  (pageChange)="p = $event"
+                                                ></pagination-controls>
+                                              </div>
+                                              <div id="twoInput">
+                                                <div
+                                                 
+                                                  class="col mb-3"
+                                                  style=" justify-content: center; align-items: center;display: flex;margin-top: 10px;"
+                                                >
+                                                  <label
+                                                    _ngcontent-chf-c64=""
+                                                    for="nameBasic"
+                                                    class="form-label"
+                                                    style="margin-left:10px ;"
+                                                    >Numéro Facture :</label
+                                                  >
+                                                  <br/>
+                                                  <input
+                                                    _ngcontent-chf-c64=""
+                                                    type="text"
+                                                    id="nameBasic"
+                                                    placeholder=""
+                                                    class="form-control"
+                                                 
+                                                  />
+                                                </div>
+                                                <div
+                                                
+                                                  class="col mb-3"
+                                                  style=" justify-content: center; align-items: center;display: flex;"
+
+                                                >
+                                                  <label
+                                                   
+                                                    for="nameBasic"
+                                                    class="form-label"
+                                                    style="margin: 10px;"
+                                                    >Commentaire :</label
+                                                  ><input
+                                                   style="align-content:center ;width: 300px;"
+                                                   
+                                                    type="text"
+                                                    id="nameBasic"
+                                                    placeholder=""
+                                                    class="form-control"
+                                                  />
+                                                </div>
+                                                  <button
+                                                  style=" justify-content: end;margin-bottom: 10px;"
+
+                                              type="button"
+                                              class="btn btn-outline-primary"
+                                              data-bs-dismiss="modal"
+                                            >
+                                              Valider
+                                            </button>
+                                               
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button
+                                              type="button"
+                                              class="btn btn-outline-secondary"
+                                              data-bs-dismiss="modal"
+                                            >
+                                              Fermer
+                                            </button>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <div style="text-align: center">
+                        <pagination-controls
+                          (pageChange)="p = $event"
+                        ></pagination-controls>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <!--/ Layout Demo -->

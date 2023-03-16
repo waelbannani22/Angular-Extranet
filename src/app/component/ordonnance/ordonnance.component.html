@@ -174,22 +174,147 @@
                         <div
                           class="d-flex justify-content-around flex-wrap my-4 py-3"
                         >
-                          <div class="d-flex align-items-start me-4 mt-3 gap-3">
-                            <span class="badge bg-label-primary p-2 rounded"
-                              ><i class="bx bx-check bx-sm"></i
-                            ></span>
-                            <div>
-                              <h5 class="mb-0">1.23k</h5>
-                              <span>Consultations</span>
-                            </div>
-                          </div>
+                         
                           <div class="d-flex align-items-start mt-3 gap-3">
-                            <span class="badge bg-label-primary p-2 rounded"
-                              ><i class="bx bx-customize bx-sm"></i
-                            ></span>
+                           
                             <div>
-                              <h5 class="mb-0">568</h5>
-                              <span>Réclamations</span>
+                              <button
+                              class="btn btn-primary me-3"
+                                id="toggleButton"
+                               
+                                data-bs-toggle="offcanvas"
+                                data-bs-target="#offcanvasBoth"
+                                >
+                                Voir Bénificiaire</button
+                              >
+                              <div
+                                class="offcanvas offcanvas-end"
+                                aria-controls="offcanvasBoth"
+                                data-bs-scroll="true"
+                                tabindex="-1"
+                                id="offcanvasBoth"
+                                aria-labelledby="offcanvasBothLabel"
+                                aria-modal="true"
+                                role="dialog"
+                              >
+                                <div class="offcanvas-header">
+                                  <h5
+                                    id="offcanvasBothLabel"
+                                    class="offcanvas-title"
+                                  >
+                                    Bénificiaire
+                                  </h5>
+                                  <button
+                                    type="button"
+                                    class="btn-close text-reset"
+                                    data-bs-dismiss="offcanvas"
+                                    aria-label="Close"
+                                  ></button>
+                                </div>
+                                <div
+                                  class="offcanvas-body my-auto mx-0 flex-grow-0"
+                                >
+                                  <div class="card mb-4">
+                                    <div class="accordion-item card spacing">
+                                      <h2 class="accordion-header">
+                                        <button
+                                          type="button"
+                                          class="accordion-button collapsed"
+                                          data-bs-toggle="collapse"
+                                          data-bs-target="#accordionStyle1-1"
+                                          aria-expanded="false"
+                                        >
+                                          <strong>Conjoints -1-</strong>
+                                        </button>
+                                      </h2>
+    
+                                      <div
+                                        id="accordionStyle1-1"
+                                        class="accordion-collapse collapse"
+                                        data-bs-parent="#accordionStyle1"
+                                      >
+                                        <div class="accordion-body">
+                                          <div class="table-responsive text-nowrap">
+                                            <table class="table">
+                                              <tbody class="table-border-bottom-0">
+                                                <tr>
+                                                  <td>
+                                                    <strong>Nom et prénom:</strong>
+                                                  </td>
+                                                  <td>sana foulen</td>
+                                                </tr>
+                                                <tr>
+                                                  <td>
+                                                    <strong
+                                                      >Date de naissance:</strong
+                                                    >
+                                                  </td>
+                                                  <td>1970-07-09</td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </div>
+                                          <button
+                                            type="button"
+                                            class="btn btn-primary mb-2 d-grid w-100"
+                                          >
+                                            Ajouter Consultation
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>
+    
+                                    <div class="accordion-item card spacing">
+                                      <h2 class="accordion-header">
+                                        <button
+                                          type="button"
+                                          class="accordion-button collapsed"
+                                          data-bs-toggle="collapse"
+                                          data-bs-target="#accordionStyle1-1"
+                                          aria-expanded="false"
+                                        >
+                                          <strong>Conjoints -1-</strong>
+                                        </button>
+                                      </h2>
+    
+                                      <div
+                                        id="accordionStyle1-1"
+                                        class="accordion-collapse collapse"
+                                        data-bs-parent="#accordionStyle1"
+                                      >
+                                        <div class="accordion-body">
+                                          <div class="table-responsive text-nowrap">
+                                            <table class="table">
+                                              <tbody class="table-border-bottom-0">
+                                                <tr>
+                                                  <td>
+                                                    <strong>Nom et prénom:</strong>
+                                                  </td>
+                                                  <td>sana foulen</td>
+                                                </tr>
+                                                <tr>
+                                                  <td>
+                                                    <strong
+                                                      >Date de naissance:</strong
+                                                    >
+                                                  </td>
+                                                  <td>1970-07-09</td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </div>
+                                          <button
+                                            type="button"
+                                            class="btn btn-primary mb-2 d-grid w-100"
+                                          >
+                                            Ajouter Consultation
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -250,152 +375,8 @@
                   <div class="col-xl-8 col-lg-7 col-md-7 order-0 order-md-1">
                     <!-- User Pills -->
                     <ul class="nav nav-pills flex-column flex-md-row mb-3">
-                      <li class="nav-item">
-                        <a class="nav-link active" style="cursor: pointer"
-                          ><i class="bx bx-user me-1"></i>Ordonance</a
-                        >
-                      </li>
-                      <li class="nav-item">
-                        <div>
-                          <a
-                            class="nav-link"
-                            id="toggleButton"
-                            style="border: 1px solid black; cursor: pointer"
-                            data-bs-toggle="offcanvas"
-                            data-bs-target="#offcanvasBoth"
-                            ><i class="bx bx-face" style="color: #0a0a0a"></i>
-                            Conjoints</a
-                          >
-                          <div
-                            class="offcanvas offcanvas-end"
-                            aria-controls="offcanvasBoth"
-                            data-bs-scroll="true"
-                            tabindex="-1"
-                            id="offcanvasBoth"
-                            aria-labelledby="offcanvasBothLabel"
-                            aria-modal="true"
-                            role="dialog"
-                          >
-                            <div class="offcanvas-header">
-                              <h5
-                                id="offcanvasBothLabel"
-                                class="offcanvas-title"
-                              >
-                                Conjoints
-                              </h5>
-                              <button
-                                type="button"
-                                class="btn-close text-reset"
-                                data-bs-dismiss="offcanvas"
-                                aria-label="Close"
-                              ></button>
-                            </div>
-                            <div
-                              class="offcanvas-body my-auto mx-0 flex-grow-0"
-                            >
-                              <div class="card mb-4">
-                                <div class="accordion-item card spacing">
-                                  <h2 class="accordion-header">
-                                    <button
-                                      type="button"
-                                      class="accordion-button collapsed"
-                                      data-bs-toggle="collapse"
-                                      data-bs-target="#accordionStyle1-1"
-                                      aria-expanded="false"
-                                    >
-                                      <strong>Conjoints -1-</strong>
-                                    </button>
-                                  </h2>
-
-                                  <div
-                                    id="accordionStyle1-1"
-                                    class="accordion-collapse collapse"
-                                    data-bs-parent="#accordionStyle1"
-                                  >
-                                    <div class="accordion-body">
-                                      <div class="table-responsive text-nowrap">
-                                        <table class="table">
-                                          <tbody class="table-border-bottom-0">
-                                            <tr>
-                                              <td>
-                                                <strong>Nom et prénom:</strong>
-                                              </td>
-                                              <td>sana foulen</td>
-                                            </tr>
-                                            <tr>
-                                              <td>
-                                                <strong
-                                                  >Date de naissance:</strong
-                                                >
-                                              </td>
-                                              <td>1970-07-09</td>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                      </div>
-                                      <button
-                                        type="button"
-                                        class="btn btn-primary mb-2 d-grid w-100"
-                                      >
-                                        Ajouter Consultation
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div class="accordion-item card spacing">
-                                  <h2 class="accordion-header">
-                                    <button
-                                      type="button"
-                                      class="accordion-button collapsed"
-                                      data-bs-toggle="collapse"
-                                      data-bs-target="#accordionStyle1-1"
-                                      aria-expanded="false"
-                                    >
-                                      <strong>Conjoints -1-</strong>
-                                    </button>
-                                  </h2>
-
-                                  <div
-                                    id="accordionStyle1-1"
-                                    class="accordion-collapse collapse"
-                                    data-bs-parent="#accordionStyle1"
-                                  >
-                                    <div class="accordion-body">
-                                      <div class="table-responsive text-nowrap">
-                                        <table class="table">
-                                          <tbody class="table-border-bottom-0">
-                                            <tr>
-                                              <td>
-                                                <strong>Nom et prénom:</strong>
-                                              </td>
-                                              <td>sana foulen</td>
-                                            </tr>
-                                            <tr>
-                                              <td>
-                                                <strong
-                                                  >Date de naissance:</strong
-                                                >
-                                              </td>
-                                              <td>1970-07-09</td>
-                                            </tr>
-                                          </tbody>
-                                        </table>
-                                      </div>
-                                      <button
-                                        type="button"
-                                        class="btn btn-primary mb-2 d-grid w-100"
-                                      >
-                                        Ajouter Consultation
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </li>
+                      
+                     
 
                       <li class="nav-item">
                         <a
