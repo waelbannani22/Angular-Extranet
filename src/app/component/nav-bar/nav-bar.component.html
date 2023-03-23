@@ -82,7 +82,7 @@
                     <a class="nav-link" routerLink="./services">Historique Consultation</a>
                 </li>
                 <li (click)=toggleDisplayDivIf() class="nav-item" routerLinkActive="active">
-                    <a class="nav-link" routerLink="./contact">Réclamation/Suggestions</a>
+                    <a class="nav-link" style="cursor: pointer;" (click)="ToReclamation()">Réclamation/Suggestions</a>
                 </li>
                 <li (click)=toggleDisplayDivIf() class="nav-item" routerLinkActive="active">
                     <a class="nav-link"(click)="ToVerifMed()"style="cursor: pointer;">

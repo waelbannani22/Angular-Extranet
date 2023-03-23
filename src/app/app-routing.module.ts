@@ -9,6 +9,7 @@ import { LoginPharmacienComponent } from './component/login-pharmacien/login-pha
 import { MenuComponent } from './component/menu/menu.component';
 import { OrdonnanceComponent } from './component/ordonnance/ordonnance.component';
 import { PassComponent } from './component/pass/pass.component';
+import { ReclamationsComponent } from './component/reclamations/reclamations.component';
 import { SignupPharmacienComponent } from './component/signup-pharmacien/signup-pharmacien.component';
 import { VerifMedicamentComponent } from './component/verif-medicament/verif-medicament.component';
 import { AuthGuardService as AuthGuard } from './services/auth-guard.service';
@@ -35,6 +36,8 @@ const routes: Routes = [
   { path: 'Conjoints', component: ConjointsComponent },
   { path: 'HistoriqueOrdonnance', component: HistoriqueOrdonnanceComponent },
   { path: 'VerifMed', component: VerifMedicamentComponent },
+  { path: 'Reclamations', component: ReclamationsComponent },
+  
   
 
 ];

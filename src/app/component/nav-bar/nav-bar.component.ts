@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav-bar.component.css'],
 })
 export class NavBarComponent implements OnInit {
+
   constructor(private router: Router) {}
   isShowDivIf = true;
   iamSure: boolean = false;
@@ -39,5 +40,9 @@ export class NavBarComponent implements OnInit {
   }
   ToVerifMed(){
     this.router.navigate(['/VerifMed'], { replaceUrl: true });
+  }
+  ToReclamation() {
+    this.router.navigate(['/Reclamations'], { replaceUrl: true });
+    
   }
 }
