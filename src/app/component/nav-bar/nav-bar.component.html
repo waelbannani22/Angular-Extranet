@@ -85,7 +85,8 @@
                     <a class="nav-link" routerLink="./contact">Réclamation/Suggestions</a>
                 </li>
                 <li (click)=toggleDisplayDivIf() class="nav-item" routerLinkActive="active">
-                    <a class="nav-link" routerLink="./contact">Vérification Médicaments</a>
+                    <a class="nav-link"(click)="ToVerifMed()"style="cursor: pointer;">
+                      Vérification Médicaments</a>
                 </li>
                
                 
@@ -94,7 +95,7 @@
             
         </div>
         <li class="nav-item navbar-dropdown dropdown-user dropdown">
-          <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+          <a class="nav-link dropdown-toggle hide-arrow"  data-bs-toggle="dropdown">
             <div class="avatar avatar-online">
               <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
             </div>

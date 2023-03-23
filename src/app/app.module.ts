@@ -31,6 +31,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { DateRangeFilterPipe } from './helper/DateRangeFilterPipe';
 import { MatNativeDateModule } from '@angular/material/core';
+import { VerifMedicamentComponent } from './component/verif-medicament/verif-medicament.component';
 //
 export function tokenGetter() {
   return sessionStorage.getItem("token");
@@ -52,7 +53,8 @@ export function tokenGetter() {
    HistoriqueOrdonnanceComponent,
    CountryPipe,
   SortableHeaderDirective,
-  DateRangeFilterPipe
+  DateRangeFilterPipe,
+  VerifMedicamentComponent
   
   ],
   imports: [

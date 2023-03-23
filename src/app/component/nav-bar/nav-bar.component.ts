@@ -37,4 +37,7 @@ export class NavBarComponent implements OnInit {
   ToHistoriqueOrdonnance() {
     this.router.navigate(['/HistoriqueOrdonnance'], { replaceUrl: true });
   }
+  ToVerifMed(){
+    this.router.navigate(['/VerifMed'], { replaceUrl: true });
+  }
 }
