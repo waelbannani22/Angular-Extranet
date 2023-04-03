@@ -665,6 +665,14 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                   <button
+                                                  type="button"
+                                                  class="btn  btn-outline-primary "
+                                                  data-bs-toggle="modal"
+                                                  data-bs-target="#modalCenterMED"
+                                                >
+                                                  Ajouter une ordonnace manuellement
+                                                </button>
+                                                  <button
                                                     type="button"
                                                     class="btn btn-outline-secondary"
                                                     data-bs-dismiss="modal"
@@ -683,6 +691,139 @@
                                               </div>
                                             </div>
                                           </div>
+                                          <div
+                                          class="modal fade"
+                                          id="modalCenterMED"
+                                          tabindex="-1"
+                                          style="display: none"
+                                          aria-hidden="true"
+                                        >
+                                          <div
+                                            class="modal-dialog modal-dialog-centered modal-xl"
+                                            role="document"
+                                          >
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <h5
+                                                  class="modal-title"
+                                                  id="modalCenterTitle"
+                                                  style="
+                                                    color: red;
+                                                    text-align: center;
+                                                  "
+                                                >
+                                                 
+                                                </h5>
+                                                <button
+                                                  type="button"
+                                                  class="btn-close"
+                                                  data-bs-dismiss="modal"
+                                                  aria-label="Close"
+                                                ></button>
+                                              </div>
+                                              <div class="modal-body">
+                                               
+                                                <div id="data-grid-demo">
+                                                  <dx-data-grid
+                                                    id="gridContainer"
+                                                    [dataSource]="dataSource"
+                                                    keyExpr="ID"
+                                                    [showBorders]="false"
+                                                    [focusedRowEnabled]="true"
+                                                    [allowColumnResizing]="true"
+                                                  >
+                                                 
+                                                  <dxo-scrolling mode="virtual"></dxo-scrolling>
+                                                  
+                                                   
+                                                    <dxo-editing
+                                                      mode="batch"
+                                                      [allowUpdating]="true"
+                                                      [allowAdding]="true"
+                                                      [allowDeleting]="true"
+                                                      [selectTextOnEditStart]="selectTextOnEditStart"
+                                                      [startEditAction]="startEditAction"
+                                                    >
+                                                    </dxo-editing>
+                                                    <dxo-grouping [autoExpandAll]="false"></dxo-grouping>
+                                                    <dxo-master-detail [enabled]="true" template="detail"></dxo-master-detail>
+                                                    <dxi-column dataField="Prefix" caption="Date" dataType="date"></dxi-column>
+                                                    <dxi-column  dataField="FirstName" caption="Montant Dépensé" ></dxi-column>
+                                                    <dxi-column  dataField="LastName"caption="Montant Révisé" ></dxi-column>
+                                                  
+                                                    
+                                                 
+                                                   
+                                                    <div *dxTemplate="let order of 'detail'">
+                                                     <!--
+                                                  details
+                                                     -->
+                                                     <dx-data-grid
+                                                     id="gridContainer"
+                                                     [dataSource]="dataSource"
+                                                     keyExpr="ID"
+                                                     [showBorders]="true"
+                                                     [allowColumnResizing]="true"
+                                                   >
+                                                   <dxo-filter-row [visible]="true"></dxo-filter-row>
+                                                 
+                                                   <dxo-group-panel [visible]="true"></dxo-group-panel>
+                                                    
+                                                     <dxo-editing
+                                                       mode="batch"
+                                                       [allowUpdating]="true"
+                                                       [allowAdding]="true"
+                                                       [allowDeleting]="true"
+                                                       [selectTextOnEditStart]="selectTextOnEditStart"
+                                                       [startEditAction]="startEditAction"
+                                                     >
+                                                     </dxo-editing>
+                                                     <dxo-grouping [autoExpandAll]="false"></dxo-grouping>
+                                                     <dxi-column dataField="Prefix" caption="Designation"  width="200"></dxi-column>
+                                                     <dxi-column dataField="FirstName" caption="Durée (jours)" ></dxi-column>
+                                                     <dxi-column dataField="LastName" caption="Quantité" ></dxi-column>
+                                                     <dxi-column dataField="Position" caption="Prix Public"  ></dxi-column>
+                                                     <dxi-column dataField="StateID" caption="State" caption="Montant dépensé"  [width]="125">
+                                                      
+                                                     </dxi-column>
+                                                     <dxi-column dataField="BirthDate" caption="Remb Cnam"></dxi-column>
+                                                     <dxi-column dataField="BirthDate" caption="Remb. RC"></dxi-column>
+                                                     <dxo-paging [pageSize]="10"> </dxo-paging>
+                                                     <dxo-pager
+                                                       [visible]="true"
+                                                       [allowedPageSizes]="allowedPageSizes"
+                                                       [displayMode]="displayMode"
+                                                       [showPageSizeSelector]="showPageSizeSelector"
+                                                       [showInfo]="showInfo"
+                                                       [showNavigationButtons]="showNavButtons"
+                                                     >
+                                                     </dxo-pager>
+                                                   </dx-data-grid>
+                                                    </div>
+                                                  </dx-data-grid>
+                                                
+                                               
+                                                </div>
+                                         
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button
+                                                  type="button"
+                                                  class="btn btn-outline-secondary"
+                                                  data-bs-dismiss="modal"
+                                                >
+                                                  Annuler
+                                                </button>
+                                                <button
+                                                  type="button"
+                                                  class="btn btn-primary"
+                                                >
+                                                  Confirmer
+                                                </button>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
                                           <div
                                             class="modal fade"
                                             id="modalCenter"

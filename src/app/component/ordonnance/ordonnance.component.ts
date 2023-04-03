@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+
+import DxDataGrid from 'devextreme/ui/data_grid';
+import { DxDataGridModule } from 'devextreme-angular';
+
+import { lastValueFrom } from 'rxjs';
+import { Employee,  ServiceFetchDATA,  State } from 'src/app/services/service.service';
+
 @Component({
   selector: 'app-ordonnance',
   templateUrl: './ordonnance.component.html',
@@ -8,9 +16,29 @@ import { Location } from '@angular/common';
 })
 
 export class OrdonnanceComponent implements OnInit {
+  dataSource!: Employee[];
 
+  states!: State[];
 
-  constructor(private router:Router,private location: Location) { }
+  startEditAction = 'click';
+
+  selectTextOnEditStart = true;
+
+  displayMode = 'full';
+
+  showPageSizeSelector = true;
+
+  showInfo = true;
+
+  showNavButtons = true;
+  readonly allowedPageSizes = [5, 10, 'all'];
+ 
+  constructor(private router:Router,private service:ServiceFetchDATA ) { 
+    this.dataSource = this.service.getEmployees();
+    this.states = this.service.getStates();
+  }
+  
+
  
   recherche(){
     const myButton = document.getElementById("myButton");

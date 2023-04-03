@@ -31,6 +31,9 @@ body{
 .searchTerm:focus{
   color: #00B4CC;
 }
+::ng-deep #gridContainer {
+  height: 440px;
+}
 
 .searchButton {
   width: 40px;

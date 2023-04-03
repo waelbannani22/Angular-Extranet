@@ -23,10 +23,12 @@ const routes: Routes = [
   {
     path: 'DashboardPharmacien',
     component: DashboardPharmacienComponent,
+    /*
     canActivate: [RoleGuardService],
     data: {
       expectedRole: 'PHARMACIEN',
-    },
+      
+    },**/
   },
   { path: 'forget-password', component: ForgetPasswordComponent },
   { path: 'change-password', component: ChangePasswordComponent },

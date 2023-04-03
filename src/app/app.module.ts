@@ -34,6 +34,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { VerifMedicamentComponent } from './component/verif-medicament/verif-medicament.component';
 import { ReclamationsComponent } from './component/reclamations/reclamations.component';
 //
+import { DxButtonModule, DxCheckBoxModule, DxDataGridModule, DxSelectBoxModule } from 'devextreme-angular';
 export function tokenGetter() {
   return sessionStorage.getItem("token");
 }
@@ -79,7 +80,12 @@ export function tokenGetter() {
     NgxPaginationModule,
     MatDatepickerModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    DxDataGridModule,
+    DxButtonModule,
+    DxSelectBoxModule,
+    DxCheckBoxModule,
+    
    
   ],
   providers: [authInterceptorProviders],
