@@ -17,8 +17,9 @@ import { LoginPharmacienService } from 'src/app/services/login-pharmacien.servic
   styleUrls: ['./forget-password.component.css'],
 })
 export class ForgetPasswordComponent implements OnInit {
-  disabled:boolean=false;
+  disabled:boolean=true;
   submitted = false;
+  isLoading=false;
   ema: string = '';
   details: FormGroup = new FormGroup({
     email: new FormControl(''),
@@ -44,6 +45,7 @@ export class ForgetPasswordComponent implements OnInit {
   }
   forgetPass() {
     this.disabled =true
+    this.isLoading=true
     this.ema = this.details.value.email;
     this.loginService.forgetPassword(this.ema).subscribe(
       res => {
@@ -54,6 +56,7 @@ export class ForgetPasswordComponent implements OnInit {
             });
             setTimeout(()=>{
               //window.location.reload()
+              this.isLoading=false;
               this.router.navigate(['/change-password'])
             },2000)
            // this.router.navigate(['/DashboardPharmacien'])
@@ -65,6 +68,7 @@ export class ForgetPasswordComponent implements OnInit {
             timeOut:3500
           });
           setTimeout(()=>{
+            this.isLoading=false;
             window.location.reload()
           },3000)
         }
