@@ -1,7 +1,15 @@
 import { Injectable } from '@angular/core';
+//import DataSource from 'devextreme/data/data_source';
+import 'devextreme/data/odata/store';
+
+
+
+
+
+
+
 export class Employee {
   ID!: number;
-
   FirstName!: string;
   LastName!: string;
   Prefix!: string;
@@ -11,6 +19,26 @@ export class Employee {
   Notes!: string;
   Address!: string;
   StateID!: number;
+}
+@Injectable({
+  providedIn: 'root'
+})
+export class Service {
+ /* getDataSource() {
+    return new DataSource({
+      store: {
+        type: 'odata',
+        url: 'https://js.devexpress.com/Demos/SalesViewer/odata/DaySaleDtoes',
+        key: 'Id',
+        beforeSend(request: { params: { startDate: string; endDate: string; }; }) {
+          const year = new Date().getFullYear() - 1;
+          request.params.startDate = `${year}-05-10`;
+          request.params.endDate = `${year}-5-15`;
+        },
+      },
+    });
+  }
+  */
 }
 export class State {
   ID!: number;
