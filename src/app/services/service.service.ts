@@ -1,12 +1,6 @@
 import { Injectable } from '@angular/core';
-//import DataSource from 'devextreme/data/data_source';
+import DataSource from 'devextreme/data/data_source';
 import 'devextreme/data/odata/store';
-
-
-
-
-
-
 
 export class Employee {
   ID!: number;
@@ -24,7 +18,7 @@ export class Employee {
   providedIn: 'root'
 })
 export class Service {
- /* getDataSource() {
+  getDataSource() {
     return new DataSource({
       store: {
         type: 'odata',
@@ -38,7 +32,7 @@ export class Service {
       },
     });
   }
-  */
+  
 }
 export class State {
   ID!: number;
