@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DxDataGridComponent } from 'devextreme-angular';
 import { Observable } from 'rxjs';
 import { CHAINE_VIDE } from 'src/app.constants';
+import { ExportExcelService } from 'src/app/helper/export-excel-service';
 import { XMLTOJSON } from 'src/app/helper/xml-tojson.service';
 import { AdminService, User } from 'src/app/services/admin.service';
 import { SuggestionsReclamation } from 'src/app/services/models/suggestions-reclamation.model';
@@ -46,7 +47,8 @@ export class VerifPharmacienComponent implements OnInit {
     service: Service,
     private serviceAdmin: AdminService,
     private suggesReclamService: SuggestionsReclamationsService,
-    private xmlToJson: XMLTOJSON
+    private xmlToJson: XMLTOJSON,
+    private exportExcel:ExportExcelService
   ) {
     serviceAdmin.retrieveAllUserNonVerified().subscribe(
       (res) => {
@@ -72,29 +74,33 @@ export class VerifPharmacienComponent implements OnInit {
     this.suggesReclamService
       .getListReclamationByMatricule(
         0,
-        99,
-        CHAINE_VIDE,
-        CHAINE_VIDE,
-        '2023REC00002',
-        3,
+        999,
         CHAINE_VIDE,
         CHAINE_VIDE,
         CHAINE_VIDE,
+        8,
         CHAINE_VIDE,
         CHAINE_VIDE,
         CHAINE_VIDE,
-        CHAINE_VIDE
+        CHAINE_VIDE,
+        CHAINE_VIDE,
+        CHAINE_VIDE,
+       CHAINE_VIDE
       )
       .subscribe(
-        (data) => {
+        async (data) => {
           try {
             if (data != null) {
-              console.log("data=>"+data)
+            // console.log(data)
               const jsonObj = this.xmlToJson.xmlToJson(data);
               console.log('jsonobj=', jsonObj);
               if(jsonObj !=null ){
-                console.log(this.suggesReclamService.getDataListReclamationByMatricule(jsonObj))
-              
+                const resultJson= this.suggesReclamService.getDataListReclamationByMatricule(jsonObj)
+                //console.log(resultJson)
+                this.exportExcel.exportToExcel( resultJson,"Reclamation")
+               const filteredResult= resultJson.filter(rec=>rec.matriculeAdherent=="EMPLOYEUR_X")
+                console.log(filteredResult)
+                
               }else{
                 console.log('erreur');
               }

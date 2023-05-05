@@ -93,6 +93,10 @@ export class SuggestionsReclamationsService {
             if (dossierData.hasOwnProperty(key)) {
               this.elementDataDossier.push({
                 idReclamation: dossierData[key]['id'],
+                concerrne:dossierData[key]['concerrne'],
+                qualification:dossierData[key]['qualification'],
+                statut:this.getStatut(dossierData[key]['reponse']),
+                typeReclamation:dossierData[key]['typeReclamation']['codeRubrique'],
                 titre: dossierData[key]['objetReclamation'],
                 description: dossierData[key]['descreptionReclamation'] !== 'null' ? dossierData[key]['descreptionReclamation'] : '-',
                 dateMinRec: dossierData[key]['dateCreation'],
@@ -116,6 +120,10 @@ export class SuggestionsReclamationsService {
         } else {
           this.elementDataDossier.push({
             idReclamation: dossierData['id'],
+            concerrne:dossierData['concerrne'],
+            qualification:dossierData['qualification'],
+            statut: this.getStatut(dossierData['reponse']),
+            typeReclamation:dossierData['typeReclamation']['codeRubrique'],
             titre: dossierData['objetReclamation'],
             description: dossierData['descreptionReclamation'],
             dateMinRec: dossierData['dateCreation'],
@@ -172,6 +180,12 @@ export class SuggestionsReclamationsService {
     formData.append('nameFile', nameFile);
     return this.http.post('/api/updateReclamationExtranet', formData, { responseType: 'text' });
   }
+  // get all specialites with code
+  getTableReferentielByCodeType(codeTypeRef: string): Observable<any> {// back office response
+    return this.http.post(
+      'http://localhost:8089/Stage/soapWs/getTableReferentielByCodeType',
+      { 'codeTypeRef': codeTypeRef, 'valeurClm': '', 'valTypeClm': '' }, { responseType: 'text' });
+  }
 
   getStatutBackOffice(statut: string): string {
     let statutFinal = '';
@@ -202,6 +216,13 @@ export class SuggestionsReclamationsService {
       return concerne;
     } else {
       return CHAINE_VIDE;
+    }
+  }
+  getStatut(reponse:string):string{
+    if(reponse===""){
+      return "EN COURS"
+    }else{
+      return "TRAITE"
     }
   }
 
