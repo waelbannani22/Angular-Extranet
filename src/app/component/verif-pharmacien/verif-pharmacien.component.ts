@@ -74,7 +74,7 @@ export class VerifPharmacienComponent implements OnInit {
     this.suggesReclamService
       .getListReclamationByMatricule(
         0,
-        999,
+        99,
         CHAINE_VIDE,
         CHAINE_VIDE,
         CHAINE_VIDE,

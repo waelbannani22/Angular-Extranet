@@ -71,7 +71,7 @@ export class SuggestionsReclamationsService {
         'matriculeAdherent': matriculeAdherent ? matriculeAdherent.trim() : CHAINE_VIDE,
         'matriculePs': matriculePs ? matriculePs.trim() : CHAINE_VIDE
       };
-       console.info('TYPE RECL >>>', params);
+      // console.info('TYPE RECL >>>', params);
     return this.http.post(
       'http://localhost:8089/Stage/soapWs/getListReclamationByMatricule',
       params,
@@ -166,7 +166,7 @@ export class SuggestionsReclamationsService {
     formData.append('titre', titre);
     formData.append('nature', nature);
     formData.append('typeReclamation', typeReclamation);
-    return this.http.post('/api/createReclamation', formData, { responseType: 'text' });
+    return this.http.post('http://localhost:8089/Stage/soapWs/createReclamation', formData, { responseType: 'text' });
   }
 
   // create Réclamation

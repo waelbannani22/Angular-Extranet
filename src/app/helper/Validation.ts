@@ -19,3 +19,17 @@ export default class Validation {
     };
   }
 }
+
+export function fileSizeValidator(maxSize: number): ValidatorFn {
+  return (control: AbstractControl): { [key: string]: any } | null => {
+    const file = control.value;
+    if (file && file.size) {
+      const fileSizeInBytes = file.size;
+      const fileSizeInMB = fileSizeInBytes / (1024 * 1024);
+      if (fileSizeInMB > maxSize) {
+        return { 'fileSizeExceeded': true };
+      }
+    }
+    return null;
+  };
+}

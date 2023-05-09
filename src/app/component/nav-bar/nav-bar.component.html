@@ -67,7 +67,8 @@
         </button>
         <!-- *ngIf="!isShowDivIf" --- hide and show -->
         <div [ngClass]="!isShowDivIf ? 'responsive__active' : 'responsive__inactive'" class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
+           <div *ngIf="role=='PHARMACIEN' ">
+               <ul class="navbar-nav ml-auto">
                 <li (click)=toggleDisplayDivIf()  class="nav-item" routerLinkActive="active">
                     <a class="nav-link" style="cursor: pointer;" (click)="ToOrdonnance()">Ajout Ordonnance
                     
@@ -92,6 +93,26 @@
                 
                 
             </ul>
+           </div>
+           <div *ngIf="role=='ADMIN' " style="text-align: right;">
+            <ul class="navbar-nav ml-auto" style="text-align: right;">
+             <li (click)=toggleDisplayDivIf()  class="nav-item" routerLinkActive="active">
+                 <a class="nav-link" style="cursor: pointer;" (click)="ToOrdonnance()">Vérification des utilisateurs
+                 
+                 </a>
+             </li>
+             <li (click)=toggleDisplayDivIf()  class="nav-item" routerLinkActive="active">
+              <a class="nav-link" style="cursor: pointer;" (click)="ToOrdonnance()">Statistiques
+              
+              </a>
+          </li>
+            
+            
+             
+             
+         </ul>
+        </div>
+       
             
         </div>
         <li class="nav-item navbar-dropdown dropdown-user dropdown">
@@ -110,8 +131,8 @@
                     </div>
                   </div>
                   <div class="flex-grow-1"(click)="onClick()">
-                    <span class="fw-semibold d-block">John Doe</span>
-                    <small class="text-muted">Pharmacien</small>
+                    <span class="fw-semibold d-block">{{nom}} {{prenom}}</span>
+                    <small class="text-muted">{{role}}</small>
                   </div>
                 </div>
               </a>

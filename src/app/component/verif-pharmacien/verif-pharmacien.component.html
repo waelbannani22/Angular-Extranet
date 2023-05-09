@@ -94,7 +94,7 @@
              
               [hoverStateEnabled]="true"
               [selectedRowKeys]="[]"
-              (onRowClick)="TogglePopOver()"
+              (onRowDblClick)="TogglePopOver()"
             
             >
               <dxo-paging [pageSize]="10"></dxo-paging>
@@ -106,15 +106,15 @@
                 [visible]="true"
                 [highlightCaseSensitive]="false"
               ></dxo-search-panel>
-              <dxo-group-panel [visible]="true"></dxo-group-panel>
-              <dxo-grouping [autoExpandAll]="false"></dxo-grouping>
+              <dxo-group-panel [visible]="true" [allowColumnDragging]="true"></dxo-group-panel>
+              <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
               <dxo-selection mode="single"></dxo-selection>
-              <dxi-column dataField="email"  caption="Email" ></dxi-column>
+              <dxi-column dataField="email"  caption="Email" [allowGrouping]="false" ></dxi-column>
               <dxi-column
                 dataField="nom"
                 caption="Nom"
                 dataType="string"
-             
+                [allowGrouping]="false"
                 alignment="right"
               ></dxi-column>
               <dxi-column
@@ -127,10 +127,10 @@
                 [allowGrouping]="false"
                
               ></dxi-column>
-              <dxi-column dataField="matricule" caption="Matricule" dataType="date"></dxi-column>
+              <dxi-column dataField="matricule" caption="Matricule" dataType="date"  [allowGrouping]="false"></dxi-column>
               <dxi-column dataField="role" caption="Role" dataType="string" ></dxi-column>
-              <dxi-column dataField="addresse" caption="Addresse" dataType="string"></dxi-column>
-              <dxi-column dataField="tel" caption="Tél" dataType="string"></dxi-column>
+              <dxi-column dataField="addresse" caption="Addresse" dataType="string" [allowGrouping]="false"></dxi-column>
+              <dxi-column dataField="tel" caption="Tél" dataType="string" [allowGrouping]="false"></dxi-column>
              
               <dxi-column dataField="ville" caption="Ville" dataType="string" [width]="150"></dxi-column>
              
@@ -171,13 +171,7 @@
               </div>
              
             </dx-data-grid>
-            <div  *ngIf="grid.selectedRowKeys.length">
-              
-                
-                      <input type="text" [value]=" grid.instance.getSelectedRowsData()[0].id">
-                              
-                
-              </div>
+         
               <!--/ Layout Demo -->
             </div>
             <dx-popup
@@ -233,14 +227,7 @@
              
             </div>
           </dx-popup>
-         <dx-button
-         stylingMode="contained"
-         text="Valider"
-         type="success"
-       
-         [width]="120"
-         (onClick)="Click()"
-          >CLick</dx-button>
+        
             <!-- / Content -->
 
             <!-- Footer -->

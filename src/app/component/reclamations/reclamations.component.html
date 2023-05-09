@@ -132,6 +132,7 @@
                             <div class="modal-body">
                                 <form
                                 [formGroup]="myGroup"
+                                
                                
                                 id="formAuthentication"
                                 class="mb-3"
@@ -145,7 +146,9 @@
                                         <div class="col-md mb-md-0 mb-2">
                                           <div class="form-check custom-option custom-option-basic">
                                             <label class="form-check-label custom-option-content" for="customRadioTemp1">
-                                              <input name="customRadioTemp" class="form-check-input" type="radio" value="" id="customRadioTemp1" checked="">
+                                              <input 
+                                             
+                                               name="customRadioTemp" class="form-check-input" type="radio" value="" id="customRadioTemp1" checked="">
                                               <span class="custom-option-header">
                                                 <span class="h6 mb-0">Suggestion</span>
                                                
@@ -157,7 +160,9 @@
                                         <div class="col-md mb-md-0 mb-2">
                                             <div class="form-check custom-option custom-option-basic">
                                               <label class="form-check-label custom-option-content" for="customRadioTemp1">
-                                                <input name="customRadioTemp" class="form-check-input" type="radio" value="" id="customRadioTemp1" checked="">
+                                                <input 
+                                               
+                                                name="customRadioTemp" class="form-check-input" type="radio" value="" id="customRadioTemp1" checked="">
                                                 <span class="custom-option-header">
                                                   <span class="h6 mb-0">Réclamation</span>
                                                  
@@ -174,26 +179,15 @@
 
                                 <div class="mb-3">
                                   <label for="Nom" class="form-label">Convention</label>
-                                  <div data-select2-id="45">
-                                    <div class="position-relative">
-                                      <select
-                                        id="select2Basic"
-                                        class="select2 form-select form-select-lg select2-hidden-accessible"
-                                        data-allow-clear="true"
-                                        data-select2-id="select2Basic"
-                                        tabindex="-1"
-                                        aria-hidden="true"
-                                      >
-                                        <option value="AK" data-select2-id="2">Alaska</option>
-                                        <option value="HI" data-select2-id="46">
-                                          Hawaii
-                                        </option>
-                                        <option value="CA" data-select2-id="47">
-                                          California
-                                        </option>
-                                      </select>
-                                    </div>
-                                  </div>
+                                  <input
+                                  type="text"
+                                  class="form-control"
+                                  formControlName="convention"
+                                  [ngClass]="{ 'is-invalid': submited && f['convention'].errors }"
+                                  id="Prenom"
+                                  name="Prenom"
+                                  placeholder="Convention "
+                                />
                                  
                                 </div>
                                 <div class="mb-3">
@@ -201,7 +195,8 @@
                                   <input
                                     type="text"
                                     class="form-control"
-                                    
+                                    formControlName="titre"
+                                    [ngClass]="{ 'is-invalid': submited && f['titre'].errors }"
                                     id="Prenom"
                                     name="Prenom"
                                     placeholder="titre "
@@ -218,6 +213,8 @@
                                         id="select2Basic"
                                         class="select2 form-select form-select-lg select2-hidden-accessible"
                                         data-allow-clear="true"
+                                        formControlName="qualification"
+                                        [ngClass]="{ 'is-invalid': submited && f['qualification'].errors }"
                                         data-select2-id="select2Basic"
                                         tabindex="-1"
                                         aria-hidden="true"
@@ -235,6 +232,8 @@
                                     <textarea
                                     id="basic-default-message"
                                     class="form-control"
+                                    formControlName="description"
+                                    [ngClass]="{ 'is-invalid': submited && f['description'].errors }"
                                     aria-describedby="basic-icon-default-message2"
                                   ></textarea>
                                    
@@ -243,7 +242,12 @@
                                   <div class="mb-3">
                                     <label for="Matricule" class="form-label">Piéce jointe</label>
                                     <div class="mb-3">
-                                        <input class="form-control" type="file" id="formFile">
+                                        <input class="form-control" type="file" id="formFile"
+                                        formControlName="byteFile"
+                                        [ngClass]="{ 'is-invalid': submited && f['byteFile'].errors }">
+                                        <div *ngIf=" f['byteFile'].errors">
+                                          File size exceeded the limit of 1 MB
+                                        </div>
                                       </div>
                                    
                                    
@@ -266,7 +270,7 @@
                               <button
                               type="button"
                               class="btn btn-outline-primary"
-                             
+                             (click)="onSubmit()"
                             >
                               Confirmer
                             </button>
@@ -324,7 +328,7 @@
                   dataType="string"
                 
                   alignment="right"
-                  [allowGrouping]="false"
+                 
                  
                 ></dxi-column>
                 <dxi-column dataField="concerrne" caption="Convention" dataType="string"></dxi-column>

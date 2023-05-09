@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { Pharmacien } from '../models/pharmacien.model';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { tokenName } from '@angular/compiler';
+import { Router } from '@angular/router';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -23,7 +24,8 @@ const AUTH_API_TOKEN = 'http://localhost:8089/Stage/managePassword/confirm-passw
   providedIn: 'root',
 })
 export class LoginPharmacienService {
-  constructor(private http: HttpClient, public jwtHelper: JwtHelperService) {}
+  constructor(private http: HttpClient, public jwtHelper: JwtHelperService,
+    private router:Router) {}
 
   //login
   login(email: string, password: string): Observable<any> {
@@ -141,5 +143,11 @@ export class LoginPharmacienService {
     // true or false
     console.log('is it expired :', this.tokenExpired(tokenNew as string));
     return !this.tokenExpired(tokenNew as string);
+  }
+  logOut() {
+    console.log('logout clicked');
+    window.sessionStorage.clear();
+    console.log('session cleaned');
+    this.router.navigate(['/login'], { replaceUrl: true });
   }
 }

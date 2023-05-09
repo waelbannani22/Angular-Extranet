@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/services/token-storage-service.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -7,8 +8,19 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav-bar.component.css'],
 })
 export class NavBarComponent implements OnInit {
+  role!: string;
+  prenom!:string ;
+  nom!:string;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,
+    private tokenStorage: TokenStorageService,
+    ) {
+     
+   this.role= this.tokenStorage.getUser().role
+   this.prenom= this.tokenStorage.getUser().prenom
+   this.nom= this.tokenStorage.getUser().nom
+    
+  }
   isShowDivIf = true;
   iamSure: boolean = false;
   toggleDisplayDivIf() {
