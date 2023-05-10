@@ -57,4 +57,8 @@ export class NavBarComponent implements OnInit {
     this.router.navigate(['/Reclamations'], { replaceUrl: true });
     
   }
+  ToVerif() {
+    this.router.navigate(['/VerifPharmacien'], { replaceUrl: true });
+    
+  }
 }

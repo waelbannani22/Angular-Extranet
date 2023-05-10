@@ -1,4 +1,5 @@
 import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { LoginPharmacienService } from '../services/login-pharmacien.service';
 
 export default class Validation {
   static match(controlName: string, checkControlName: string): ValidatorFn {
@@ -32,4 +33,11 @@ export function fileSizeValidator(maxSize: number): ValidatorFn {
     }
     return null;
   };
+}
+export function isStillValide(loginService:LoginPharmacienService){
+  
+  if (!loginService.isAuthenticated()){
+    loginService.logOut()
+    
+ }
 }

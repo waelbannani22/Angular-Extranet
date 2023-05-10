@@ -8,6 +8,10 @@ import { DxDataGridModule } from 'devextreme-angular';
 
 import { lastValueFrom } from 'rxjs';
 import { Employee,  ServiceFetchDATA,  State } from 'src/app/services/service.service';
+import { ProfileService } from 'src/app/helper/profile.service';
+import { XMLTOJSON } from 'src/app/helper/xml-tojson.service';
+import { isStillValide } from 'src/app/helper/Validation';
+import { LoginPharmacienService } from 'src/app/services/login-pharmacien.service';
 
 @Component({
   selector: 'app-ordonnance',
@@ -32,10 +36,38 @@ export class OrdonnanceComponent implements OnInit {
 
   showNavButtons = true;
   readonly allowedPageSizes = [5, 10, 'all'];
+
+  adherent!:string
+  sexe!:string
+  dateDeNaissance!:string
+  numCin!:string
+  paysDeNaissance!:string
+  villeDeNaissance!:string
  
-  constructor(private router:Router,private service:ServiceFetchDATA ) { 
+  constructor(private router:Router,private service:ServiceFetchDATA,private profileService:ProfileService
+   , private xmlToJson: XMLTOJSON,private loginService:LoginPharmacienService
+      ) { 
+       // isStillValide(this.loginService)
+       if (!loginService.isAuthenticated()){
+        loginService.logOut()
+        
+     }
     this.dataSource = this.service.getEmployees();
     this.states = this.service.getStates();
+    this.profileService.getMemberProfileData("00310","A70230001").subscribe(async (res:any) => {
+      try {
+      const jsonResult=(this.xmlToJson.xmlToJson(res))
+      const obj=jsonResult['Envelope']['Body']['getContratAdherentByMatriculeResponse']['return']
+      console.log(obj)
+      this.adherent=obj['personnePhysique']['nomComplet']
+      this.sexe=obj['personnePhysique']['sexe']['libelle']
+      this.dateDeNaissance=obj['personnePhysique']['dateNaissance']
+      this.numCin=obj['personnePhysique']['numeroPieceId']
+      this.villeDeNaissance=obj['personnePhysique']['gouvNaissance']
+      } catch (error) {
+        console.log(error)
+      }
+    })
   }
   
 

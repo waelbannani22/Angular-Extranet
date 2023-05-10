@@ -158,13 +158,25 @@
                       <div class="card-body">
                         <div class="user-avatar-section">
                           <div class="d-flex align-items-center flex-column">
-                            <img
+                            <div *ngIf="sexe=='Féminin'">
+                              <img
+                              class="img-fluid rounded my-4"
+                              src="../../assets/img/avatars/6.png"
+                              height="110"
+                              width="110"
+                              alt="User avatar"
+                            />
+                            </div>
+                            <div *ngIf="sexe=='masculin'">
+                              <img
                               class="img-fluid rounded my-4"
                               src="../../assets/img/avatars/1.png"
                               height="110"
                               width="110"
                               alt="User avatar"
                             />
+                            </div>
+                            
                             <div class="user-info text-center">
                               <h4 class="mb-2">Violet Mendoza</h4>
                               <span class="badge bg-label-secondary"></span>
@@ -323,33 +335,33 @@
                           <ul class="list-unstyled">
                             <li class="mb-3">
                               <span class="fw-bold me-2">Adhérent:</span>
-                              <span>violet.dev</span>
+                              <span>{{adherent}}</span>
                             </li>
                             <li class="mb-3">
                               <span class="fw-bold me-2">Sexe:</span>
-                              <span>vafgot@vultukir.org</span>
+                              <span>{{sexe}}</span>
                             </li>
                             <li class="mb-3">
                               <span class="fw-bold me-2"
                                 >Date de naissance:</span
                               >
-                              <span class="badge bg-label-success">Active</span>
+                              <span class="badge bg-label-success">{{dateDeNaissance}}</span>
                             </li>
                             <li class="mb-3">
                               <span class="fw-bold me-2"
                                 >Gouvernorat de naissance:</span
                               >
-                              <span>Author</span>
+                              <span>{{villeDeNaissance}}</span>
                             </li>
                             <li class="mb-3">
                               <span class="fw-bold me-2"
                                 >Pays de naissance:</span
                               >
-                              <span>Tax-8965</span>
+                              <span>Tunisie</span>
                             </li>
                             <li class="mb-3">
                               <span class="fw-bold me-2">CIN:</span>
-                              <span>(123) 456-7890</span>
+                              <span>{{numCin}}</span>
                             </li>
                           </ul>
                           <div class="d-flex justify-content-center pt-3">

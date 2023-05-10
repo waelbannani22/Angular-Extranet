@@ -7,6 +7,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import Validation from 'src/app/helper/Validation';
 import { Pharmacien } from 'src/app/models/pharmacien.model';
 import { LoginPharmacienService } from 'src/app/services/login-pharmacien.service';
@@ -37,7 +38,8 @@ export class SignupPharmacienComponent implements OnInit {
     private formBuilder: FormBuilder,
     private pharmacieService: LoginPharmacienService,
     private tokenStorage: TokenStorageService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService,
   ) {}
   pharmacien: Pharmacien = new Pharmacien();
 
@@ -72,11 +74,22 @@ export class SignupPharmacienComponent implements OnInit {
     this.pharmacien.role="PHARMACIEN"
     //console.log(this.pharmacien)
 
-    this.pharmacieService.signup(this.pharmacien).subscribe(res=>{
-        this.isSuccessful=true
+    this.pharmacieService.signup(this.pharmacien).subscribe(async(res:any)=>{
+      console.log(res.status)
+      if(res.status==200){
+        this.toastr.success('Bienvenue', '', {
+          timeOut: 3500,
+        });
+         this.isSuccessful=true
         this.router.navigate(['/login/']);
+      }else  if(res.statis==403){
+       
+      }
+       
     },err=>{
-
+      this.toastr.error('Email deja existe!', '', {
+        timeOut: 3500,
+      });
     })
   }
 }
