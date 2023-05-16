@@ -153,30 +153,64 @@
               <hr/>
               <div class="card">
                
-                <div class="table-responsive text-nowrap">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>Référence</th>
-                        <th>Nom du médicament</th>
-                        <th>Remboursable</th>
-                       
-                      </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>232323232</strong></td>
-                        <td>Doliparene 1000</td>
-                     
-                        <td><span class="badge bg-label-success me-1">OUI</span><span class="badge bg-label-warning me-1">NON</span></td>
-                     
-                      </tr>
+                <dx-data-grid
+                #grid
+               
+                id="gridContainer"
+                [dataSource]="listMedic"
+                [remoteOperations]="false"
+                [allowColumnReordering]="true"
+                [rowAlternationEnabled]="true"
+                [showBorders]="true"
+                (onContentReady)="contentReady($event)"
+               
+                [hoverStateEnabled]="true"
+                [selectedRowKeys]="[]"
+              
+              
+              >
+             
+                <dxo-paging [pageSize]="5"></dxo-paging>
+                <dxo-pager
+                  [showPageSizeSelector]="true"
+                  [allowedPageSizes]="[5, 25, 50, 100]"
+                ></dxo-pager>
+                <dxo-search-panel
+                  [visible]="true"
+                  [highlightCaseSensitive]="false"
+                ></dxo-search-panel>
+                <dxo-group-panel [visible]="true"></dxo-group-panel>
+                <dxo-grouping [autoExpandAll]="false"></dxo-grouping>
+                <dxo-selection mode="single"></dxo-selection>
+
+                <dxi-column dataField="reference"  caption="Ref" alignment="left" ></dxi-column>
+                <dxi-column
+                  dataField="nomMedicament"
+                  caption="nomMedicament"
+                  dataType="string"
+               
+                  alignment="left"
+                ></dxi-column>
+               
+                <dxi-column dataField="etatRemb" caption="Remboursable" dataType="string"></dxi-column>
+               
+
+               
+  
+               
+  
+                <div *dxTemplate="let d of 'isACellTemplate'">
+                  <div >
+                      <span class="badge bg-label-danger"
+                      > Non verifié(e)
+                      </span
+                    >
                    
-                  
-                   
-                    </tbody>
-                  </table>
+                  </div>
                 </div>
+           
+               
+              </dx-data-grid>
               </div>
               <!--/ Layout Demo -->
             </div>

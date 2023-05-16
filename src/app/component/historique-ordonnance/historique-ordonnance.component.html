@@ -384,39 +384,40 @@
               <!-- Layout Demo -->
               <div id="myDiv">
                 <div id="box1">
-                    <div style="display: flex; align-items: center;justify-content: center;">
-                        <label style="font-size: medium; " for="select-option">Contractant:</label>
-                        <select
-                        style="margin: 10px; width: 200px;"
-                        id="select2Basic"
-                      
-                        class="select2 form-select form-select-lg select2-hidden-accessible form-control2"
-                        data-allow-clear="true"
-                        data-select2-id="select2Basic"
-                        tabindex="-1"
-                        aria-hidden="true"
-                      >
-                        <option value="AK" data-select2-id="2">Alaska</option>
-                        <option value="HI" data-select2-id="46">
-                          Hawaii
-                        </option>
-                        <option value="CA" data-select2-id="47">
-                          California
-                        </option>
-                      </select>
-                      <button
+                  <div
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                    "
+                  >
+                    <label style="font-size: medium" for="select-option"
+                      >Contractant:</label
+                    >
+                    <select
+                      style="margin: 10px; width: 200px"
+                      id="select2Basic"
+                      class="select2 form-select form-select-lg select2-hidden-accessible form-control2"
+                      data-allow-clear="true"
+                      data-select2-id="select2Basic"
+                      tabindex="-1"
+                      aria-hidden="true"
+                    >
+                      <option value="AK" data-select2-id="2">Alaska</option>
+                      <option value="HI" data-select2-id="46">Hawaii</option>
+                      <option value="CA" data-select2-id="47">
+                        California
+                      </option>
+                    </select>
+                    <button
                       id="myButton"
                       type="button"
-                      style="justify-content: right;"
+                      style="justify-content: right"
                       class="btn rounded-pill btn-primary"
                     >
                       Rechercher
                     </button>
-                      </div>
-
-               
-               
-                 
+                  </div>
                 </div>
               </div>
               <hr />
@@ -476,256 +477,144 @@
                     id="navs-pills-justified-home"
                     role="tabpanel"
                   >
-                    <div class="form-group">
-                      <input
-                        type="search"
-                        class="form-control"
-                        [(ngModel)]="filter"
-                        placeholder=""
-                      />
-                    </div>
+                    
 
-                    <div class="table-responsive text-nowrap">
-                      <table class="table">
-                        <thead>
-                          <tr>
-                            <th
-                              scope="col"
-                              sortable="name"
-                              (sort)="onSort($event)"
-                            >
-                              N° Transaction
-                            </th>
-                            <th>N° Bordereau</th>
-                            <th>Contractant</th>
-                            <th>Matricule de l'assuré</th>
-                            <th>Nom de l'assuré</th>
-                            <th>Nom du bénéficiaire</th>
-                            <th>Oualité du bénéficiaire</th>
-                            <th>Date transaction</th>
-                            <th>N° Consultation</th>
-                            <th>Montant du Ticket Modérateur</th>
-                            <th>Reste à payer</th>
+                  
+                    <dx-data-grid
+                      #grid
+                      id="gridContainer"
+                      [dataSource]="listHistorique"
+                      
+                      [remoteOperations]="false"
+                      [allowColumnResizing]="true"
+                      [allowColumnReordering]="true"
+                      [rowAlternationEnabled]="true"
+                      [showBorders]="false"
+                      (onContentReady)="contentReady($event)"
+                      [hoverStateEnabled]="true"
+                      [selectedRowKeys]="[]"
+                      [scrolling]="scrollingConfig"
+                      [columnHidingEnabled]="true">
+                    >
+                    <dxo-header-filter [visible]="true"></dxo-header-filter>
+                    <dxo-filter-panel [visible]="true"></dxo-filter-panel>
+                      <dxo-paging [pageSize]="5"></dxo-paging>
+                      <dxo-pager
+                        [showPageSizeSelector]="true"
+                        [allowedPageSizes]="[5, 10, 25, 50]"
+                      ></dxo-pager>
+                      <dxo-search-panel
+                        [visible]="true"
+                        [highlightCaseSensitive]="false"
+                      ></dxo-search-panel>
+                      <dxo-group-panel [visible]="true"></dxo-group-panel>
+                      <dxo-grouping [autoExpandAll]="false"></dxo-grouping>
+                      <dxo-selection mode="single"></dxo-selection>
 
-                            <th>Statut</th>
-                            <th>Voir</th>
-                          </tr>
-                        </thead>
-                        <tbody class="table-border-bottom-0">
-                          <tr
-                            *ngFor="
-                              let country of countries
-                                | country : filter
-                                | paginate
-                                  : { itemsPerPage: 10, currentPage: p }
-                            "
-                          >
-                            <td>
-                              <i
-                                class="fab fa-angular fa-lg text-danger me-3"
-                              ></i>
-                              <strong>{{ country.name }}</strong>
-                            </td>
-                            <td>Albert Cook</td>
-                            <td>
-                              <ul
-                                class="list-unstyled users-list m-0 avatar-group d-flex align-items-center"
-                              >
-                                <li
-                                  data-bs-toggle="tooltip"
-                                  data-popup="tooltip-custom"
-                                  data-bs-placement="top"
-                                  class="avatar avatar-xs pull-up"
-                                  title=""
-                                  data-bs-original-title="Lilian Fuller"
-                                >
-                                  <img
-                                    src="../assets/img/avatars/5.png"
-                                    alt="Avatar"
-                                    class="rounded-circle"
-                                  />
-                                </li>
-                                <li
-                                  data-bs-toggle="tooltip"
-                                  data-popup="tooltip-custom"
-                                  data-bs-placement="top"
-                                  class="avatar avatar-xs pull-up"
-                                  title=""
-                                  data-bs-original-title="Sophia Wilkerson"
-                                >
-                                  <img
-                                    src="../assets/img/avatars/6.png"
-                                    alt="Avatar"
-                                    class="rounded-circle"
-                                  />
-                                </li>
-                                <li
-                                  data-bs-toggle="tooltip"
-                                  data-popup="tooltip-custom"
-                                  data-bs-placement="top"
-                                  class="avatar avatar-xs pull-up"
-                                  title=""
-                                  data-bs-original-title="Christina Parker"
-                                >
-                                  <img
-                                    src="../assets/img/avatars/7.png"
-                                    alt="Avatar"
-                                    class="rounded-circle"
-                                  />
-                                </li>
-                              </ul>
-                            </td>
-                            <td>
-                              <span class="badge bg-label-primary me-1"
-                                >Active</span
-                              >
-                            </td>
-                            <td>
-                              <div class="dropdown">
-                                <button
-                                  type="button"
-                                  class="btn p-0 dropdown-toggle hide-arrow"
-                                  data-bs-toggle="dropdown"
-                                >
-                                  <i class="bx bx-dots-vertical-rounded"></i>
-                                </button>
-                                <div class="dropdown-menu">
-                                  <a
-                                    class="dropdown-item"
-                                    href="javascript:void(0);"
-                                    ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                                  >
-                                  <a
-                                    class="dropdown-item"
-                                    href="javascript:void(0);"
-                                    ><i class="bx bx-trash me-1"></i> Delete</a
-                                  >
-                                </div>
-                              </div>
-                            </td>
+                      <dxi-column
+                        dataField="numTransaction"
+                        caption="numTransaction"
+                        [width]="150"
+                      ></dxi-column>
+                      <dxi-column
+                        dataField="numBorderau"
+                        caption="numBorderau"
+                        dataType="string"
+                        alignment="left"
+                        [hidingPriority]="4"
+                      ></dxi-column>
+                      <dxi-column
+                        caption="Contractant"
+                        [hidingPriority]="1"
+                        dataField=""
+                        dataType="string"
+                        alignment="left"
+                      ></dxi-column>
+                      <dxi-column
+                        dataField="matriculeAssure"
+                        caption="MATRICULE DE L'ASSURÉ"
+                        dataType="string"
+                        alignment="left"
+                      ></dxi-column>
+                      <dxi-column
+                        dataField="nomAssure"
+                        caption="NOM DE L'ASSURÉ"
+                        dataType="string"
+                        [width]="200"
+                      ></dxi-column>
+                      <dxi-column
+                        dataField="nombeneficiaire"
+                        caption="NOM DU BÉNÉFICIAIRE"
+                        dataType="string"
+                        [width]="200"
+                      ></dxi-column>
+                      <dxi-column
+                        dataField="qualite"
+                        caption="OUALITÉ DU BÉNÉFICIAIRE"
+                        dataType="string"
+                      ></dxi-column>
+                      <dxi-column
+                        dataField="datetransaction"
+                        caption="DATE TRANSACTION"
+                        dataType="string"
+                      ></dxi-column>
+                      <dxi-column
+                      dataField="numConsultation"
+                      [hidingPriority]="0"
+                      caption="N° CONSULTATION"
+                      dataType="string"
+                    ></dxi-column>
+                    <dxi-column
+                    dataField="montantTicketModerateur"
+                    caption="MONTANT DU TICKET MODÉRATEUR"
+                    dataType="string"
 
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>x</td>
-                            <td style="size: 32px">
-                              <i
-                                class="bx bx-add-to-queue bx-flashing bx-flip-horizontal"
-                                style="color: #a673fd"
-                                data-bs-toggle="modal"
-                                data-bs-target="#basicModal"
-                              ></i>
-                              <div class="col-lg-4 col-md-6">
-                                <div class="mt-3">
-                                  <!-- Button trigger modal -->
+                    [hidingPriority]="3"
+                  ></dxi-column>
+                  <dxi-column
+                  dataField="restePayer"
+                  caption="RESTE À PAYER"
+                  dataType="string"
+                ></dxi-column>
+                <dxi-column
+                dataField="statut"
+                caption="STATUT"
+                dataType="string"
+               
+              ></dxi-column>
 
-                                  <!-- Modal -->
-                                  <div
-                                    class="modal fade"
-                                    id="basicModal"
-                                    tabindex="-1"
-                                    style="display: none"
-                                    aria-hidden="true"
-                                  >
-                                    <div class="modal-dialog" role="document">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <strong
-                                            >Informations
-                                            complémentaires</strong
-                                          >
-                                        </div>
-                                        <div class="modal-body">
-                                          <div
-                                            class="table-responsive text-nowrap"
-                                          >
-                                            <table class="table">
-                                              <tbody
-                                                class="table-border-bottom-0"
-                                              >
-                                                <tr>
-                                                  <td>
-                                                    <strong
-                                                      >Numéro contrat::</strong
-                                                    >
-                                                  </td>
-                                                  <td>A70190001</td>
-                                                </tr>
-                                                <tr>
-                                                  <td>
-                                                    <strong
-                                                      >Date consultation
-                                                      :</strong
-                                                    >
-                                                  </td>
-                                                  <td>1970-07-09</td>
-                                                </tr>
-                                                <tr>
-                                                  <td>
-                                                    <strong
-                                                      >Date consultation
-                                                      :</strong
-                                                    >
-                                                  </td>
-                                                  <td>27/02/2023</td>
-                                                </tr>
-                                                <tr>
-                                                  <td>
-                                                    <strong
-                                                      >Total médicaments
-                                                      remboursables:</strong
-                                                    >
-                                                  </td>
-                                                  <td>22 TND</td>
-                                                </tr>
-                                                <tr>
-                                                  <td>
-                                                    <strong
-                                                      >Total médicaments non
-                                                      remboursables:</strong
-                                                    >
-                                                  </td>
-                                                  <td>10TND</td>
-                                                </tr>
-                                                <tr>
-                                                  <td>
-                                                    <strong
-                                                      >Total Ordonnance:</strong
-                                                    >
-                                                  </td>
-                                                  <td>32TND</td>
-                                                </tr>
-                                              </tbody>
-                                            </table>
-                                          </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                          <button
-                                            type="button"
-                                            class="btn btn-outline-secondary"
-                                            data-bs-dismiss="modal"
-                                          >
-                                            Fermer
-                                          </button>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <div style="text-align: center">
-                        <pagination-controls
-                          (pageChange)="p = $event"
-                        ></pagination-controls>
+                      <div *dxTemplate="let d of 'isACellTemplate'">
+                        <div>
+                          <span class="badge bg-label-danger">
+                            Non verifié(e)
+                          </span>
+                        </div>
                       </div>
-                    </div>
+                      <div *dxTemplate="let d of 'discountCellTemplate'">
+                        <div class="chart-cell">
+                          <dx-bullet
+                            [showTarget]="false"
+                            [showZeroLevel]="true"
+                            [startScaleValue]="0"
+                            [endScaleValue]="100"
+                            [value]="d.value * 100"
+                          >
+                            <dxo-size [width]="150" [height]="35"></dxo-size>
+                            <dxo-tooltip
+                              [enabled]="true"
+                              [paddingTopBottom]="2"
+                            >
+                              <dxo-font [size]="18"></dxo-font>
+                            </dxo-tooltip>
+                            <dxo-margin
+                              [top]="5"
+                              [bottom]="0"
+                              [left]="5"
+                            ></dxo-margin>
+                          </dx-bullet>
+                        </div>
+                      </div>
+                    </dx-data-grid>
                   </div>
                   <!-- NON FACTURE -->
                   <div
@@ -926,7 +815,6 @@
                           </tr>
                         </tbody>
                       </table>
-                     
                     </div>
                     <div style="text-align: center">
                       <pagination-controls
@@ -1716,58 +1604,65 @@
                                               </div>
                                               <div id="twoInput">
                                                 <div
-                                                 
                                                   class="col mb-3"
-                                                  style=" justify-content: center; align-items: center;display: flex;margin-top: 10px;"
+                                                  style="
+                                                    justify-content: center;
+                                                    align-items: center;
+                                                    display: flex;
+                                                    margin-top: 10px;
+                                                  "
                                                 >
                                                   <label
                                                     _ngcontent-chf-c64=""
                                                     for="nameBasic"
                                                     class="form-label"
-                                                    style="margin-left:10px ;"
+                                                    style="margin-left: 10px"
                                                     >Numéro Facture :</label
                                                   >
-                                                  <br/>
+                                                  <br />
                                                   <input
                                                     _ngcontent-chf-c64=""
                                                     type="text"
                                                     id="nameBasic"
                                                     placeholder=""
                                                     class="form-control"
-                                                 
                                                   />
                                                 </div>
                                                 <div
-                                                
                                                   class="col mb-3"
-                                                  style=" justify-content: center; align-items: center;display: flex;"
-
+                                                  style="
+                                                    justify-content: center;
+                                                    align-items: center;
+                                                    display: flex;
+                                                  "
                                                 >
                                                   <label
-                                                   
                                                     for="nameBasic"
                                                     class="form-label"
-                                                    style="margin: 10px;"
+                                                    style="margin: 10px"
                                                     >Commentaire :</label
                                                   ><input
-                                                   style="align-content:center ;width: 300px;"
-                                                   
+                                                    style="
+                                                      align-content: center;
+                                                      width: 300px;
+                                                    "
                                                     type="text"
                                                     id="nameBasic"
                                                     placeholder=""
                                                     class="form-control"
                                                   />
                                                 </div>
-                                                  <button
-                                                  style=" justify-content: end;margin-bottom: 10px;"
-
-                                              type="button"
-                                              class="btn btn-outline-primary"
-                                              data-bs-dismiss="modal"
-                                            >
-                                              Valider
-                                            </button>
-                                               
+                                                <button
+                                                  style="
+                                                    justify-content: end;
+                                                    margin-bottom: 10px;
+                                                  "
+                                                  type="button"
+                                                  class="btn btn-outline-primary"
+                                                  data-bs-dismiss="modal"
+                                                >
+                                                  Valider
+                                                </button>
                                               </div>
                                             </div>
                                           </div>

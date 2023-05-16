@@ -89,6 +89,7 @@ export function tokenGetter() {
     DxCheckBoxModule,
     DxBulletModule,
     DxPopupModule,
+    DxDataGridModule
    
   ],
   providers: [authInterceptorProviders],
