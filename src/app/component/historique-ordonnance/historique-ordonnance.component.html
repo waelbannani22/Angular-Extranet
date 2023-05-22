@@ -640,7 +640,7 @@
                 (onContentReady)="contentReady($event)"
                 [hoverStateEnabled]="true"
                 [selectedRowKeys]="[]"
-                [height]="500"
+               
                 (onSelectionChanged)="onSelectionChanged($event)"
                 
                 [selection]="{
@@ -768,6 +768,7 @@
               <button
               type="button"
               class="btn btn-success justify-content-end"
+              [disabled]="isEnableButton"
               (click)="onSubmit()"
               data-bs-toggle="modal"
               data-bs-target="#largeModal"
@@ -895,6 +896,8 @@
                                   <button
                                     type="submit"
                                     class="btn btn-primary"
+                                    data-bs-dismiss="modal"
+                                    (click)="CreateFacture()"
                                   >
                                     Valider
                                   </button>
