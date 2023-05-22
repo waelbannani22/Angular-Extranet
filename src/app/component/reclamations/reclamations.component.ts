@@ -97,15 +97,19 @@ export class ReclamationsComponent implements OnInit {
     console.log("is my variables correct: "+this.myGroup.valid)
     if(this.myGroup.valid){
        console.log("in created rec")
+
+
+
         this.suggesReclamService.createReclamation(byteFile,CHAINE_VIDE,CHAINE_VIDE,"EMPLOYEUR_X",CHAINE_VIDE
-        ,CHAINE_VIDE,CHAINE_VIDE,description,"0",titre,"réclamation",qualitfication).subscribe(res=>{
-          console.log("success")
-          window.location.reload()
-        },
-        err=>{
-          console.log(err)
-        }
-        )
+        ,CHAINE_VIDE,CHAINE_VIDE,description,"0",titre,"réclamation",qualitfication).subscribe((async (res:any) => {
+         try {
+           window.location.reload()
+         } catch (error) {
+          console.error(error)
+         }
+         
+        } 
+        ))
     }else{
       return
     }
@@ -135,12 +139,12 @@ export class ReclamationsComponent implements OnInit {
         async (data) => {
           try {
             if (data != null) {
-            // console.log(data)
+            //console.log(data)
               const jsonObj = this.xmlToJson.xmlToJson(data);
-              console.log('jsonobj=', jsonObj);
+             // console.log('jsonobj=', jsonObj);
               if(jsonObj !=null ){
                 const resultJson= this.suggesReclamService.getDataListReclamationByMatricule(jsonObj)
-                //console.log(resultJson)
+                console.log(resultJson)
                
                const filteredResult= resultJson.filter(rec=>rec.matriculeAdherent=="EMPLOYEUR_X")
                this.dataSource=filteredResult

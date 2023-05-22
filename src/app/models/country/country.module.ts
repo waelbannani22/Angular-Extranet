@@ -9,7 +9,9 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ]
 })
-export class CountryModule { }export interface Country {
+export class CountryModule { 
+  
+}export interface Country {
   name: string;
   capital: string;
   alpha3Code: string;

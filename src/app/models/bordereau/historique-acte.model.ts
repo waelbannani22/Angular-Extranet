@@ -24,5 +24,6 @@ export class HistoriqueActe extends Historique {
     nbCotation!: string;
     cleCotation!: string;
     natureActe!: string;
+    id!:string
 }
 

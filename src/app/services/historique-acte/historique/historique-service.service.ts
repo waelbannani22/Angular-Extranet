@@ -42,7 +42,8 @@ export class HistoriqueService {
               nbCotationABP: historiqueData[key]['nbCotationABP'],
               nbCotation: historiqueData[key]['nbCotation'],
               cleCotation: historiqueData[key]['cleCotation'],
-              natureActe: historiqueData[key]['natureActe']
+              natureActe: historiqueData[key]['natureActe'],
+              id:historiqueData[key]['id']
             });
           }
         }
@@ -71,7 +72,8 @@ export class HistoriqueService {
           nbCotationABP: historiqueData['nbCotationABP'],
           nbCotation: historiqueData['nbCotation'],
           cleCotation: historiqueData['cleCotation'],
-          natureActe: historiqueData['natureActe']
+          natureActe: historiqueData['natureActe'],
+          id:historiqueData['id']
         });
       }
     }

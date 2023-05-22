@@ -132,7 +132,7 @@
                     <input
                       type="text"
                       class="form-control2"
-                      style="margin:10px ;"
+                      style="margin: 10px"
                       formControlName="email"
                       id="email"
                       name="email"
@@ -150,67 +150,64 @@
                   </div>
                 </div>
               </div>
-              <hr/>
+              <hr />
               <div class="card">
-               
                 <dx-data-grid
-                #grid
-               
-                id="gridContainer"
-                [dataSource]="listMedic"
-                [remoteOperations]="false"
-                [allowColumnReordering]="true"
-                [rowAlternationEnabled]="true"
-                [showBorders]="true"
-                (onContentReady)="contentReady($event)"
-               
-                [hoverStateEnabled]="true"
-                [selectedRowKeys]="[]"
-              
-              
-              >
-             
-                <dxo-paging [pageSize]="5"></dxo-paging>
-                <dxo-pager
-                  [showPageSizeSelector]="true"
-                  [allowedPageSizes]="[5, 25, 50, 100]"
-                ></dxo-pager>
-                <dxo-search-panel
-                  [visible]="true"
-                  [highlightCaseSensitive]="false"
-                ></dxo-search-panel>
-                <dxo-group-panel [visible]="true"></dxo-group-panel>
-                <dxo-grouping [autoExpandAll]="false"></dxo-grouping>
-                <dxo-selection mode="single"></dxo-selection>
+                  #grid
+                  id="gridContainer"
+                  [dataSource]="listMedic"
+                  [remoteOperations]="false"
+                  [allowColumnReordering]="true"
+                  [rowAlternationEnabled]="true"
+                  [showBorders]="true"
+                  (onContentReady)="contentReady($event)"
+                  [hoverStateEnabled]="true"
+                >
+                  <dxo-load-panel [enabled]="true"> </dxo-load-panel>
 
-                <dxi-column dataField="reference"  caption="Ref" alignment="left" ></dxi-column>
-                <dxi-column
-                  dataField="nomMedicament"
-                  caption="nomMedicament"
-                  dataType="string"
-               
-                  alignment="left"
-                ></dxi-column>
-               
-                <dxi-column dataField="etatRemb" caption="Remboursable" dataType="string"></dxi-column>
-               
+                  <dxo-filter-row [visible]="true"></dxo-filter-row>
+                  <dxo-paging [pageSize]="5"></dxo-paging>
+                  <dxo-pager
+                    [showPageSizeSelector]="true"
+                    [allowedPageSizes]="[5, 25, 50, 100]"
+                  ></dxo-pager>
+                  <dxo-search-panel
+                    [visible]="true"
+                    [highlightCaseSensitive]="false"
+                  ></dxo-search-panel>
+                  <dxo-group-panel [visible]="true"></dxo-group-panel>
+                  <dxo-grouping [autoExpandAll]="false"></dxo-grouping>
+                  <dxo-selection mode="single"></dxo-selection>
 
-               
-  
-               
-  
-                <div *dxTemplate="let d of 'isACellTemplate'">
-                  <div >
-                      <span class="badge bg-label-danger"
-                      > Non verifié(e)
-                      </span
-                    >
-                   
+                  <dxi-column
+                    dataField="reference"
+                    caption="Ref"
+                    alignment="left"
+                  ></dxi-column>
+                  <dxi-column
+                    dataField="nomMedicament"
+                    caption="nomMedicament"
+                    dataType="string"
+                    alignment="left"
+                  ></dxi-column>
+
+                  <dxi-column
+                    dataField="etatRemb"
+                    caption="Remboursable"
+                    dataType="string"
+                  ></dxi-column>
+
+                  <div *dxTemplate="let d of 'isACellTemplate'">
+                    <div>
+                      <span class="badge bg-label-danger">
+                        Non verifié(e)
+                      </span>
+                    </div>
                   </div>
-                </div>
-           
-               
-              </dx-data-grid>
+                </dx-data-grid>
+                <dx-load-indicator
+    [(visible)]="isLoadIndicatorVisible">
+</dx-load-indicator>
               </div>
               <!--/ Layout Demo -->
             </div>

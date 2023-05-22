@@ -54,7 +54,7 @@ export class OrdonnanceComponent implements OnInit {
      }
     this.dataSource = this.service.getEmployees();
     this.states = this.service.getStates();
-    this.profileService.getMemberProfileData("00310","A70230001").subscribe(async (res:any) => {
+    this.profileService.getMemberProfileData("00655","A70220033").subscribe(async (res:any) => {
       try {
       const jsonResult=(this.xmlToJson.xmlToJson(res))
       const obj=jsonResult['Envelope']['Body']['getContratAdherentByMatriculeResponse']['return']
