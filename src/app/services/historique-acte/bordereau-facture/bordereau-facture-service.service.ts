@@ -1,13 +1,17 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { CASE_DOSSIER_ARCHIVE, CASE_DOSSIER_REGLE_TOTALEMENT, CHAINE_VIDE, STATUT_DOSSIER_COURS_TRAITEMENT, STATUT_DOSSIER_REGLE, STATUT_DOSSIER_TRAITE_EN_ATTENTE_REGL } from 'src/app.constants';
 import { BordereauFacture } from 'src/app/models/bordereau/bordereau-facture.model';
+import { UpdateBordereauFacture } from 'src/app/models/bordereau/update-bordereau-facture.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BordereauFactureService {
   ELEMENT_BordereauData: BordereauFacture[] = [];
-  constructor() { }
+  bordereau_DATA:UpdateBordereauFacture[]=[]
+  constructor(private http:HttpClient) { }
 
   // "Bordereau facturé"
   createElementBordereauFacture(jsonObjfact: any): BordereauFacture[] {// any type required see : xmlTojson service
@@ -60,4 +64,56 @@ export class BordereauFactureService {
     }
     return caseStatus;
   }
+  //delete bordereau
+  deleteFactureBordereau(idFacture: string, idfactBord: string, commentaire: string, numFacture: string): Observable<any> {
+    const params = { 'idFacture': idFacture, 'idfactBord': idfactBord, 'commentaire': commentaire, 'numFacture': numFacture };
+    return this.http.post(
+      '/api/deleteFactureBordereau', params, { responseType: 'text' });
+  }
+  //partie enveloppe
+  addToTable(data: any): UpdateBordereauFacture[] {
+    this.bordereau_DATA = [];
+    if (data.borderaux) { // ng test requirements
+      const bordereauJson =
+        data.borderaux['Envelope']['Body']['getFactureBordereauByIdTierResponse']['return']['factureBordereauByIdTiersDtos'];
+      if (data.borderaux != null) {
+        if (!bordereauJson['empty']) {
+          if (data.borderaux['Envelope']['Body']['getFactureBordereauByIdTierResponse']['return']['nbrTotal'] > 1) {
+            for (const key in bordereauJson) {
+              if (bordereauJson.hasOwnProperty(key)) {
+                this.bordereau_DATA.push(
+                  {
+                    numTransaction: bordereauJson[key]['referenceFactureBordereau'],
+                    matriculeAssure: bordereauJson[key]['matriculeAdherent'],
+                    nomAssure: bordereauJson[key]['adherent'],
+                    nombeneficiaire: bordereauJson[key]['beneficiaire'],
+                    qualite_benef: bordereauJson[key]['qualite'],
+                    datetransaction: bordereauJson[key]['dateTransaction'],
+                    montantTicketModerateur: parseFloat(bordereauJson[key]['mntTicktModerateur']),
+                    restePayer: parseFloat(bordereauJson[key]['mntRestePayer']),
+                    id: bordereauJson[key]['id']
+                  });
+              }
+            }
+          } else {
+            this.bordereau_DATA.push(
+              {
+                numTransaction: bordereauJson['referenceFactureBordereau'],
+                matriculeAssure: bordereauJson['matriculeAdherent'],
+                nomAssure: bordereauJson['adherent'],
+                nombeneficiaire: bordereauJson['beneficiaire'],
+                qualite_benef: bordereauJson['qualite'],
+                datetransaction: bordereauJson['dateTransaction'],
+                montantTicketModerateur: parseFloat(bordereauJson['mntTicktModerateur']),
+                restePayer: parseFloat(bordereauJson['mntRestePayer']),
+                id: bordereauJson['id']
+              });
+          }
+        }
+        return this.bordereau_DATA;
+      }
+    }
+    return []; // Add a default return statement when the conditions are not met
+  }
+  
 }

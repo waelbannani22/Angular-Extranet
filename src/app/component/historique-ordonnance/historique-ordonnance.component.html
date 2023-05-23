@@ -765,6 +765,7 @@
                   </div>
                 </div>
               </dx-data-grid>
+              
               <button
               type="button"
               class="btn btn-success justify-content-end"
@@ -936,47 +937,162 @@
                     class="tab-pane fade"
                     id="navs-pills-justified-messages"
                     role="tabpanel"
+                    
                   >
-                    <div class="form-inline justify-content-end">
-                      <div class="form-group mr-2">
-                        <input
-                          type="date"
-                          [(ngModel)]="startDate"
-                          id="bs-datepicker-options"
-                          placeholder="MM/DD/YYYY"
-                          class="form-control"
-                        />
-                      </div>
-                      <p>TO</p>
-                      <div class="form-group mr-2">
-                        <input
-                          type="date"
-                          [(ngModel)]="endDate"
-                          id="bs-datepicker-options"
-                          placeholder="MM/DD/YYYY"
-                          class="form-control"
-                        />
-                      </div>
-                      <div class="form-group mr-2">
-                        <button
-                          type="button"
-                          class="btn btn-outline-secondary"
-                          (click)="filterList()"
+                   
+
+                   
+                  <dx-data-grid
+                  #grid2
+                  id="gridContainerNonFacture"
+                  [dataSource]="listBordereau"
+                  
+                  [remoteOperations]="false"
+                  [allowColumnResizing]="true"
+                  [allowColumnReordering]="true"
+                  [rowAlternationEnabled]="true"
+                  [showBorders]="true"
+                  (onContentReady)="contentReady($event)"
+                  [hoverStateEnabled]="true"
+                  [selectedRowKeys]="[]"
+                  [selection]="{
+                    mode: 'single',
+                    showCheckBoxesMode: 'always'
+                  }"
+                  
+                  
+                  
+                  [columnHidingEnabled]="true">
+                  
+                >
+                
+                <dxo-header-filter [visible]="true"></dxo-header-filter>
+                <dxo-filter-panel [visible]="true"></dxo-filter-panel>
+                  <dxo-paging [pageSize]="5"></dxo-paging>
+                  <dxo-filter-row [visible]="true"></dxo-filter-row>
+                  <dxo-pager
+                    [showPageSizeSelector]="true"
+                    [allowedPageSizes]="[5, 10, 25, 50]"
+                  ></dxo-pager>
+                  <dxo-search-panel
+                    [visible]="true"
+                    [highlightCaseSensitive]="false"
+                  ></dxo-search-panel>
+                  <dxo-group-panel [visible]="true"></dxo-group-panel>
+                  <dxo-grouping [autoExpandAll]="false"></dxo-grouping>
+                  <dxo-selection mode="single"></dxo-selection>
+                 
+                  <dxi-column
+                    dataField="ref"
+                    caption="Référence"
+                    
+                  ></dxi-column>
+                  <dxi-column
+                    dataField="date"
+                    caption="DATE FACTURATION"
+                    dataType="string"
+                    alignment="left"
+                    [hidingPriority]="2"
+                  ></dxi-column>
+                
+                  <dxi-column
+                    dataField="matriculeAssure"
+                    caption="MATRICULE DE L'ASSURÉ"
+                    dataType="string"
+                    alignment="left"
+                    [hidingPriority]="1"
+                  ></dxi-column>
+                  <dxi-column
+                    dataField="nbrPrest"
+                    caption="NOMBRE PRESTATIONS"
+                    dataType="string"
+                   [width]="100"
+                  ></dxi-column>
+                  <dxi-column
+                    dataField="numFact"
+                    caption="NUMERO FACTURE"
+                    dataType="string"
+                   
+                  ></dxi-column>
+                  <dxi-column
+                    dataField="mntBordereau"
+                    caption="MONTANT "
+                   
+                    dataType="string"
+                  ></dxi-column>
+                  <dxi-column
+                    dataField="statut"
+                    caption="STATUT"
+                    dataType="string"
+                    [width]="300"
+                  ></dxi-column>
+                  <dxi-column
+                 
+                  caption="Actions"
+                  dataType="string"
+                  cellTemplate="isACellTemplate"
+                ></dxi-column>
+              
+               
+           
+           
+  
+                  <div *dxTemplate="let d of 'isACellTemplate'">
+                    <div>
+                      <i
+                                  class="bx bxs-file bx-flashing bx-flip-horizontal col-md-2"
+                                  style="color: #a673fd"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#basicModall"
+                                ></i>
+                               
+                                   <i
+                                  
+                                  class="bx bx-printer col-md-2"
+                                  style="color: #a673fd"
+                                  (click)="openPdf(grid2.instance.getSelectedRowsData()[0].OpenUpdate)"
+                                 
+                                ></i>
+                                
+                               
+                               
+                                <i
+                                  class="bx bx-edit col-md-2"
+                                  style="color: #a673fd"
+                                  data-bs-toggle="modal"
+                                  data-bs-target="#basicModall2"
+                                ></i>
+                    </div>
+                  </div>
+                  <div *dxTemplate="let d of 'discountCellTemplate'">
+                    <div class="chart-cell">
+                      <dx-bullet
+                        [showTarget]="false"
+                        [showZeroLevel]="true"
+                        [startScaleValue]="0"
+                        [endScaleValue]="100"
+                        [value]="d.value * 100"
+                      >
+                        <dxo-size [width]="150" [height]="35"></dxo-size>
+                        <dxo-tooltip
+                          [enabled]="true"
+                          [paddingTopBottom]="2"
                         >
-                          filtrer
-                        </button>
-                      </div>
+                          <dxo-font [size]="18"></dxo-font>
+                        </dxo-tooltip>
+                        <dxo-margin
+                          [top]="5"
+                          [bottom]="0"
+                          [left]="5"
+                        ></dxo-margin>
+                      </dx-bullet>
                     </div>
-
-                    <div class="form-group">
-                      <input
-                        type="search"
-                        class="form-control"
-                        [(ngModel)]="filter"
-                        placeholder="Filtrer par nom "
-                      />
-                    </div>
-
+                  </div>
+                </dx-data-grid>
+               
+                <dx-load-indicator
+                [(visible)]="isLoadIndicatorVisible">
+                </dx-load-indicator>
                     <div class="table-responsive text-nowrap">
                       <table class="table">
                         <thead>

@@ -26,7 +26,12 @@ import {
 } from '../../helper/sortable-header.directive';
 import themes from 'devextreme/ui/themes';
 import { DxDataGridComponent } from 'devextreme-angular';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import { BordereauFacture } from 'src/app/models/bordereau/bordereau-facture.model';
+import * as pdfMake from 'pdfmake/build/pdfmake';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+
+
 @Component({
   selector: 'app-historique-ordonnance',
   templateUrl: './historique-ordonnance.component.html',
@@ -56,6 +61,7 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
   selectedItems: any[] = [];
   listHistorique: HistoriqueActe[] = [];
   listNonFacture: HistoriqueActeNonFacture[] = [];
+  listBordereau: BordereauFacture[] = [];
   paramsBord = new BordereauByIdTierParams();
   collapsed = false;
   scrollingConfig: any;
@@ -75,8 +81,8 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
   dataIdFactBord: Array<string> = [];
   montantFacture: number = 0;
   idFactBord: string = '';
-  isEnableButton:boolean=true;
-
+  isEnableButton: boolean = true;
+  isLoadIndicatorVisible: boolean = true;
   /*
   startDatee = new Date('2022-04-01');
   endDatee = new Date('2022-12-31');
@@ -90,6 +96,7 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
     private NonfactureService: NonFactureesGeneriqueService,
     private bordereauFactureService: BordereauFactureService,
     private loginService: LoginPharmacienService,
+
     private formBuilder: FormBuilder
   ) {
     if (!loginService.isAuthenticated()) {
@@ -97,7 +104,8 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
     }
     this.scrollingConfig = { mode: 'horizontal' };
     this.getHistorique();
-
+    this.getAllBordereau()
+    this.isLoadIndicatorVisible=true
     this.allMode = 'allPages';
     this.checkBoxesMode = 'always';
   }
@@ -158,7 +166,7 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
       dateFin: '',
       numPolice: 'A70220033',
       refFact: '',
-      pagesize: 200,
+      pagesize: 100,
       type: '',
       page: 0,
       natureDent: '',
@@ -247,7 +255,7 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
         '4462',
         this.montantFacture,
         '',
-       this.dateFacture,
+        this.dateFacture,
         'test',
         this.idFactBord,
         'A70220033'
@@ -263,9 +271,9 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
           } else {
             this.error = '500';
           }
-          this.loading = false; 
+          this.loading = false;
           // Wait until get response
-          this.callsweeet()
+          this.callsweeet();
         },
         (err) => {
           this.error = '500';
@@ -333,7 +341,7 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
     selectedRowsData: any;
   }) {
     // Handler of the "selectionChanged" event
-    this.isEnableButton=true
+    this.isEnableButton = true;
     //data of list facture
     this.dataIdFactBord = [];
     this.NonfactureListeSelectionees = e.selectedRowsData;
@@ -341,8 +349,11 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
     this.NbPresFact = this.NonfactureListeSelectionees.length;
     //calcul de montant totale
     this.montantFacture = 0;
-    if (this.NonfactureListeSelectionees.length > 0 && this.NonfactureListeSelectionees.length <=10 ) {
-      this.isEnableButton=false
+    if (
+      this.NonfactureListeSelectionees.length > 0 &&
+      this.NonfactureListeSelectionees.length <= 10
+    ) {
+      this.isEnableButton = false;
       for (const key in this.NonfactureListeSelectionees) {
         if (this.NonfactureListeSelectionees.hasOwnProperty(key)) {
           if (this.NonfactureListeSelectionees[key] === undefined) {
@@ -366,30 +377,123 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
     console.log(this.NonfactureListeSelectionees);
   }
   //call sweetalert
-  callsweeet(){
+  callsweeet() {
     let timerInterval: ReturnType<typeof setInterval>;
 
     Swal.fire({
       title: 'Veuillez patienter',
-     
+
       timer: 2000,
       timerProgressBar: true,
-      allowOutsideClick:false,
+      allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
-       
       },
       willClose: () => {
         clearInterval(timerInterval);
       },
-     
     }).then((result) => {
       /* Read more about handling dismissals below */
       if (result.dismiss === Swal.DismissReason.timer) {
         console.log('I was closed by the timer');
       }
     });
-    
-    
   }
+
+  //#region  "bodereau facture "
+  getAllBordereau() {
+    const params1: BordereauByIdTierParams = {
+      idTiers: '4462',
+      nature: '',
+      dateDeb: '',
+      dateFin: '',
+      numPolice: 'A70220033',
+      refFact: '',
+      pagesize: 20,
+      type: '',
+      page: 0,
+      natureDent: '',
+      filtre: '',
+      columnSort: '',
+      sortDir: '',
+    };
+    this.historiqueActeService
+      .getFacturePsByIdTier(params1)
+      .subscribe(async (result: any) => {
+        const jsonObj = this.xmlToJson.xmlToJson(result);
+        
+        if (jsonObj != null) {
+          if (
+            jsonObj['Envelope']['Body']['getFacturePsByIdTierResponse'] &&
+            jsonObj['Envelope']['Body']['getFacturePsByIdTierResponse'][
+              'return'
+            ] !== CHAINE_VIDE
+          ) {
+          }
+          this.isLoadIndicatorVisible=false
+          this.listBordereau =
+            this.bordereauFactureService.createElementBordereauFacture(jsonObj);
+            console.log(this.listBordereau)
+        }
+      });
+  }
+  //on change selection
+  onSelectionChanged2(e: {
+    currentSelectedRowKeys: any;
+    currentDeselectedRowKeys: any;
+    selectedRowKeys: any;
+    selectedRowsData: any;
+  }){
+
+  }
+  //pdf
+  openPdf(dataPdf: any): void {// dataPdf (partie d'envelope)
+    try {
+        const byteArray = new Uint8Array(atob(dataPdf['fileFact']).split('').map(char => char.charCodeAt(0)));
+    const file = new Blob([byteArray], { type: 'application/pdf' });
+    const fileURL = URL.createObjectURL(file);
+    //window.open(fileURL);
+    console.log(fileURL)
+    window.open("www.google.com")
+    } catch (error) {
+      console.error(error)
+    }
+  
+  }
+  //open update
+  openUpdate(details:any,action:string){
+    const params1: BordereauByIdTierParams = {
+      idTiers: '4462',
+      nature: '',
+      dateDeb: '',
+      dateFin: '',
+      numPolice: 'A70220033',
+      refFact: '',
+      pagesize: 5,
+      type: '1',
+      page: 0,
+      natureDent: '',
+      filtre: '',
+      columnSort: '',
+      sortDir: '',
+    };
+    this.historiqueActeService.getFactureBordereauByIdTier(params1).subscribe(async (res:any) => {
+        const jsonObjfact=this.xmlToJson.xmlToJson(res)
+        console.log(jsonObjfact)
+    })
+  }
+  //show test
+  show(element:any){
+    if(element==undefined){
+      alert("selectionnez un element")
+    }else
+    alert(element)
+  }
+  generatePDF(data:any): void {
+    const documentDefinition =data ;
+    pdfMake.createPdf(documentDefinition).open();
+  }
+  
+
+  //#endregion
 }

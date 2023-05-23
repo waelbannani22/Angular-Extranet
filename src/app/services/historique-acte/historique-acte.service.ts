@@ -17,7 +17,7 @@ export class HistoriqueActeService {
 
   getFacturePsByIdTier(params: BordereauByIdTierParams): Observable<any> {// back office response
     return this.http.post(
-      '/getFacturePsByIdTier', params, { responseType: 'text' });
+      'http://localhost:8089/Stage/Historique/getFacturePsByIdTier', params, { responseType: 'text' });
   }
   // Backoffice DB:genererBordereaux
   createFacture(idPs: string, montantFacture: number, numFacture: string,
