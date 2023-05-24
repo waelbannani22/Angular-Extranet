@@ -477,14 +477,10 @@
                     id="navs-pills-justified-home"
                     role="tabpanel"
                   >
-                    
-
-                  
                     <dx-data-grid
                       #grid
                       id="gridContainer"
                       [dataSource]="listHistorique"
-                      
                       [remoteOperations]="false"
                       [allowColumnResizing]="true"
                       [allowColumnReordering]="true"
@@ -493,12 +489,12 @@
                       (onContentReady)="contentReady($event)"
                       [hoverStateEnabled]="true"
                       [selectedRowKeys]="[]"
-                    
                       [scrolling]="scrollingConfig"
-                      [columnHidingEnabled]="true">
+                      [columnHidingEnabled]="true"
                     >
-                    <dxo-header-filter [visible]="true"></dxo-header-filter>
-                    <dxo-filter-panel [visible]="true"></dxo-filter-panel>
+                      >
+                      <dxo-header-filter [visible]="true"></dxo-header-filter>
+                      <dxo-filter-panel [visible]="true"></dxo-filter-panel>
                       <dxo-paging [pageSize]="5"></dxo-paging>
                       <dxo-pager
                         [showPageSizeSelector]="true"
@@ -560,29 +556,27 @@
                         dataType="string"
                       ></dxi-column>
                       <dxi-column
-                      dataField="numConsultation"
-                      [hidingPriority]="0"
-                      caption="N° CONSULTATION"
-                      dataType="string"
-                    ></dxi-column>
-                    <dxi-column
-                    dataField="montantTicketModerateur"
-                    caption="MONTANT DU TICKET MODÉRATEUR"
-                    dataType="string"
-
-                    [hidingPriority]="3"
-                  ></dxi-column>
-                  <dxi-column
-                  dataField="restePayer"
-                  caption="RESTE À PAYER"
-                  dataType="string"
-                ></dxi-column>
-                <dxi-column
-                dataField="statut"
-                caption="STATUT"
-                dataType="string"
-               
-              ></dxi-column>
+                        dataField="numConsultation"
+                        [hidingPriority]="0"
+                        caption="N° CONSULTATION"
+                        dataType="string"
+                      ></dxi-column>
+                      <dxi-column
+                        dataField="montantTicketModerateur"
+                        caption="MONTANT DU TICKET MODÉRATEUR"
+                        dataType="string"
+                        [hidingPriority]="3"
+                      ></dxi-column>
+                      <dxi-column
+                        dataField="restePayer"
+                        caption="RESTE À PAYER"
+                        dataType="string"
+                      ></dxi-column>
+                      <dxi-column
+                        dataField="statut"
+                        caption="STATUT"
+                        dataType="string"
+                      ></dxi-column>
 
                       <div *dxTemplate="let d of 'isACellTemplate'">
                         <div>
@@ -627,308 +621,298 @@
                 
                 -->
 
-                <dx-data-grid
-                #grid
-                id="gridContainerNonFacture"
-                [dataSource]="listHistorique"
-                
-                [remoteOperations]="false"
-                [allowColumnResizing]="true"
-                [allowColumnReordering]="true"
-                [rowAlternationEnabled]="true"
-                [showBorders]="true"
-                (onContentReady)="contentReady($event)"
-                [hoverStateEnabled]="true"
-                [selectedRowKeys]="[]"
-               
-                (onSelectionChanged)="onSelectionChanged($event)"
-                
-                [selection]="{
-                  mode: 'multiple',
-                  showCheckBoxesMode: 'always'
-                }"
-                [columnHidingEnabled]="true">
-                
-              >
-              <dxo-selection
-                [selectAllMode]="allMode"
-                [showCheckBoxesMode]="checkBoxesMode"
-                mode="multiple"
-              ></dxo-selection>
-              <dxo-header-filter [visible]="true"></dxo-header-filter>
-              <dxo-filter-panel [visible]="true"></dxo-filter-panel>
-                <dxo-paging [pageSize]="5"></dxo-paging>
-                <dxo-filter-row [visible]="true"></dxo-filter-row>
-                <dxo-pager
-                  [showPageSizeSelector]="true"
-                  [allowedPageSizes]="[5, 10, 25, 50]"
-                ></dxo-pager>
-                <dxo-search-panel
-                  [visible]="true"
-                  [highlightCaseSensitive]="false"
-                ></dxo-search-panel>
-                <dxo-group-panel [visible]="true"></dxo-group-panel>
-                <dxo-grouping [autoExpandAll]="false"></dxo-grouping>
-                <dxo-selection mode="single"></dxo-selection>
-
-                <dxi-column
-                  dataField="numTransaction"
-                  caption="numTransaction"
-                  [width]="150"
-                ></dxi-column>
-                <dxi-column
-                  dataField="numBorderau"
-                  caption="numBorderau"
-                  dataType="string"
-                  alignment="left"
-                  [hidingPriority]="4"
-                ></dxi-column>
-              
-                <dxi-column
-                  dataField="matriculeAssure"
-                  caption="MATRICULE DE L'ASSURÉ"
-                  dataType="string"
-                  alignment="left"
-                ></dxi-column>
-                <dxi-column
-                  dataField="nomAssure"
-                  caption="NOM DE L'ASSURÉ"
-                  dataType="string"
-                  [width]="200"
-                ></dxi-column>
-                <dxi-column
-                  dataField="nombeneficiaire"
-                  caption="NOM DU BÉNÉFICIAIRE"
-                  dataType="string"
-                  [width]="200"
-                ></dxi-column>
-                <dxi-column
-                  dataField="medecin"
-                  caption="Médecin"
-                  [hidingPriority]="1"
-                  dataType="string"
-                ></dxi-column>
-                <dxi-column
-                  dataField="datetransaction"
-                  caption="DATE TRANSACTION"
-                  dataType="string"
-                ></dxi-column>
-                <dxi-column
-                dataField="numConsultation"
-                [hidingPriority]="0"
-                caption="N° CONSULTATION"
-                dataType="string"
-              ></dxi-column>
-              <dxi-column
-              dataField="montantTicketModerateur"
-              caption="MONTANT DU TICKET MODÉRATEUR"
-              dataType="string"
-
-              [hidingPriority]="3"
-            ></dxi-column>
-            <dxi-column
-            dataField="restePayer"
-            caption="RESTE À PAYER"
-            dataType="string"
-          ></dxi-column>
-         
-
-                <div *dxTemplate="let d of 'isACellTemplate'">
-                  <div>
-                    <span class="badge bg-label-danger">
-                      Non verifié(e)
-                    </span>
-                  </div>
-                </div>
-                <div *dxTemplate="let d of 'discountCellTemplate'">
-                  <div class="chart-cell">
-                    <dx-bullet
-                      [showTarget]="false"
-                      [showZeroLevel]="true"
-                      [startScaleValue]="0"
-                      [endScaleValue]="100"
-                      [value]="d.value * 100"
+                    <dx-data-grid
+                      #grid
+                      id="gridContainerNonFacture"
+                      [dataSource]="listHistorique"
+                      [remoteOperations]="false"
+                      [allowColumnResizing]="true"
+                      [allowColumnReordering]="true"
+                      [rowAlternationEnabled]="true"
+                      [showBorders]="true"
+                      (onContentReady)="contentReady($event)"
+                      [hoverStateEnabled]="true"
+                      [selectedRowKeys]="[]"
+                      (onSelectionChanged)="onSelectionChanged($event)"
+                      [selection]="{
+                        mode: 'multiple',
+                        showCheckBoxesMode: 'always'
+                      }"
+                      [columnHidingEnabled]="true"
                     >
-                      <dxo-size [width]="150" [height]="35"></dxo-size>
-                      <dxo-tooltip
-                        [enabled]="true"
-                        [paddingTopBottom]="2"
                       >
-                        <dxo-font [size]="18"></dxo-font>
-                      </dxo-tooltip>
-                      <dxo-margin
-                        [top]="5"
-                        [bottom]="0"
-                        [left]="5"
-                      ></dxo-margin>
-                    </dx-bullet>
-                  </div>
-                </div>
-              </dx-data-grid>
-              
-              <button
-              type="button"
-              class="btn btn-success justify-content-end"
-              [disabled]="isEnableButton"
-              (click)="onSubmit()"
-              data-bs-toggle="modal"
-              data-bs-target="#largeModal"
-            >
-              Générer bordereau
-            </button>
-            <div class="col-lg-4 col-md-6">
-              <div class="mt-3">
-                <!-- Button trigger modal -->
+                      <dxo-selection
+                        [selectAllMode]="allMode"
+                        [showCheckBoxesMode]="checkBoxesMode"
+                        mode="multiple"
+                      ></dxo-selection>
+                      <dxo-header-filter [visible]="true"></dxo-header-filter>
+                      <dxo-filter-panel [visible]="true"></dxo-filter-panel>
+                      <dxo-paging [pageSize]="5"></dxo-paging>
+                      <dxo-filter-row [visible]="true"></dxo-filter-row>
+                      <dxo-pager
+                        [showPageSizeSelector]="true"
+                        [allowedPageSizes]="[5, 10, 25, 50]"
+                      ></dxo-pager>
+                      <dxo-search-panel
+                        [visible]="true"
+                        [highlightCaseSensitive]="false"
+                      ></dxo-search-panel>
+                      <dxo-group-panel [visible]="true"></dxo-group-panel>
+                      <dxo-grouping [autoExpandAll]="false"></dxo-grouping>
+                      <dxo-selection mode="single"></dxo-selection>
 
-                <!-- Modal for aading a facture -->
-                <div
-                  class="modal fade"
-                  id="largeModal"
-                  tabindex="-1"
-                  style="display: none"
-                  aria-hidden="true"
-                >
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h3><strong>Générer bordereau</strong></h3>
+                      <dxi-column
+                        dataField="numTransaction"
+                        caption="numTransaction"
+                        [width]="150"
+                      ></dxi-column>
+                      <dxi-column
+                        dataField="numBorderau"
+                        caption="numBorderau"
+                        dataType="string"
+                        alignment="left"
+                        [hidingPriority]="4"
+                      ></dxi-column>
+
+                      <dxi-column
+                        dataField="matriculeAssure"
+                        caption="MATRICULE DE L'ASSURÉ"
+                        dataType="string"
+                        alignment="left"
+                      ></dxi-column>
+                      <dxi-column
+                        dataField="nomAssure"
+                        caption="NOM DE L'ASSURÉ"
+                        dataType="string"
+                        [width]="200"
+                      ></dxi-column>
+                      <dxi-column
+                        dataField="nombeneficiaire"
+                        caption="NOM DU BÉNÉFICIAIRE"
+                        dataType="string"
+                        [width]="200"
+                      ></dxi-column>
+                      <dxi-column
+                        dataField="medecin"
+                        caption="Médecin"
+                        [hidingPriority]="1"
+                        dataType="string"
+                      ></dxi-column>
+                      <dxi-column
+                        dataField="datetransaction"
+                        caption="DATE TRANSACTION"
+                        dataType="string"
+                      ></dxi-column>
+                      <dxi-column
+                        dataField="numConsultation"
+                        [hidingPriority]="0"
+                        caption="N° CONSULTATION"
+                        dataType="string"
+                      ></dxi-column>
+                      <dxi-column
+                        dataField="montantTicketModerateur"
+                        caption="MONTANT DU TICKET MODÉRATEUR"
+                        dataType="string"
+                        [hidingPriority]="3"
+                      ></dxi-column>
+                      <dxi-column
+                        dataField="restePayer"
+                        caption="RESTE À PAYER"
+                        dataType="string"
+                      ></dxi-column>
+
+                      <div *dxTemplate="let d of 'isACellTemplate'">
+                        <div>
+                          <span class="badge bg-label-danger">
+                            Non verifié(e)
+                          </span>
+                        </div>
                       </div>
-                      <div class="modal-body">
-                        <div class="card mb-4">
-                          <div class="card-body">
-                            <form>
-                              <div class="row mb-3">
-                                <label
-                                  class="col-sm-6 col-form-label"
-                                  for="basic-default-name"
-                                  >Contractant:</label
-                                >
-                                <div class="col-sm-6">
-                                  <input
-                                    type="text"
-                                    [value]="444433"
-                                    class="form-control"
-                                    id="basic-default-name"
-                                    readonly
-                                  />
-                                </div>
-                              </div>
-                              <div class="row mb-3">
-                                <label
-                                  class="col-sm-6 col-form-label"
-                                  for="basic-default-company"
-                                  >Nombre de prestations
-                                  facturées:</label
-                                >
-                                <div class="col-sm-6">
-                                  <input
-                                    type="text"
-                                    [value]="NbPresFact"
-                                    class="form-control"
-                                    id="basic-default-company"
-                                    readonly
-                                  />
-                                </div>
-                              </div>
-                              <div class="row mb-3">
-                                <label
-                                  class="col-sm-6 col-form-label"
-                                  for="basic-default-company"
-                                  >Montant facture en TND:</label
-                                >
-                                <div class="col-sm-6">
-                                  <input
-                                  value="{{montantFacture}}"
-                                    type="text"
-                                    class="form-control"
-                                    id="basic-default-company"
-                                    readonly
-                                  />
-                                </div>
-                              </div>
-                              <div class="row mb-3">
-                                <label
-                                  class="col-sm-6 col-form-label"
-                                  for="basic-default-email"
-                                  >Date de facturation:</label
-                                >
-                                <div class="col-sm-6">
-                                  <div
-                                    class="input-group input-group-merge"
-                                  >
-                                  <dx-date-box [(value)]="selectedDate" displayFormat="dd-MM-yyyy"></dx-date-box>
+                      <div *dxTemplate="let d of 'discountCellTemplate'">
+                        <div class="chart-cell">
+                          <dx-bullet
+                            [showTarget]="false"
+                            [showZeroLevel]="true"
+                            [startScaleValue]="0"
+                            [endScaleValue]="100"
+                            [value]="d.value * 100"
+                          >
+                            <dxo-size [width]="150" [height]="35"></dxo-size>
+                            <dxo-tooltip
+                              [enabled]="true"
+                              [paddingTopBottom]="2"
+                            >
+                              <dxo-font [size]="18"></dxo-font>
+                            </dxo-tooltip>
+                            <dxo-margin
+                              [top]="5"
+                              [bottom]="0"
+                              [left]="5"
+                            ></dxo-margin>
+                          </dx-bullet>
+                        </div>
+                      </div>
+                    </dx-data-grid>
 
+                    <button
+                      type="button"
+                      class="btn btn-success justify-content-end"
+                      [disabled]="isEnableButton"
+                      (click)="onSubmit()"
+                      data-bs-toggle="modal"
+                      data-bs-target="#largeModal"
+                    >
+                      Générer bordereau
+                    </button>
+                    <div class="col-lg-4 col-md-6">
+                      <div class="mt-3">
+                        <!-- Button trigger modal -->
+
+                        <!-- Modal for aading a facture -->
+                        <div
+                          class="modal fade"
+                          id="largeModal"
+                          tabindex="-1"
+                          style="display: none"
+                          aria-hidden="true"
+                        >
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h3><strong>Générer bordereau</strong></h3>
+                              </div>
+                              <div class="modal-body">
+                                <div class="card mb-4">
+                                  <div class="card-body">
+                                    <form>
+                                      <div class="row mb-3">
+                                        <label
+                                          class="col-sm-6 col-form-label"
+                                          for="basic-default-name"
+                                          >Contractant:</label
+                                        >
+                                        <div class="col-sm-6">
+                                          <input
+                                            type="text"
+                                            [value]="444433"
+                                            class="form-control"
+                                            id="basic-default-name"
+                                            readonly
+                                          />
+                                        </div>
+                                      </div>
+                                      <div class="row mb-3">
+                                        <label
+                                          class="col-sm-6 col-form-label"
+                                          for="basic-default-company"
+                                          >Nombre de prestations
+                                          facturées:</label
+                                        >
+                                        <div class="col-sm-6">
+                                          <input
+                                            type="text"
+                                            [value]="NbPresFact"
+                                            class="form-control"
+                                            id="basic-default-company"
+                                            readonly
+                                          />
+                                        </div>
+                                      </div>
+                                      <div class="row mb-3">
+                                        <label
+                                          class="col-sm-6 col-form-label"
+                                          for="basic-default-company"
+                                          >Montant facture en TND:</label
+                                        >
+                                        <div class="col-sm-6">
+                                          <input
+                                            value="{{ montantFacture }}"
+                                            type="text"
+                                            class="form-control"
+                                            id="basic-default-company"
+                                            readonly
+                                          />
+                                        </div>
+                                      </div>
+                                      <div class="row mb-3">
+                                        <label
+                                          class="col-sm-6 col-form-label"
+                                          for="basic-default-email"
+                                          >Date de facturation:</label
+                                        >
+                                        <div class="col-sm-6">
+                                          <div
+                                            class="input-group input-group-merge"
+                                          >
+                                            <dx-date-box
+                                              [(value)]="selectedDate"
+                                              displayFormat="dd-MM-yyyy"
+                                            ></dx-date-box>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="row mb-3">
+                                        <label
+                                          class="col-sm-6 col-form-label"
+                                          for="basic-default-phone"
+                                          >N° Facture :</label
+                                        >
+                                        <div class="col-sm-6">
+                                          <input
+                                            type="text"
+                                            id="basic-default-phone"
+                                            class="form-control phone-mask"
+                                            placeholder="658 799 8941"
+                                            aria-label="658 799 8941"
+                                            aria-describedby="basic-default-phone"
+                                          />
+                                        </div>
+                                      </div>
+                                      <div class="row mb-3">
+                                        <label
+                                          class="col-sm-6 col-form-label"
+                                          for="basic-default-message"
+                                          >Commentaire:</label
+                                        >
+                                        <div class="col-sm-6">
+                                          <textarea
+                                            id="basic-default-message"
+                                            class="form-control"
+                                            aria-describedby="basic-icon-default-message2"
+                                          ></textarea>
+                                        </div>
+                                      </div>
+                                      <div class="row justify-content-center">
+                                        <div>
+                                          <button
+                                            type="submit"
+                                            class="btn btn-primary"
+                                            data-bs-dismiss="modal"
+                                            (click)="CreateFacture()"
+                                          >
+                                            Valider
+                                          </button>
+                                        </div>
+                                      </div>
+                                    </form>
                                   </div>
                                 </div>
                               </div>
-                              <div class="row mb-3">
-                                <label
-                                  class="col-sm-6 col-form-label"
-                                  for="basic-default-phone"
-                                  >N° Facture :</label
+                              <div class="modal-footer">
+                                <button
+                                  type="button"
+                                  class="btn btn-outline-secondary"
+                                  data-bs-dismiss="modal"
                                 >
-                                <div class="col-sm-6">
-                                  <input
-                                    type="text"
-                                    id="basic-default-phone"
-                                    class="form-control phone-mask"
-                                    placeholder="658 799 8941"
-                                    aria-label="658 799 8941"
-                                    aria-describedby="basic-default-phone"
-                                  />
-                                </div>
+                                  Fermer
+                                </button>
                               </div>
-                              <div class="row mb-3">
-                                <label
-                                  class="col-sm-6 col-form-label"
-                                  for="basic-default-message"
-                                  >Commentaire:</label
-                                >
-                                <div class="col-sm-6">
-                                  <textarea
-                                    id="basic-default-message"
-                                    class="form-control"
-                                    aria-describedby="basic-icon-default-message2"
-                                  ></textarea>
-                                </div>
-                              </div>
-                              <div class="row justify-content-center">
-                                <div>
-                                  <button
-                                    type="submit"
-                                    class="btn btn-primary"
-                                    data-bs-dismiss="modal"
-                                    (click)="CreateFacture()"
-                                  >
-                                    Valider
-                                  </button>
-                                </div>
-                              </div>
-                            </form>
+                            </div>
                           </div>
                         </div>
                       </div>
-                      <div class="modal-footer">
-                        <button
-                          type="button"
-                          class="btn btn-outline-secondary"
-                          data-bs-dismiss="modal"
-                        >
-                          Fermer
-                        </button>
-                      </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-                   
-
-                   
-
-                  
-                 
-                   
                   </div>
 
                   <!-- BORDEREAU -->
@@ -937,162 +921,280 @@
                     class="tab-pane fade"
                     id="navs-pills-justified-messages"
                     role="tabpanel"
-                    
                   >
-                   
-
-                   
-                  <dx-data-grid
-                  #grid2
-                  id="gridContainerNonFacture"
-                  [dataSource]="listBordereau"
-                  
-                  [remoteOperations]="false"
-                  [allowColumnResizing]="true"
-                  [allowColumnReordering]="true"
-                  [rowAlternationEnabled]="true"
-                  [showBorders]="true"
-                  (onContentReady)="contentReady($event)"
-                  [hoverStateEnabled]="true"
-                  [selectedRowKeys]="[]"
-                  [selection]="{
-                    mode: 'single',
-                    showCheckBoxesMode: 'always'
-                  }"
-                  
-                  
-                  
-                  [columnHidingEnabled]="true">
-                  
-                >
-                
-                <dxo-header-filter [visible]="true"></dxo-header-filter>
-                <dxo-filter-panel [visible]="true"></dxo-filter-panel>
-                  <dxo-paging [pageSize]="5"></dxo-paging>
-                  <dxo-filter-row [visible]="true"></dxo-filter-row>
-                  <dxo-pager
-                    [showPageSizeSelector]="true"
-                    [allowedPageSizes]="[5, 10, 25, 50]"
-                  ></dxo-pager>
-                  <dxo-search-panel
-                    [visible]="true"
-                    [highlightCaseSensitive]="false"
-                  ></dxo-search-panel>
-                  <dxo-group-panel [visible]="true"></dxo-group-panel>
-                  <dxo-grouping [autoExpandAll]="false"></dxo-grouping>
-                  <dxo-selection mode="single"></dxo-selection>
-                 
-                  <dxi-column
-                    dataField="ref"
-                    caption="Référence"
-                    
-                  ></dxi-column>
-                  <dxi-column
-                    dataField="date"
-                    caption="DATE FACTURATION"
-                    dataType="string"
-                    alignment="left"
-                    [hidingPriority]="2"
-                  ></dxi-column>
-                
-                  <dxi-column
-                    dataField="matriculeAssure"
-                    caption="MATRICULE DE L'ASSURÉ"
-                    dataType="string"
-                    alignment="left"
-                    [hidingPriority]="1"
-                  ></dxi-column>
-                  <dxi-column
-                    dataField="nbrPrest"
-                    caption="NOMBRE PRESTATIONS"
-                    dataType="string"
-                   [width]="100"
-                  ></dxi-column>
-                  <dxi-column
-                    dataField="numFact"
-                    caption="NUMERO FACTURE"
-                    dataType="string"
-                   
-                  ></dxi-column>
-                  <dxi-column
-                    dataField="mntBordereau"
-                    caption="MONTANT "
-                   
-                    dataType="string"
-                  ></dxi-column>
-                  <dxi-column
-                    dataField="statut"
-                    caption="STATUT"
-                    dataType="string"
-                    [width]="300"
-                  ></dxi-column>
-                  <dxi-column
-                 
-                  caption="Actions"
-                  dataType="string"
-                  cellTemplate="isACellTemplate"
-                ></dxi-column>
-              
-               
-           
-           
-  
-                  <div *dxTemplate="let d of 'isACellTemplate'">
-                    <div>
-                      <i
-                                  class="bx bxs-file bx-flashing bx-flip-horizontal col-md-2"
-                                  style="color: #a673fd"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#basicModall"
-                                ></i>
-                               
-                                   <i
-                                  
-                                  class="bx bx-printer col-md-2"
-                                  style="color: #a673fd"
-                                  (click)="openPdf(grid2.instance.getSelectedRowsData()[0].OpenUpdate)"
-                                 
-                                ></i>
-                                
-                               
-                               
-                                <i
-                                  class="bx bx-edit col-md-2"
-                                  style="color: #a673fd"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#basicModall2"
-                                ></i>
-                    </div>
-                  </div>
-                  <div *dxTemplate="let d of 'discountCellTemplate'">
-                    <div class="chart-cell">
-                      <dx-bullet
-                        [showTarget]="false"
-                        [showZeroLevel]="true"
-                        [startScaleValue]="0"
-                        [endScaleValue]="100"
-                        [value]="d.value * 100"
+                    <dx-data-grid
+                      #grid2
+                      id="gridContainerNonFacture"
+                      [dataSource]="listBordereau"
+                      [remoteOperations]="false"
+                      [allowColumnResizing]="true"
+                      [allowColumnReordering]="true"
+                      [rowAlternationEnabled]="true"
+                      [showBorders]="true"
+                      (onContentReady)="contentReady($event)"
+                      [hoverStateEnabled]="true"
+                      [selectedRowKeys]="[]"
+                      [selection]="{
+                        mode: 'single',
+                        showCheckBoxesMode: 'always'
+                      }"
+                      [columnHidingEnabled]="true"
+                    >
                       >
-                        <dxo-size [width]="150" [height]="35"></dxo-size>
-                        <dxo-tooltip
-                          [enabled]="true"
-                          [paddingTopBottom]="2"
+
+                      <dxo-header-filter [visible]="true"></dxo-header-filter>
+                      <dxo-filter-panel [visible]="true"></dxo-filter-panel>
+                      <dxo-paging [pageSize]="5"></dxo-paging>
+                      <dxo-filter-row [visible]="true"></dxo-filter-row>
+                      <dxo-pager
+                        [showPageSizeSelector]="true"
+                        [allowedPageSizes]="[5, 10, 25, 50]"
+                      ></dxo-pager>
+                      <dxo-search-panel
+                        [visible]="true"
+                        [highlightCaseSensitive]="false"
+                      ></dxo-search-panel>
+                      <dxo-group-panel [visible]="true"></dxo-group-panel>
+                      <dxo-grouping [autoExpandAll]="false"></dxo-grouping>
+                      <dxo-selection mode="single"></dxo-selection>
+
+                      <dxi-column
+                        dataField="ref"
+                        caption="Référence"
+                      ></dxi-column>
+                      <dxi-column
+                        dataField="date"
+                        caption="DATE FACTURATION"
+                        dataType="string"
+                        alignment="left"
+                        [hidingPriority]="2"
+                      ></dxi-column>
+
+                      <dxi-column
+                        dataField="matriculeAssure"
+                        caption="MATRICULE DE L'ASSURÉ"
+                        dataType="string"
+                        alignment="left"
+                        [hidingPriority]="1"
+                      ></dxi-column>
+                      <dxi-column
+                        dataField="nbrPrest"
+                        caption="NOMBRE PRESTATIONS"
+                        dataType="string"
+                        [width]="100"
+                      ></dxi-column>
+                      <dxi-column
+                        dataField="numFact"
+                        caption="NUMERO FACTURE"
+                        dataType="string"
+                      ></dxi-column>
+                      <dxi-column
+                        dataField="mntBordereau"
+                        caption="MONTANT "
+                        dataType="string"
+                      ></dxi-column>
+                      <dxi-column
+                        dataField="statut"
+                        caption="STATUT"
+                        dataType="string"
+                        [width]="300"
+                      ></dxi-column>
+                      <dxi-column
+                        caption="Actions"
+                        dataType="string"
+                        cellTemplate="isACellTemplate"
+                      ></dxi-column>
+
+                      <div *dxTemplate="let d of 'isACellTemplate'">
+                        <div>
+                          <i
+                            class="bx bxs-file bx-flashing bx-flip-horizontal col-md-2"
+                            style="color: #a673fd"
+                            data-bs-toggle="modal"
+                            (click)="
+                              openUpdate(
+                                grid2.instance.getSelectedRowsData()[0]
+                                  .OpenUpdate,
+                                'open',
+                                grid2.instance.getSelectedRowsData()[0].nbrPrest
+                              )
+                            "
+                          ></i>
+
+                          <i
+                            class="bx bx-printer col-md-2"
+                            style="color: #a673fd"
+                            (click)="
+                              openPdf(
+                                grid2.instance.getSelectedRowsData()[0]
+                                  .OpenUpdate
+                              )
+                            "
+                          ></i>
+
+                          <i
+                            class="bx bx-edit col-md-2"
+                            style="color: #a673fd"
+                            data-bs-toggle="modal"
+                            (click)="
+                              openUpdate(
+                                grid2.instance.getSelectedRowsData()[0]
+                                  .OpenUpdate,
+                                'update',
+                                grid2.instance.getSelectedRowsData()[0].nbrPrest
+                              )
+                            "
+                            data-bs-target="#basicModall2"
+                          ></i>
+                        </div>
+                      </div>
+                      <div *dxTemplate="let d of 'discountCellTemplate'">
+                        <div class="chart-cell">
+                          <dx-bullet
+                            [showTarget]="false"
+                            [showZeroLevel]="true"
+                            [startScaleValue]="0"
+                            [endScaleValue]="100"
+                            [value]="d.value * 100"
+                          >
+                            <dxo-size [width]="150" [height]="35"></dxo-size>
+                            <dxo-tooltip
+                              [enabled]="true"
+                              [paddingTopBottom]="2"
+                            >
+                              <dxo-font [size]="18"></dxo-font>
+                            </dxo-tooltip>
+                            <dxo-margin
+                              [top]="5"
+                              [bottom]="0"
+                              [left]="5"
+                            ></dxo-margin>
+                          </dx-bullet>
+                        </div>
+                      </div>
+                    </dx-data-grid>
+                    <dx-popup
+                      [width]="1000"
+                      [height]="700"
+                      [showTitle]="true"
+                      title="Modifier/consulter Bordereau"
+                      [dragEnabled]="true"
+                      [hideOnOutsideClick]="true"
+                      [showCloseButton]="true"
+                      container=".dx-viewport"
+                      [(visible)]="popupVisible"
+                      class="scrollable-popup"
+                    >
+                      <div *dxTemplate="let data of 'content'">
+                        <dx-scroll-view width="100%" height="100%">
+                        <dx-data-grid
+                        #grid2
+                        id="gridContainerUpdateBordeau"
+                        [dataSource]="bordereau_DATA"
+                        [remoteOperations]="false"
+                        [allowColumnResizing]="true"
+                        [allowColumnReordering]="false"
+                        [rowAlternationEnabled]="true"
+                        [showBorders]="true"
+                        (onContentReady)="contentReady($event)"
+                        [hoverStateEnabled]="true"
+                        [selectedRowKeys]="[]"
+                        [selection]="{
+                          mode: 'single',
+                          showCheckBoxesMode: 'always'
+                        }"
+                        [columnHidingEnabled]="true"
+                      >
                         >
-                          <dxo-font [size]="18"></dxo-font>
-                        </dxo-tooltip>
-                        <dxo-margin
-                          [top]="5"
-                          [bottom]="0"
-                          [left]="5"
-                        ></dxo-margin>
-                      </dx-bullet>
-                    </div>
-                  </div>
-                </dx-data-grid>
-               
-                <dx-load-indicator
-                [(visible)]="isLoadIndicatorVisible">
-                </dx-load-indicator>
+  
+                        <dxo-header-filter [visible]="true"></dxo-header-filter>
+                        <dxo-filter-panel [visible]="true"></dxo-filter-panel>
+                        <dxo-paging [pageSize]="5"></dxo-paging>
+                        <dxo-filter-row [visible]="true"></dxo-filter-row>
+                        <dxo-pager
+                          [showPageSizeSelector]="true"
+                          [allowedPageSizes]="[5, 10, 25, 50]"
+                        ></dxo-pager>
+                        <dxo-search-panel
+                          [visible]="true"
+                          [highlightCaseSensitive]="false"
+                        ></dxo-search-panel>
+                        <dxo-group-panel [visible]="true"></dxo-group-panel>
+                        <dxo-grouping [autoExpandAll]="false"></dxo-grouping>
+                        <dxo-selection mode="single"></dxo-selection>
+  
+                        <dxi-column
+                          dataField="numTransaction"
+                          caption="Num Transaction"
+                        ></dxi-column>
+                        <dxi-column
+                          dataField="matriculeAssure"
+                          caption="Matricule de l'assuré"
+                          dataType="string"
+                          alignment="left"
+                          [hidingPriority]="2"
+                        ></dxi-column>
+  
+                        <dxi-column
+                          dataField="nomAssure"
+                          caption="Nom de l'assuré"
+                          dataType="string"
+                          alignment="left"
+                          [hidingPriority]="1"
+                        ></dxi-column>
+                        <dxi-column
+                          dataField="nombeneficiaire"
+                          caption="Nom du Bénéficiaire"
+                          dataType="string"
+                         
+                        ></dxi-column>
+                        <dxi-column
+                          dataField="qualite_benef"
+                          caption="Qualité du bénéficiaire"
+                          dataType="string"
+                        ></dxi-column>
+                        <dxi-column
+                          dataField="datetransaction"
+                          caption="Date de presetations"
+                          dataType="string"
+                        ></dxi-column>
+                        <dxi-column
+                          dataField="montantTicketModerateur"
+                          caption="Montant du Ticket Modérateur"
+                          dataType="string"
+                         
+                        ></dxi-column>
+                        <dxi-column
+                          caption="Reste à payer en TTC"
+                          dataField="restePayer"
+                          dataType="string"
+                         
+                        ></dxi-column>
+                        <dxi-column
+                        caption="id"
+                        dataField="id"
+                        dataType="string"
+                       
+                      ></dxi-column>
+  
+                        <div *dxTemplate="let d of 'isACellTemplate'">
+                          <div>
+                           
+  
+                          
+  
+                           
+                          </div>
+                        </div>
+                       
+                      </dx-data-grid>
+                    </dx-scroll-view>
+                       
+                      
+                      </div>
+                    </dx-popup>
+                    <dx-load-indicator [(visible)]="isLoadIndicatorVisible">
+                    </dx-load-indicator>
                     <div class="table-responsive text-nowrap">
                       <table class="table">
                         <thead>
@@ -1419,7 +1521,6 @@
                                                   (pageChange)="p = $event"
                                                 ></pagination-controls>
                                               </div>
-
 
                                               <div
                                                 _ngcontent-chf-c64=""

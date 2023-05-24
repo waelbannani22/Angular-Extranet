@@ -30,7 +30,7 @@ import Swal from 'sweetalert2';
 import { BordereauFacture } from 'src/app/models/bordereau/bordereau-facture.model';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-
+import { UpdateBordereauFacture } from 'src/app/models/bordereau/update-bordereau-facture.model';
 
 @Component({
   selector: 'app-historique-ordonnance',
@@ -62,6 +62,8 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
   listHistorique: HistoriqueActe[] = [];
   listNonFacture: HistoriqueActeNonFacture[] = [];
   listBordereau: BordereauFacture[] = [];
+  bordereau_DATA: UpdateBordereauFacture[] = [];
+  bordereauDataSource: UpdateBordereauFacture[] = [];
   paramsBord = new BordereauByIdTierParams();
   collapsed = false;
   scrollingConfig: any;
@@ -83,6 +85,17 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
   idFactBord: string = '';
   isEnableButton: boolean = true;
   isLoadIndicatorVisible: boolean = true;
+  editObject = {
+    idFacture: '',
+    reference: '',
+    bordereau: '',
+    numFacture: '',
+    commentaire: '',
+    typeAction: '',
+  };
+  updateBordereauForm!: FormGroup;
+  popupVisible:boolean=false
+
   /*
   startDatee = new Date('2022-04-01');
   endDatee = new Date('2022-12-31');
@@ -96,6 +109,7 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
     private NonfactureService: NonFactureesGeneriqueService,
     private bordereauFactureService: BordereauFactureService,
     private loginService: LoginPharmacienService,
+    private updateBordereaueService:BordereauFactureService,
 
     private formBuilder: FormBuilder
   ) {
@@ -104,8 +118,8 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
     }
     this.scrollingConfig = { mode: 'horizontal' };
     this.getHistorique();
-    this.getAllBordereau()
-    this.isLoadIndicatorVisible=true
+    this.getAllBordereau();
+    this.isLoadIndicatorVisible = true;
     this.allMode = 'allPages';
     this.checkBoxesMode = 'always';
   }
@@ -421,7 +435,7 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
       .getFacturePsByIdTier(params1)
       .subscribe(async (result: any) => {
         const jsonObj = this.xmlToJson.xmlToJson(result);
-        
+
         if (jsonObj != null) {
           if (
             jsonObj['Envelope']['Body']['getFacturePsByIdTierResponse'] &&
@@ -430,10 +444,10 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
             ] !== CHAINE_VIDE
           ) {
           }
-          this.isLoadIndicatorVisible=false
+          this.isLoadIndicatorVisible = false;
           this.listBordereau =
             this.bordereauFactureService.createElementBordereauFacture(jsonObj);
-            console.log(this.listBordereau)
+          console.log(this.listBordereau);
         }
       });
   }
@@ -443,33 +457,35 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
     currentDeselectedRowKeys: any;
     selectedRowKeys: any;
     selectedRowsData: any;
-  }){
-
-  }
+  }) {}
   //pdf
-  openPdf(dataPdf: any): void {// dataPdf (partie d'envelope)
+  openPdf(dataPdf: any): void {
+    // dataPdf (partie d'envelope)
     try {
-        const byteArray = new Uint8Array(atob(dataPdf['fileFact']).split('').map(char => char.charCodeAt(0)));
-    const file = new Blob([byteArray], { type: 'application/pdf' });
-    const fileURL = URL.createObjectURL(file);
-    //window.open(fileURL);
-    console.log(fileURL)
-    window.open("www.google.com")
+      const byteArray = new Uint8Array(
+        atob(dataPdf['fileFact'])
+          .split('')
+          .map((char) => char.charCodeAt(0))
+      );
+      const file = new Blob([byteArray], { type: 'application/pdf' });
+      const fileURL = URL.createObjectURL(file);
+      //window.open(fileURL);
+      console.log(fileURL);
+      window.open('www.google.com');
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  
   }
   //open update
-  openUpdate(details:any,action:string){
+  openUpdate(details: any, action: string, nbPrestation: string) {
     const params1: BordereauByIdTierParams = {
       idTiers: '4462',
       nature: '',
       dateDeb: '',
       dateFin: '',
       numPolice: 'A70220033',
-      refFact: '',
-      pagesize: 5,
+      refFact: details['reference'],
+      pagesize: parseInt(nbPrestation),
       type: '1',
       page: 0,
       natureDent: '',
@@ -477,23 +493,52 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
       columnSort: '',
       sortDir: '',
     };
-    this.historiqueActeService.getFactureBordereauByIdTier(params1).subscribe(async (res:any) => {
-        const jsonObjfact=this.xmlToJson.xmlToJson(res)
-        console.log(jsonObjfact)
-    })
+    this.historiqueActeService
+      .getFactureBordereauByIdTier(params1)
+      .subscribe(async (res: any) => {
+        const jsonObjfact = this.xmlToJson.xmlToJson(res);
+        console.log(jsonObjfact);
+
+        this.editObject.bordereau = jsonObjfact;
+        this.editObject.commentaire = details['commentaire'];
+        this.editObject.idFacture = details['id'];
+        this.editObject.reference = details['reference'];
+        this.editObject.typeAction = action;
+        this.editObject.numFacture = details['numFact'];
+        var objectEdit={
+          borderaux:jsonObjfact,
+          commentaire:details['commentaire'],
+          idFacture:details['id'],
+          reference:details['reference'],
+          typeAction:action,
+          numFacture:details['numFact']
+
+        }
+
+        this.updateBordereauForm = this.formBuilder.group({
+          numFacture: [
+            details['numFact'],
+            [Validators.required, Validators.pattern(/^[0-9]+$/)],
+          ],
+          commentaire: [details['commentaire'], []],
+        });
+        this.bordereau_DATA=this.bordereauFactureService.addToTable(objectEdit)
+       // console.log(this.editObject.bordereau)
+
+        
+      });
+      this.popupVisible=true
   }
   //show test
-  show(element:any){
-    if(element==undefined){
-      alert("selectionnez un element")
-    }else
-    alert(element)
+  show(element: any) {
+    if (element == undefined) {
+      alert('selectionnez un element');
+    } else alert(element);
   }
-  generatePDF(data:any): void {
-    const documentDefinition =data ;
+  generatePDF(data: any): void {
+    const documentDefinition = data;
     pdfMake.createPdf(documentDefinition).open();
   }
-  
 
   //#endregion
 }

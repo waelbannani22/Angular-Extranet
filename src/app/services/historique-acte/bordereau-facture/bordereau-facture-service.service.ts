@@ -11,6 +11,7 @@ import { UpdateBordereauFacture } from 'src/app/models/bordereau/update-borderea
 export class BordereauFactureService {
   ELEMENT_BordereauData: BordereauFacture[] = [];
   bordereau_DATA:UpdateBordereauFacture[]=[]
+ 
   constructor(private http:HttpClient) { }
 
   // "Bordereau facturé"

@@ -152,6 +152,11 @@ th[sortable] {
     width: 100%;
     height: 100%;
   }
+  .scrollable-popup .dx-overlay-content {
+    max-height: 100%;
+    overflow-y: auto;
+  }
+  
 
   
   
