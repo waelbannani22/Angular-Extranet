@@ -34,7 +34,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { VerifMedicamentComponent } from './component/verif-medicament/verif-medicament.component';
 import { ReclamationsComponent } from './component/reclamations/reclamations.component';
 //
-import { DxBulletModule, DxButtonModule, DxCheckBoxModule, DxDataGridModule, DxDateBoxModule, DxListModule, DxLoadIndicatorModule, DxPopupModule, DxScrollViewModule, DxSelectBoxModule } from 'devextreme-angular';
+import { DxBulletModule, DxButtonModule, DxCheckBoxModule, DxDataGridModule, DxDateBoxModule, DxListModule, DxLoadIndicatorModule, DxPopupModule, DxScrollViewModule, DxSelectBoxModule, DxTextBoxModule } from 'devextreme-angular';
 import { VerifPharmacienComponent } from './component/verif-pharmacien/verif-pharmacien.component';
 export function tokenGetter() {
   return sessionStorage.getItem("token");
@@ -93,7 +93,8 @@ export function tokenGetter() {
     DxLoadIndicatorModule,
     DxDateBoxModule,
     DxListModule,
-    DxScrollViewModule
+    DxScrollViewModule,
+    DxTextBoxModule,
    
   ],
   providers: [authInterceptorProviders],

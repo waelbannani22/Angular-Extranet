@@ -938,7 +938,7 @@
                         mode: 'single',
                         showCheckBoxesMode: 'always'
                       }"
-                      [columnHidingEnabled]="true"
+                      [columnHidingEnabled]="false"
                     >
                       >
 
@@ -967,16 +967,8 @@
                         caption="DATE FACTURATION"
                         dataType="string"
                         alignment="left"
-                        [hidingPriority]="2"
                       ></dxi-column>
 
-                      <dxi-column
-                        dataField="matriculeAssure"
-                        caption="MATRICULE DE L'ASSURÉ"
-                        dataType="string"
-                        alignment="left"
-                        [hidingPriority]="1"
-                      ></dxi-column>
                       <dxi-column
                         dataField="nbrPrest"
                         caption="NOMBRE PRESTATIONS"
@@ -1087,793 +1079,174 @@
                     >
                       <div *dxTemplate="let data of 'content'">
                         <dx-scroll-view width="100%" height="100%">
-                        <dx-data-grid
-                        #grid2
-                        id="gridContainerUpdateBordeau"
-                        [dataSource]="bordereau_DATA"
-                        [remoteOperations]="false"
-                        [allowColumnResizing]="true"
-                        [allowColumnReordering]="false"
-                        [rowAlternationEnabled]="true"
-                        [showBorders]="true"
-                        (onContentReady)="contentReady($event)"
-                        [hoverStateEnabled]="true"
-                        [selectedRowKeys]="[]"
-                        [selection]="{
-                          mode: 'single',
-                          showCheckBoxesMode: 'always'
-                        }"
-                        [columnHidingEnabled]="true"
-                      >
-                        >
-  
-                        <dxo-header-filter [visible]="true"></dxo-header-filter>
-                        <dxo-filter-panel [visible]="true"></dxo-filter-panel>
-                        <dxo-paging [pageSize]="5"></dxo-paging>
-                        <dxo-filter-row [visible]="true"></dxo-filter-row>
-                        <dxo-pager
-                          [showPageSizeSelector]="true"
-                          [allowedPageSizes]="[5, 10, 25, 50]"
-                        ></dxo-pager>
-                        <dxo-search-panel
-                          [visible]="true"
-                          [highlightCaseSensitive]="false"
-                        ></dxo-search-panel>
-                        <dxo-group-panel [visible]="true"></dxo-group-panel>
-                        <dxo-grouping [autoExpandAll]="false"></dxo-grouping>
-                        <dxo-selection mode="single"></dxo-selection>
-  
-                        <dxi-column
-                          dataField="numTransaction"
-                          caption="Num Transaction"
-                        ></dxi-column>
-                        <dxi-column
-                          dataField="matriculeAssure"
-                          caption="Matricule de l'assuré"
-                          dataType="string"
-                          alignment="left"
-                          [hidingPriority]="2"
-                        ></dxi-column>
-  
-                        <dxi-column
-                          dataField="nomAssure"
-                          caption="Nom de l'assuré"
-                          dataType="string"
-                          alignment="left"
-                          [hidingPriority]="1"
-                        ></dxi-column>
-                        <dxi-column
-                          dataField="nombeneficiaire"
-                          caption="Nom du Bénéficiaire"
-                          dataType="string"
-                         
-                        ></dxi-column>
-                        <dxi-column
-                          dataField="qualite_benef"
-                          caption="Qualité du bénéficiaire"
-                          dataType="string"
-                        ></dxi-column>
-                        <dxi-column
-                          dataField="datetransaction"
-                          caption="Date de presetations"
-                          dataType="string"
-                        ></dxi-column>
-                        <dxi-column
-                          dataField="montantTicketModerateur"
-                          caption="Montant du Ticket Modérateur"
-                          dataType="string"
-                         
-                        ></dxi-column>
-                        <dxi-column
-                          caption="Reste à payer en TTC"
-                          dataField="restePayer"
-                          dataType="string"
-                         
-                        ></dxi-column>
-                        <dxi-column
-                        caption="id"
-                        dataField="id"
-                        dataType="string"
-                       
-                      ></dxi-column>
-  
-                        <div *dxTemplate="let d of 'isACellTemplate'">
-                          <div>
-                           
-  
-                          
-  
-                           
+                          <dx-data-grid
+                            #grid2
+                            id="gridContainerUpdateBordeau"
+                            [dataSource]="bordereau_DATA"
+                            [remoteOperations]="false"
+                            [allowColumnResizing]="true"
+                            [allowColumnReordering]="false"
+                            [rowAlternationEnabled]="true"
+                            [showBorders]="true"
+                            (onContentReady)="contentReady($event)"
+                            [hoverStateEnabled]="true"
+                            [selectedRowKeys]="[]"
+                            [selection]="{
+                              mode: 'single',
+                              showCheckBoxesMode: 'always'
+                            }"
+                            [columnHidingEnabled]="true"
+                          >
+                            >
+
+                            <dxo-header-filter
+                              [visible]="true"
+                            ></dxo-header-filter>
+                            <dxo-filter-panel
+                              [visible]="true"
+                            ></dxo-filter-panel>
+                            <dxo-paging [pageSize]="5"></dxo-paging>
+                            <dxo-filter-row [visible]="true"></dxo-filter-row>
+
+                            <dxo-search-panel
+                              [visible]="true"
+                              [highlightCaseSensitive]="false"
+                            ></dxo-search-panel>
+                            <dxo-group-panel [visible]="true"></dxo-group-panel>
+                            <dxo-grouping
+                              [autoExpandAll]="false"
+                            ></dxo-grouping>
+                            <dxo-selection mode="single"></dxo-selection>
+
+                            <dxi-column
+                              dataField="numTransaction"
+                              caption="Num Transaction"
+                            ></dxi-column>
+                            <dxi-column
+                              dataField="matriculeAssure"
+                              caption="Matricule de l'assuré"
+                              dataType="string"
+                              alignment="left"
+                              [hidingPriority]="2"
+                            ></dxi-column>
+
+                            <dxi-column
+                              dataField="nomAssure"
+                              caption="Nom de l'assuré"
+                              dataType="string"
+                              alignment="left"
+                              [hidingPriority]="1"
+                            ></dxi-column>
+                            <dxi-column
+                              dataField="nombeneficiaire"
+                              caption="Nom du Bénéficiaire"
+                              dataType="string"
+                            ></dxi-column>
+                            <dxi-column
+                              dataField="qualite_benef"
+                              caption="Qualité du bénéficiaire"
+                              dataType="string"
+                            ></dxi-column>
+                            <dxi-column
+                              dataField="datetransaction"
+                              caption="Date de presetations"
+                              dataType="string"
+                            ></dxi-column>
+                            <dxi-column
+                              dataField="montantTicketModerateur"
+                              caption="Montant du Ticket Modérateur"
+                              dataType="string"
+                            ></dxi-column>
+                            <dxi-column
+                              caption="Reste à payer en TTC"
+                              dataField="restePayer"
+                              dataType="string"
+                            ></dxi-column>
+                            <dxi-column
+                              caption="id"
+                              dataField="id"
+                              dataType="string"
+                            ></dxi-column>
+                          </dx-data-grid>
+                          <div class="form" [formGroup]="updateBordereauForm">
+                            <div class="dx-fieldset">
+                              <div class="dx-fieldset-header">Informations</div>
+                              <div class="dx-field">
+                                <div class="dx-field-label">num Facture</div>
+                                <dx-text-box
+                                  class="dx-field-value"
+                                  formControlName="numFacture"
+                                  [value]="numFacture"
+                                  [ngClass]="{
+                                    'is-invalid':
+                                      submmited && f['numFacture'].errors
+                                  }"
+                                >
+                                </dx-text-box>
+                              </div>
+                              <div class="dx-field">
+                                <div class="dx-field-label">Commentaire</div>
+                                <dx-text-box
+                                  class="dx-field-value"
+                                  formControlName="commentaire"
+                                  [value]="commentaire"
+                                >
+                                </dx-text-box>
+                              </div>
+                            </div>
+                            <button
+                              type="button"
+                              class="btn btn-success justify-content-end"
+                              
+                              (click)="showPopupWithScrollView()"
+                            >
+                              Modifier
+                            </button>
                           </div>
-                        </div>
-                       
-                      </dx-data-grid>
-                    </dx-scroll-view>
-                       
-                      
+                        </dx-scroll-view>
                       </div>
                     </dx-popup>
+
+                    <dx-popup
+                    [width]="360"
+                    [height]="320"
+                    [hideOnOutsideClick]="true"
+                    [showCloseButton]="true"
+                    [(visible)]="popupScrollViewVisible"
+                    title="Downtown Inn"
+                  >
+                    <div *dxTemplate="let data of 'content'">
+                      <dx-scroll-view width="100%" height="100%">
+                        <div >Description</div>
+                        In the heart of LA's business district, the Downtown Inn has a welcoming
+                        staff and award winning restaurants that remain open 24 hours a day. Use
+                        our conference room facilities to conduct meetings and have a drink at our
+                        beautiful rooftop bar.
+                        <br /><br />
+                        <div >
+                          <div>
+                            <div>Features</div>
+                            <div>Concierge</div>
+                            <div>Restaurant</div>
+                            <div>Valet Parking</div>
+                            <div>Fitness Center</div>
+                            <div>Sauna</div>
+                            <div>Airport Shuttle</div>
+                          </div>
+                          <div>
+                            <div >Rooms</div>
+                            <div>Climate control</div>
+                            <div>Air conditioning</div>
+                            <div>Coffee/tea maker</div>
+                            <div>Iron/ironing</div>
+                          </div>
+                        </div>
+                      </dx-scroll-view>
+                    </div>
+                   
+                  </dx-popup>
                     <dx-load-indicator [(visible)]="isLoadIndicatorVisible">
                     </dx-load-indicator>
-                    <div class="table-responsive text-nowrap">
-                      <table class="table">
-                        <thead>
-                          <tr>
-                            <th
-                              scope="col"
-                              sortable="name"
-                              (sort)="onSort($event)"
-                            >
-                              Référence
-                            </th>
-                            <th>Date de facturation</th>
-                            <th>Nombre de prestations</th>
-                            <th>Numero Facture</th>
-                            <th>Montant Bordereau</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody class="table-border-bottom-0">
-                          <tr
-                            *ngFor="
-                              let country of countries
-                                | country : filter
-                                | paginate
-                                  : { itemsPerPage: 10, currentPage: p }
-                            "
-                          >
-                            <td>
-                              <i
-                                class="fab fa-angular fa-lg text-danger me-3"
-                              ></i>
-                              <strong>{{ country.name }}</strong>
-                            </td>
-                            <td>Albert Cook</td>
-                            <td>
-                              <ul
-                                class="list-unstyled users-list m-0 avatar-group d-flex align-items-center"
-                              >
-                                <li
-                                  data-bs-toggle="tooltip"
-                                  data-popup="tooltip-custom"
-                                  data-bs-placement="top"
-                                  class="avatar avatar-xs pull-up"
-                                  title=""
-                                  data-bs-original-title="Lilian Fuller"
-                                >
-                                  <img
-                                    src="../assets/img/avatars/5.png"
-                                    alt="Avatar"
-                                    class="rounded-circle"
-                                  />
-                                </li>
-                                <li
-                                  data-bs-toggle="tooltip"
-                                  data-popup="tooltip-custom"
-                                  data-bs-placement="top"
-                                  class="avatar avatar-xs pull-up"
-                                  title=""
-                                  data-bs-original-title="Sophia Wilkerson"
-                                >
-                                  <img
-                                    src="../assets/img/avatars/6.png"
-                                    alt="Avatar"
-                                    class="rounded-circle"
-                                  />
-                                </li>
-                                <li
-                                  data-bs-toggle="tooltip"
-                                  data-popup="tooltip-custom"
-                                  data-bs-placement="top"
-                                  class="avatar avatar-xs pull-up"
-                                  title=""
-                                  data-bs-original-title="Christina Parker"
-                                >
-                                  <img
-                                    src="../assets/img/avatars/7.png"
-                                    alt="Avatar"
-                                    class="rounded-circle"
-                                  />
-                                </li>
-                              </ul>
-                            </td>
-                            <td>
-                              <span class="badge bg-label-primary me-1"
-                                >Active</span
-                              >
-                            </td>
-                            <td>
-                              <div class="dropdown">
-                                <button
-                                  type="button"
-                                  class="btn p-0 dropdown-toggle hide-arrow"
-                                  data-bs-toggle="dropdown"
-                                >
-                                  <i class="bx bx-dots-vertical-rounded"></i>
-                                </button>
-                                <div class="dropdown-menu">
-                                  <a
-                                    class="dropdown-item"
-                                    href="javascript:void(0);"
-                                    ><i class="bx bx-edit-alt me-1"></i> Edit</a
-                                  >
-                                  <a
-                                    class="dropdown-item"
-                                    href="javascript:void(0);"
-                                    ><i class="bx bx-trash me-1"></i> Delete</a
-                                  >
-                                </div>
-                              </div>
-                            </td>
-
-                            <td>{{ country.date }}</td>
-
-                            <td style="size: 32px">
-                              <div class="row mb-3">
-                                <i
-                                  class="bx bxs-file bx-flashing bx-flip-horizontal col-md-2"
-                                  style="color: #a673fd"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#basicModall"
-                                ></i>
-                                <i
-                                  class="bx bx-printer col-md-2"
-                                  style="color: #a673fd"
-                                ></i>
-                                <i
-                                  class="bx bx-edit col-md-2"
-                                  style="color: #a673fd"
-                                  data-bs-toggle="modal"
-                                  data-bs-target="#basicModall2"
-                                ></i>
-                                <div>
-                                  <div class="mt-3">
-                                    <!-- Button trigger modal -->
-
-                                    <!-- Modal -->
-                                    <div
-                                      class="modal fade fullscreen-modal"
-                                      id="basicModall"
-                                      tabindex="-1"
-                                      style="display: none"
-                                      aria-hidden="true"
-                                    >
-                                      <div
-                                        class="modal-dialog modal-fullscreen"
-                                        role="document"
-                                      >
-                                        <div class="modal-content">
-                                          <div class="modal-header">
-                                            <h3>
-                                              <strong
-                                                >Bordereau num9888888</strong
-                                              >
-                                            </h3>
-                                          </div>
-                                          <div class="modal-body">
-                                            <div class="form-group">
-                                              <input
-                                                type="search"
-                                                class="form-control"
-                                                [(ngModel)]="filter"
-                                                placeholder="Filtrer par nom "
-                                              />
-                                            </div>
-
-                                            <div
-                                              class="table-responsive text-nowrap"
-                                            >
-                                              <table class="table">
-                                                <thead>
-                                                  <tr>
-                                                    <th
-                                                      scope="col"
-                                                      sortable="name"
-                                                      (sort)="onSort($event)"
-                                                    >
-                                                      N° Transaction
-                                                    </th>
-                                                    <th>N° Bordereau</th>
-                                                    <th>Contractant</th>
-                                                    <th>
-                                                      Matricule de l'assuré
-                                                    </th>
-                                                    <th>Nom de l'assuré</th>
-                                                    <th>Nom du bénéficiaire</th>
-                                                    <th>
-                                                      Oualité du bénéficiaire
-                                                    </th>
-                                                    <th>Date transaction</th>
-                                                    <th>N° Consultation</th>
-                                                    <th>
-                                                      Montant du Ticket
-                                                      Modérateur
-                                                    </th>
-                                                    <th>Reste à payer</th>
-
-                                                    <th>Statut</th>
-                                                  </tr>
-                                                </thead>
-                                                <tbody
-                                                  class="table-border-bottom-0"
-                                                >
-                                                  <tr
-                                                    *ngFor="
-                                                      let country of countries
-                                                        | country : filter
-                                                        | paginate
-                                                          : {
-                                                              itemsPerPage: 10,
-                                                              currentPage: p
-                                                            }
-                                                    "
-                                                  >
-                                                    <td>
-                                                      <i
-                                                        class="fab fa-angular fa-lg text-danger me-3"
-                                                      ></i>
-                                                      <strong>{{
-                                                        country.name
-                                                      }}</strong>
-                                                    </td>
-                                                    <td>Albert Cook</td>
-                                                    <td>
-                                                      <ul
-                                                        class="list-unstyled users-list m-0 avatar-group d-flex align-items-center"
-                                                      >
-                                                        <li
-                                                          data-bs-toggle="tooltip"
-                                                          data-popup="tooltip-custom"
-                                                          data-bs-placement="top"
-                                                          class="avatar avatar-xs pull-up"
-                                                          title=""
-                                                          data-bs-original-title="Lilian Fuller"
-                                                        >
-                                                          <img
-                                                            src="../assets/img/avatars/5.png"
-                                                            alt="Avatar"
-                                                            class="rounded-circle"
-                                                          />
-                                                        </li>
-                                                        <li
-                                                          data-bs-toggle="tooltip"
-                                                          data-popup="tooltip-custom"
-                                                          data-bs-placement="top"
-                                                          class="avatar avatar-xs pull-up"
-                                                          title=""
-                                                          data-bs-original-title="Sophia Wilkerson"
-                                                        >
-                                                          <img
-                                                            src="../assets/img/avatars/6.png"
-                                                            alt="Avatar"
-                                                            class="rounded-circle"
-                                                          />
-                                                        </li>
-                                                        <li
-                                                          data-bs-toggle="tooltip"
-                                                          data-popup="tooltip-custom"
-                                                          data-bs-placement="top"
-                                                          class="avatar avatar-xs pull-up"
-                                                          title=""
-                                                          data-bs-original-title="Christina Parker"
-                                                        >
-                                                          <img
-                                                            src="../assets/img/avatars/7.png"
-                                                            alt="Avatar"
-                                                            class="rounded-circle"
-                                                          />
-                                                        </li>
-                                                      </ul>
-                                                    </td>
-                                                    <td>
-                                                      <span
-                                                        class="badge bg-label-primary me-1"
-                                                        >Active</span
-                                                      >
-                                                    </td>
-                                                    <td>
-                                                      <div class="dropdown">
-                                                        <button
-                                                          type="button"
-                                                          class="btn p-0 dropdown-toggle hide-arrow"
-                                                          data-bs-toggle="dropdown"
-                                                        >
-                                                          <i
-                                                            class="bx bx-dots-vertical-rounded"
-                                                          ></i>
-                                                        </button>
-                                                        <div
-                                                          class="dropdown-menu"
-                                                        >
-                                                          <a
-                                                            class="dropdown-item"
-                                                            href="javascript:void(0);"
-                                                            ><i
-                                                              class="bx bx-edit-alt me-1"
-                                                            ></i>
-                                                            Edit</a
-                                                          >
-                                                          <a
-                                                            class="dropdown-item"
-                                                            href="javascript:void(0);"
-                                                            ><i
-                                                              class="bx bx-trash me-1"
-                                                            ></i>
-                                                            Delete</a
-                                                          >
-                                                        </div>
-                                                      </div>
-                                                    </td>
-
-                                                    <td></td>
-                                                    <td>xx</td>
-                                                    <td>{{ country.date }}</td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>x</td>
-                                                  </tr>
-                                                </tbody>
-                                              </table>
-                                              <div style="text-align: center">
-                                                <pagination-controls
-                                                  (pageChange)="p = $event"
-                                                ></pagination-controls>
-                                              </div>
-
-                                              <div
-                                                _ngcontent-chf-c64=""
-                                                class="col mb-3"
-                                              >
-                                                <label
-                                                  _ngcontent-chf-c64=""
-                                                  for="nameBasic"
-                                                  class="form-label"
-                                                  >Numéro Facture </label
-                                                ><input
-                                                  _ngcontent-chf-c64=""
-                                                  readonly
-                                                  type="text"
-                                                  id="nameBasic"
-                                                  placeholder=""
-                                                  class="form-control"
-                                                  style="width: 500px"
-                                                />
-                                              </div>
-                                              <div
-                                                _ngcontent-chf-c64=""
-                                                class="col mb-3"
-                                              >
-                                                <label
-                                                  _ngcontent-chf-c64=""
-                                                  for="nameBasic"
-                                                  class="form-label"
-                                                  >Commentaire </label
-                                                ><input
-                                                  style="width: 500px"
-                                                  _ngcontent-chf-c64=""
-                                                  readonly
-                                                  type="text"
-                                                  id="nameBasic"
-                                                  placeholder=""
-                                                  class="form-control"
-                                                />
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div class="modal-footer">
-                                            <button
-                                              type="button"
-                                              class="btn btn-outline-secondary"
-                                              data-bs-dismiss="modal"
-                                            >
-                                              Fermer
-                                            </button>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div>
-                                  <div class="mt-3">
-                                    <!-- Button trigger modal -->
-
-                                    <!-- Modal -->
-                                    <div
-                                      class="modal fade fullscreen-modal"
-                                      id="basicModall2"
-                                      tabindex="-1"
-                                      style="display: none"
-                                      aria-hidden="true"
-                                    >
-                                      <div
-                                        class="modal-dialog modal-fullscreen"
-                                        role="document"
-                                      >
-                                        <div class="modal-content">
-                                          <div class="modal-header">
-                                            <h3>
-                                              <strong
-                                                >Bordereau num9888888</strong
-                                              >
-                                            </h3>
-                                          </div>
-                                          <div class="modal-body">
-                                            <div class="form-group">
-                                              <input
-                                                type="search"
-                                                class="form-control"
-                                                [(ngModel)]="filter"
-                                                placeholder="Filtrer par nom "
-                                              />
-                                            </div>
-
-                                            <div
-                                              class="table-responsive text-nowrap"
-                                            >
-                                              <table class="table">
-                                                <thead>
-                                                  <tr>
-                                                    <th
-                                                      style="width: 10px"
-                                                    ></th>
-                                                    <th
-                                                      scope="col"
-                                                      sortable="name"
-                                                      (sort)="onSort($event)"
-                                                    >
-                                                      N° transaction
-                                                    </th>
-                                                    <th>
-                                                      Matricule de l'assuré
-                                                    </th>
-                                                    <th>Nom du Bénéficiaire</th>
-                                                    <th>
-                                                      Qualité du Bénéficiaire
-                                                    </th>
-                                                    <th>
-                                                      Référence transaction
-                                                      extranet
-                                                    </th>
-                                                    <th>
-                                                      Date de presetations
-                                                    </th>
-                                                    <th>
-                                                      Montant du Ticket
-                                                      Modérateur
-                                                    </th>
-                                                    <th>
-                                                      Reste à payer en TTC
-                                                    </th>
-                                                  </tr>
-                                                </thead>
-                                                <tbody
-                                                  class="table-border-bottom-0"
-                                                >
-                                                  <tr
-                                                    *ngFor="
-                                                      let country of countries
-                                                        | country : filter
-                                                        | paginate
-                                                          : {
-                                                              itemsPerPage: 10,
-                                                              currentPage: p
-                                                            }
-                                                    "
-                                                  >
-                                                    <td style="width: 10px">
-                                                      <input
-                                                        type="checkbox"
-                                                        [checked]="
-                                                          isSelected(country)
-                                                        "
-                                                        (change)="
-                                                          onSelectItem(
-                                                            $event,
-                                                            country
-                                                          )
-                                                        "
-                                                      />
-                                                    </td>
-                                                    <td>
-                                                      <i
-                                                        class="fab fa-angular fa-lg text-danger me-3"
-                                                      ></i>
-                                                      <strong>{{
-                                                        country.name
-                                                      }}</strong>
-                                                    </td>
-                                                    <td>Albert Cook</td>
-                                                    <td>
-                                                      <ul
-                                                        class="list-unstyled users-list m-0 avatar-group d-flex align-items-center"
-                                                      >
-                                                        <li
-                                                          data-bs-toggle="tooltip"
-                                                          data-popup="tooltip-custom"
-                                                          data-bs-placement="top"
-                                                          class="avatar avatar-xs pull-up"
-                                                          title=""
-                                                          data-bs-original-title="Lilian Fuller"
-                                                        >
-                                                          <img
-                                                            src="../assets/img/avatars/5.png"
-                                                            alt="Avatar"
-                                                            class="rounded-circle"
-                                                          />
-                                                        </li>
-                                                        <li
-                                                          data-bs-toggle="tooltip"
-                                                          data-popup="tooltip-custom"
-                                                          data-bs-placement="top"
-                                                          class="avatar avatar-xs pull-up"
-                                                          title=""
-                                                          data-bs-original-title="Sophia Wilkerson"
-                                                        >
-                                                          <img
-                                                            src="../assets/img/avatars/6.png"
-                                                            alt="Avatar"
-                                                            class="rounded-circle"
-                                                          />
-                                                        </li>
-                                                        <li
-                                                          data-bs-toggle="tooltip"
-                                                          data-popup="tooltip-custom"
-                                                          data-bs-placement="top"
-                                                          class="avatar avatar-xs pull-up"
-                                                          title=""
-                                                          data-bs-original-title="Christina Parker"
-                                                        >
-                                                          <img
-                                                            src="../assets/img/avatars/7.png"
-                                                            alt="Avatar"
-                                                            class="rounded-circle"
-                                                          />
-                                                        </li>
-                                                      </ul>
-                                                    </td>
-                                                    <td>
-                                                      <span
-                                                        class="badge bg-label-primary me-1"
-                                                        >Active</span
-                                                      >
-                                                    </td>
-                                                    <td>
-                                                      <div class="dropdown">
-                                                        <button
-                                                          type="button"
-                                                          class="btn p-0 dropdown-toggle hide-arrow"
-                                                          data-bs-toggle="dropdown"
-                                                        >
-                                                          <i
-                                                            class="bx bx-dots-vertical-rounded"
-                                                          ></i>
-                                                        </button>
-                                                        <div
-                                                          class="dropdown-menu"
-                                                        >
-                                                          <a
-                                                            class="dropdown-item"
-                                                            href="javascript:void(0);"
-                                                            ><i
-                                                              class="bx bx-edit-alt me-1"
-                                                            ></i>
-                                                            Edit</a
-                                                          >
-                                                          <a
-                                                            class="dropdown-item"
-                                                            href="javascript:void(0);"
-                                                            ><i
-                                                              class="bx bx-trash me-1"
-                                                            ></i>
-                                                            Delete</a
-                                                          >
-                                                        </div>
-                                                      </div>
-                                                    </td>
-
-                                                    <td></td>
-                                                    <td>xx</td>
-                                                    <td>{{ country.date }}</td>
-                                                  </tr>
-                                                </tbody>
-                                              </table>
-                                              <div style="text-align: center">
-                                                <pagination-controls
-                                                  (pageChange)="p = $event"
-                                                ></pagination-controls>
-                                              </div>
-                                              <div id="twoInput">
-                                                <div
-                                                  class="col mb-3"
-                                                  style="
-                                                    justify-content: center;
-                                                    align-items: center;
-                                                    display: flex;
-                                                    margin-top: 10px;
-                                                  "
-                                                >
-                                                  <label
-                                                    _ngcontent-chf-c64=""
-                                                    for="nameBasic"
-                                                    class="form-label"
-                                                    style="margin-left: 10px"
-                                                    >Numéro Facture :</label
-                                                  >
-                                                  <br />
-                                                  <input
-                                                    _ngcontent-chf-c64=""
-                                                    type="text"
-                                                    id="nameBasic"
-                                                    placeholder=""
-                                                    class="form-control"
-                                                  />
-                                                </div>
-                                                <div
-                                                  class="col mb-3"
-                                                  style="
-                                                    justify-content: center;
-                                                    align-items: center;
-                                                    display: flex;
-                                                  "
-                                                >
-                                                  <label
-                                                    for="nameBasic"
-                                                    class="form-label"
-                                                    style="margin: 10px"
-                                                    >Commentaire :</label
-                                                  ><input
-                                                    style="
-                                                      align-content: center;
-                                                      width: 300px;
-                                                    "
-                                                    type="text"
-                                                    id="nameBasic"
-                                                    placeholder=""
-                                                    class="form-control"
-                                                  />
-                                                </div>
-                                                <button
-                                                  style="
-                                                    justify-content: end;
-                                                    margin-bottom: 10px;
-                                                  "
-                                                  type="button"
-                                                  class="btn btn-outline-primary"
-                                                  data-bs-dismiss="modal"
-                                                >
-                                                  Valider
-                                                </button>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <div class="modal-footer">
-                                            <button
-                                              type="button"
-                                              class="btn btn-outline-secondary"
-                                              data-bs-dismiss="modal"
-                                            >
-                                              Fermer
-                                            </button>
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <div style="text-align: center">
-                        <pagination-controls
-                          (pageChange)="p = $event"
-                        ></pagination-controls>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>

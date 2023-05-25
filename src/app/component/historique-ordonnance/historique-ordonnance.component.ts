@@ -5,7 +5,7 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CHAINE_VIDE } from 'src/app.constants';
 import { XMLTOJSON } from 'src/app/helper/xml-tojson.service';
@@ -42,6 +42,7 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
   isShowDivIf = true;
   dataSourceConsultationHistory: any;
   NonfactureListeSelectionees: HistoriqueActeNonFacture[] = [];
+  popupScrollViewVisible: boolean=false;
   toggleDisplayDivIf() {
     this.isShowDivIf = !this.isShowDivIf;
   }
@@ -57,7 +58,7 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
   dataGrid!: DxDataGridComponent;
 
   p: number = 1;
-
+  submmited=false
   selectedItems: any[] = [];
   listHistorique: HistoriqueActe[] = [];
   listNonFacture: HistoriqueActeNonFacture[] = [];
@@ -93,8 +94,16 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
     commentaire: '',
     typeAction: '',
   };
-  updateBordereauForm!: FormGroup;
-  popupVisible:boolean=false
+  updateBordereauForm: FormGroup = new FormGroup({
+    numFacture: new FormControl(''),
+    commentaire:new FormControl('')
+  }) 
+  popupVisible: boolean = false;
+  isEnableButtonModifier:boolean=true
+  numFacture!:string
+  commentaire!:string
+
+  bookButtonOptions!:any
 
   /*
   startDatee = new Date('2022-04-01');
@@ -109,7 +118,7 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
     private NonfactureService: NonFactureesGeneriqueService,
     private bordereauFactureService: BordereauFactureService,
     private loginService: LoginPharmacienService,
-    private updateBordereaueService:BordereauFactureService,
+    private updateBordereaueService: BordereauFactureService,
 
     private formBuilder: FormBuilder
   ) {
@@ -505,16 +514,14 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
         this.editObject.reference = details['reference'];
         this.editObject.typeAction = action;
         this.editObject.numFacture = details['numFact'];
-        var objectEdit={
-          borderaux:jsonObjfact,
-          commentaire:details['commentaire'],
-          idFacture:details['id'],
-          reference:details['reference'],
-          typeAction:action,
-          numFacture:details['numFact']
-
-        }
-
+        var objectEdit = {
+          borderaux: jsonObjfact,
+          commentaire: details['commentaire'],
+          idFacture: details['id'],
+          reference: details['reference'],
+          typeAction: action,
+          numFacture: details['numFact'],
+        };
         this.updateBordereauForm = this.formBuilder.group({
           numFacture: [
             details['numFact'],
@@ -522,12 +529,33 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
           ],
           commentaire: [details['commentaire'], []],
         });
-        this.bordereau_DATA=this.bordereauFactureService.addToTable(objectEdit)
-       // console.log(this.editObject.bordereau)
-
-        
+        this.numFacture=details['numFact']
+        this.commentaire=details['commentaire']
+        this.bordereau_DATA =
+          this.bordereauFactureService.addToTable(objectEdit);
+        // console.log(this.editObject.bordereau)
       });
-      this.popupVisible=true
+    this.popupVisible = true;
+    this.bookButtonOptions = {
+      width: 300,
+      text: "Modifier",
+      type: "default",
+      stylingMode: "contained",
+      onClick: () => {
+        this.popupVisible = false;
+        this.popupScrollViewVisible = true;
+      }
+    };
+    //pop up is open
+    if(action=='open'){
+      this.updateBordereauForm.controls['commentaire'].disable()
+      this.updateBordereauForm.controls['numFacture'].disable()
+      this.isEnableButtonModifier=true
+    }else{
+      this.updateBordereauForm.controls['commentaire'].enable()
+      this.updateBordereauForm.controls['numFacture'].enable()
+      this.isEnableButtonModifier=false
+    }
   }
   //show test
   show(element: any) {
@@ -535,9 +563,24 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
       alert('selectionnez un element');
     } else alert(element);
   }
+  showPopup() {
+    this.popupVisible = true;
+  }
+
+  showPopupWithScrollView() {
+    this.popupVisible=false
+    this.popupScrollViewVisible = true;
+  }
   generatePDF(data: any): void {
     const documentDefinition = data;
     pdfMake.createPdf(documentDefinition).open();
+  }
+  //getter
+  get f(): { [key: string]: AbstractControl } {
+    return this.updateBordereauForm.controls;
+  }
+  updateFacture(){
+    this.submmited=true
   }
 
   //#endregion
