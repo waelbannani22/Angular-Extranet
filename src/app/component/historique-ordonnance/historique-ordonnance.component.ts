@@ -82,7 +82,7 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
   loading = false;
   nbPrest!: number;
   dataIdFactBord: Array<string> = [];
-  montantFacture: number = 0;
+  montantFacture!: number ;
   idFactBord: string = '';
   isEnableButton: boolean = true;
   isLoadIndicatorVisible: boolean = true;
@@ -96,7 +96,8 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
   };
   updateBordereauForm: FormGroup = new FormGroup({
     numFacture: new FormControl(''),
-    commentaire:new FormControl('')
+    commentaire:new FormControl(''),
+    dateFacturation:new FormControl('')
   }) 
   popupVisible: boolean = false;
   isEnableButtonModifier:boolean=true
@@ -127,7 +128,9 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
     }
     this.scrollingConfig = { mode: 'horizontal' };
     this.getHistorique();
+    this.getNonFacture()
     this.getAllBordereau();
+   
     this.isLoadIndicatorVisible = true;
     this.allMode = 'allPages';
     this.checkBoxesMode = 'always';
@@ -176,7 +179,7 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
     this.paramsBord.nature = CHAINE_VIDE;
     this.paramsBord.dateDeb = CHAINE_VIDE;
     this.paramsBord.dateFin = CHAINE_VIDE;
-    this.paramsBord.numPolice = 'A70220033';
+    this.paramsBord.numPolice = '2022701000001';
     this.paramsBord.refFact = CHAINE_VIDE;
     this.paramsBord.pagesize = 200;
     this.paramsBord.type = CHAINE_VIDE;
@@ -187,9 +190,9 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
       nature: '',
       dateDeb: '',
       dateFin: '',
-      numPolice: 'A70220033',
+      numPolice: '',
       refFact: '',
-      pagesize: 100,
+      pagesize: 200,
       type: '',
       page: 0,
       natureDent: '',
@@ -198,7 +201,7 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
       sortDir: '',
     };
 
-    console.log('params' + this.paramsBord);
+   // console.log('params' + this.paramsBord);
     // last CHAINE VIDE : this.typeFacture
     this.historiqueActeService.getFactureBordereauByIdTier(params).subscribe(
       (data) => {
@@ -217,19 +220,21 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.NbPresFact)
     this.gBOrdereauForm = this.formBuilder.group({
-      contractant: [{ value: this.nom, disabled: true }],
-      nbPresfact: [{ value: this.nbPrest, disabled: true }],
-      dateFacture: [{ value: this.dateFacture, disabled: true }],
+      contractant: [{ value:'', disabled: true }],
+      nbPresfact: [{ value: '', disabled: true }],
+      montant:[{value:0,disabled:true}],
+      dateFacture: [{ value: ''}],
       numFacture: [
-        this.gBordereau.numFacture,
+       '',
         [
           Validators.required,
           // Validators.pattern(/^[0-9]+$/),
           Validators.pattern(/^[a-zA-Z0-9'-'\s]+$/),
         ],
       ],
-      commentaire: [this.gBordereau.commentaire, []],
+      commentaire: ['', []],
     });
   }
   onSort({ column, direction }: SortEvent) {
@@ -273,13 +278,14 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
     }
 
     //console.log("montant facture"+this.montantFacture +"idfactbord:"+idFactBord)
-    this.historiqueActeService
+    
+      this.historiqueActeService
       .createFacture(
         '4462',
         this.montantFacture,
-        '',
+        this.gBOrdereauForm.value.numFacture,
         this.dateFacture,
-        'test',
+        this.gBOrdereauForm.value.commentaire,
         this.idFactBord,
         'A70220033'
       )
@@ -296,7 +302,7 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
           }
           this.loading = false;
           // Wait until get response
-          this.callsweeet();
+         // this.callsweeet();
         },
         (err) => {
           this.error = '500';
@@ -304,6 +310,8 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
           this.loading = false;
         }
       );
+    
+    
   }
   // non facturées
   getNonFacture(): void {
@@ -325,19 +333,21 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
       sortDir: '',
     };
     // this.historiqueData['typeFacture'] à verifier
-    this.dataGrid.instance.beginCustomLoading('Patientez svp');
+    
     this.historiqueActeService.getFactureBordereauByIdTier(params1).subscribe(
       (data) => {
         const jsonObjfact = this.xmlToJson.xmlToJson(data);
         if (jsonObjfact != null) {
-          this.listNonFacture = jsonObjfact;
-          this.dataGrid.instance.endCustomLoading();
+          var arr:HistoriqueActe[]=[]
+          arr=jsonObjfact
+          this.listNonFacture =jsonObjfact
+         
         }
-        this.dataGrid.instance.endCustomLoading();
+       
       },
       (err) => {
         console.error(err);
-        this.dataGrid.instance.endCustomLoading();
+        
       }
     );
   }
@@ -367,6 +377,11 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
     this.isEnableButton = true;
     //data of list facture
     this.dataIdFactBord = [];
+    
+    this.gBOrdereauForm.controls['contractant'].setValue('A70220033')
+    this.gBOrdereauForm.controls['nbPresfact'].setValue(this.NonfactureListeSelectionees.length+1)
+    
+    
     this.NonfactureListeSelectionees = e.selectedRowsData;
     //nb de facture
     this.NbPresFact = this.NonfactureListeSelectionees.length;
@@ -392,9 +407,10 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
               '"}';
             this.dataIdFactBord.push(jsonidFactBord);
           }
-        }
-      }
+        }else{}
+      } 
     }
+    this.gBOrdereauForm.controls['montant'].setValue(this.montantFacture)
     this.idFactBord = '{"listeFact":[' + this.dataIdFactBord + ']}';
 
     console.log(this.NonfactureListeSelectionees);
@@ -414,6 +430,7 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
       },
       willClose: () => {
         clearInterval(timerInterval);
+        window.location.reload()
       },
     }).then((result) => {
       /* Read more about handling dismissals below */
@@ -432,7 +449,7 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
       dateFin: '',
       numPolice: 'A70220033',
       refFact: '',
-      pagesize: 20,
+      pagesize: 50,
       type: '',
       page: 0,
       natureDent: '',

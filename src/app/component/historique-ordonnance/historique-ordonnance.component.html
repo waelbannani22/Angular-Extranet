@@ -785,7 +785,7 @@
                               <div class="modal-body">
                                 <div class="card mb-4">
                                   <div class="card-body">
-                                    <form>
+                                    <form [formGroup]="gBOrdereauForm">
                                       <div class="row mb-3">
                                         <label
                                           class="col-sm-6 col-form-label"
@@ -795,7 +795,7 @@
                                         <div class="col-sm-6">
                                           <input
                                             type="text"
-                                            [value]="444433"
+                                            formControlName="contractant"
                                             class="form-control"
                                             id="basic-default-name"
                                             readonly
@@ -812,7 +812,8 @@
                                         <div class="col-sm-6">
                                           <input
                                             type="text"
-                                            [value]="NbPresFact"
+                                            formControlName="nbPresfact"
+                                            value=""
                                             class="form-control"
                                             id="basic-default-company"
                                             readonly
@@ -827,7 +828,7 @@
                                         >
                                         <div class="col-sm-6">
                                           <input
-                                            value="{{ montantFacture }}"
+                                           formControlName="montant"
                                             type="text"
                                             class="form-control"
                                             id="basic-default-company"
@@ -846,7 +847,7 @@
                                             class="input-group input-group-merge"
                                           >
                                             <dx-date-box
-                                              [(value)]="selectedDate"
+                                              formControlName="dateFacture"
                                               displayFormat="dd-MM-yyyy"
                                             ></dx-date-box>
                                           </div>
@@ -863,7 +864,7 @@
                                             type="text"
                                             id="basic-default-phone"
                                             class="form-control phone-mask"
-                                            placeholder="658 799 8941"
+                                            formControlName="numFacture"
                                             aria-label="658 799 8941"
                                             aria-describedby="basic-default-phone"
                                           />
@@ -878,6 +879,7 @@
                                         <div class="col-sm-6">
                                           <textarea
                                             id="basic-default-message"
+                                            formControlName="commentaire"
                                             class="form-control"
                                             aria-describedby="basic-icon-default-message2"
                                           ></textarea>
@@ -1197,7 +1199,7 @@
                             <button
                               type="button"
                               class="btn btn-success justify-content-end"
-                              
+                              [disabled]="isEnableButtonModifier "
                               (click)="showPopupWithScrollView()"
                             >
                               Modifier

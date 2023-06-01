@@ -28,6 +28,6 @@ export class ProfileService {
     }
     
     return this.http.post(
-      'http://localhost:8089/Stage/soapWs/profileAdherent/getContratAdherentByMatricule',null,options);
+      'http://localhost:8089/Stage/acte/getContratAdherentByMatriculeForSearch',null,options);
   }
 }

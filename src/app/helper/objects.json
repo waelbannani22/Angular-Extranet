@@ -1,0 +1,284 @@
+{
+    "statutsLigneFacture": [
+        {
+            "name": "Validée",
+            "id": "1"
+        },
+        {
+            "name": "Refusée",
+            "id": "-1"
+        },
+        {
+            "name": "En attente de validation",
+            "id": "0"
+        }
+    ],
+    "codeSpec": [
+        "Autres",
+        "Biologiste",
+        "Dentiste",
+        "Kinésithérapie",
+        "Médecin généraliste",
+        "Médecin professeur",
+        "Médecin spécialiste",
+        "Pharmacien",
+        "Polyclinique",
+        "Radiologue"
+    ],
+    "ArraytypeActeur": [
+        "Adhérent",
+        "Prestataire de soins"
+    ],
+    "natureActesDentaires": [
+        {
+            "name": "Prothèse dentaire",
+            "value": "PRDE"
+        },
+        {
+            "name": "ODF",
+            "value": "ODF"
+        },
+        {
+            "name": "Soin dentaire",
+            "value": "SODE"
+        },
+        {
+            "name": "Consultation dentaire",
+            "value": ""
+        }
+    ],
+    "natureActesRadiologiques": [
+        {
+            "name": "Examens Radiologiques",
+            "value": "RADIO"
+        },
+        {
+            "name": "Examens Echographique",
+            "value": "ECHO"
+        },
+        {
+            "name": "Examens Scanographiques",
+            "value": "SCANO"
+        }
+    ],
+    "types": [
+        {
+            "name": "Pharmacie",
+            "selected": false,
+            "id": "PAHR"
+        },
+        {
+            "name": "Biologie",
+            "selected": false,
+            "id": "BIOL"
+        },
+        {
+            "name": "Radiologie",
+            "selected": false,
+            "id": "RADO"
+        },
+        {
+            "name": "Autres",
+            "selected": false,
+            "id": "autre"
+        }
+    ],
+    "GouvernoratForm": [
+        {
+            "name": "Ariana",
+            "value": "ARI"
+        },
+        {
+            "name": "Béjà",
+            "value": "BEJA"
+        },
+        {
+            "name": "Benarous",
+            "value": "BEAR"
+        },
+        {
+            "name": "Bizerte",
+            "value": "BIZE"
+        },
+        {
+            "name": "Gabès",
+            "value": "GABS"
+        },
+        {
+            "name": "Gafsa",
+            "value": "GAFS"
+        },
+        {
+            "name": "Jendouba",
+            "value": "JAND"
+        },
+        {
+            "name": "Kairouan",
+            "value": "KAIR"
+        },
+        {
+            "name": "Kasserine",
+            "value": "KASS"
+        },
+        {
+            "name": "Kébili",
+            "value": "KEBI"
+        },
+        {
+            "name": "Kef",
+            "value": "KEF"
+        },
+        {
+            "name": "Mahdia",
+            "value": "MAH"
+        },
+        {
+            "name": "Manouba",
+            "value": "MANO"
+        },
+        {
+            "name": "Médenine",
+            "value": "MEDE"
+        },
+        {
+            "name": "Monastir",
+            "value": "MONA"
+        },
+        {
+            "name": "Nabeul",
+            "value": "NAB"
+        },
+        {
+            "name": "Sidibouzid",
+            "value": "BZID"
+        },
+        {
+            "name": "Siliana",
+            "value": "SILI"
+        },
+        {
+            "name": "Sousse",
+            "value": "SOUS"
+        },
+        {
+            "name": "Tataouine",
+            "value": "TATA"
+        },
+        {
+            "name": "Tozeur",
+            "value": "TOZE"
+        },
+        {
+            "name": "Tunis",
+            "value": "TUN"
+        },
+        {
+            "name": "Zaghouan",
+            "value": "ZAGH"
+        },
+        {
+            "name": "Sfax",
+            "value": "SFA"
+        }
+    ],
+    "ArrayGouvernorat": {
+        "Ariana": "ARI",
+        "Béjà": "BEJA",
+        "Benarous": "BEAR",
+        "Bizerte": "BIZE",
+        "Gabès": "GABS",
+        "Gafsa": "GAFS",
+        "Jendouba": "JAND",
+        "Kairouan": "KAIR",
+        "Kasserine": "KASS",
+        "Kébili": "KEBI",
+        "Kef": "KEF",
+        "Mahdia": "MAH",
+        "Manouba": "MANO",
+        "Médenine": "MEDE",
+        "Monastir": "MONA",
+        "Nabeul": "NAB",
+        "Sidibouzid": "BZID",
+        "Siliana": "SILI",
+        "Sousse": "SOUS",
+        "Tataouine": "TATA",
+        "Tozeur": "TOZE",
+        "Tunis": "TUN",
+        "Zaghouan": "ZAGH",
+        "Sfax": "SFA"
+    },
+    "ListeDeMois": [
+        {
+            "name": "Janvier",
+            "id": "1"
+        },
+        {
+            "name": "Février",
+            "id": "2"
+        },
+        {
+            "name": "Mars",
+            "id": "3"
+        },
+        {
+            "name": "Avril",
+            "id": "4"
+        },
+        {
+            "name": "Mai",
+            "id": "5"
+        },
+        {
+            "name": "Juin",
+            "id": "6"
+        },
+        {
+            "name": "Juillet",
+            "id": "7"
+        },
+        {
+            "name": "Août",
+            "id": "8"
+        },
+        {
+            "name": "Septembre",
+            "id": "9"
+        },
+        {
+            "name": "Octobre",
+            "id": "10"
+        },
+        {
+            "name": "Novembre",
+            "id": "11"
+        },
+        {
+            "name": "Décembre",
+            "id": "12"
+        }
+    ],
+    "listeDesAnnees": [
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+    ]
+}
