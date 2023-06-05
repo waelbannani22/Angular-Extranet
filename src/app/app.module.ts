@@ -36,6 +36,7 @@ import { ReclamationsComponent } from './component/reclamations/reclamations.com
 //
 import { DxBulletModule, DxButtonModule, DxCheckBoxModule, DxDataGridModule, DxDateBoxModule, DxListModule, DxLoadIndicatorModule, DxPopupModule, DxScrollViewModule, DxSelectBoxModule, DxTextBoxModule } from 'devextreme-angular';
 import { VerifPharmacienComponent } from './component/verif-pharmacien/verif-pharmacien.component';
+import { PowerBiDashboardComponent } from './component/PowerBiDashboard/power-bi-dashboard/power-bi-dashboard.component';
 export function tokenGetter() {
   return sessionStorage.getItem("token");
 }
@@ -59,7 +60,8 @@ export function tokenGetter() {
   DateRangeFilterPipe,
   VerifMedicamentComponent,
   ReclamationsComponent,
-  VerifPharmacienComponent
+  VerifPharmacienComponent,
+  PowerBiDashboardComponent
   
   ],
   imports: [

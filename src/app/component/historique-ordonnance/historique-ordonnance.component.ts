@@ -550,7 +550,10 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
         this.commentaire=details['commentaire']
         this.bordereau_DATA =
           this.bordereauFactureService.addToTable(objectEdit);
+
         // console.log(this.editObject.bordereau)
+
+       
       });
     this.popupVisible = true;
     this.bookButtonOptions = {
@@ -572,7 +575,24 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
       this.updateBordereauForm.controls['commentaire'].enable()
       this.updateBordereauForm.controls['numFacture'].enable()
       this.isEnableButtonModifier=false
+
+      
     }
+  }
+  //edit
+  edit2(detail:any){
+
+
+      console.log("update button clicked")
+      this.bordereauFactureService.deleteFactureBordereau(detail['id'],'{"listeFact":[' + this.dataIdFactBord + ']}',this.updateBordereauForm.value.commentaire,this.updateBordereauForm.value.numFacture)
+            .subscribe((res:any)=>{
+              const jsonobj=this.xmlToJson.xmlToJson(res)
+              if(jsonobj['Envelope']['Body']['deleteFactureBordereauResponse']['return']!=null)
+                this.callsweeet()
+              
+
+            })
+    
   }
   //show test
   show(element: any) {

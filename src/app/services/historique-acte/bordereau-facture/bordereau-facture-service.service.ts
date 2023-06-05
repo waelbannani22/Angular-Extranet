@@ -69,7 +69,7 @@ export class BordereauFactureService {
   deleteFactureBordereau(idFacture: string, idfactBord: string, commentaire: string, numFacture: string): Observable<any> {
     const params = { 'idFacture': idFacture, 'idfactBord': idfactBord, 'commentaire': commentaire, 'numFacture': numFacture };
     return this.http.post(
-      '/api/deleteFactureBordereau', params, { responseType: 'text' });
+      'http://localhost:8089/Stage/Historique/deleteFactureBordereau', params, { responseType: 'text' });
   }
   //partie enveloppe
   addToTable(data: any): UpdateBordereauFacture[] {
