@@ -4,6 +4,7 @@ import { Country } from '../models/country/country.module';
 
 @Pipe({ name: 'country' })
 export class CountryPipe implements PipeTransform {
+  
   transform(values: Country[], filter: string): Country[] {
     if (!filter || filter.length === 0) {
       return values;

@@ -34,9 +34,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { VerifMedicamentComponent } from './component/verif-medicament/verif-medicament.component';
 import { ReclamationsComponent } from './component/reclamations/reclamations.component';
 //
-import { DxBulletModule, DxButtonModule, DxCheckBoxModule, DxDataGridModule, DxDateBoxModule, DxListModule, DxLoadIndicatorModule, DxPopupModule, DxScrollViewModule, DxSelectBoxModule, DxTextBoxModule } from 'devextreme-angular';
+import { DxBulletModule, DxButtonModule, DxCheckBoxModule, DxDataGridModule, DxDateBoxModule, DxListModule, DxLoadIndicatorModule, DxLookupModule, DxPopupModule, DxScrollViewModule, DxSelectBoxModule, DxTextBoxModule } from 'devextreme-angular';
 import { VerifPharmacienComponent } from './component/verif-pharmacien/verif-pharmacien.component';
 import { PowerBiDashboardComponent } from './component/PowerBiDashboard/power-bi-dashboard/power-bi-dashboard.component';
+import { ActeOptiqueComponent } from './component/acte-optique/acte-optique.component';
 export function tokenGetter() {
   return sessionStorage.getItem("token");
 }
@@ -61,7 +62,8 @@ export function tokenGetter() {
   VerifMedicamentComponent,
   ReclamationsComponent,
   VerifPharmacienComponent,
-  PowerBiDashboardComponent
+  PowerBiDashboardComponent,
+  ActeOptiqueComponent
   
   ],
   imports: [
@@ -97,6 +99,7 @@ export function tokenGetter() {
     DxListModule,
     DxScrollViewModule,
     DxTextBoxModule,
+    DxLookupModule
    
   ],
   providers: [authInterceptorProviders],

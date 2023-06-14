@@ -1,5 +1,6 @@
 import {
   Component,
+  ElementRef,
   OnInit,
   QueryList,
   ViewChild,
@@ -31,7 +32,8 @@ import { BordereauFacture } from 'src/app/models/bordereau/bordereau-facture.mod
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
 import { UpdateBordereauFacture } from 'src/app/models/bordereau/update-bordereau-facture.model';
-
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-historique-ordonnance',
   templateUrl: './historique-ordonnance.component.html',
@@ -42,7 +44,10 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
   isShowDivIf = true;
   dataSourceConsultationHistory: any;
   NonfactureListeSelectionees: HistoriqueActeNonFacture[] = [];
+  listeBorderauSelection:BordereauFacture[]=[]
   popupScrollViewVisible: boolean=false;
+  statusSelected: any;
+  montantTotalSelection: string="0";
   toggleDisplayDivIf() {
     this.isShowDivIf = !this.isShowDivIf;
   }
@@ -221,11 +226,22 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.NbPresFact)
+    const date_ob = new Date();
+
+    // adjust 0 before single digit date
+    const date = ('0' + date_ob.getDate()).slice(-2);
+
+    // current month
+    const month = ('0' + (date_ob.getMonth() + 1)).slice(-2);
+
+    // current year
+    const year = date_ob.getFullYear();
+    this.dateFacture = year + '-' + month + '-' + date;
     this.gBOrdereauForm = this.formBuilder.group({
       contractant: [{ value:'', disabled: true }],
       nbPresfact: [{ value: '', disabled: true }],
       montant:[{value:0,disabled:true}],
-      dateFacture: [{ value: ''}],
+      dateFacture: [{ value:year + '-' + month + '-' + date }],
       numFacture: [
        '',
         [
@@ -380,6 +396,7 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
     
     this.gBOrdereauForm.controls['contractant'].setValue('A70220033')
     this.gBOrdereauForm.controls['nbPresfact'].setValue(this.NonfactureListeSelectionees.length+1)
+    this.gBOrdereauForm.controls['dateFacture'].setValue(this.dateFacture)
     
     
     this.NonfactureListeSelectionees = e.selectedRowsData;
@@ -483,7 +500,12 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
     currentDeselectedRowKeys: any;
     selectedRowKeys: any;
     selectedRowsData: any;
-  }) {}
+  }) {
+    this.listeBorderauSelection = e.selectedRowsData
+    this.statusSelected = this.listeBorderauSelection[0].statut
+    this.montantTotalSelection=this.listeBorderauSelection[0].mntBordereau
+    
+  }
   //pdf
   openPdf(dataPdf: any): void {
     // dataPdf (partie d'envelope)
@@ -550,7 +572,7 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
         this.commentaire=details['commentaire']
         this.bordereau_DATA =
           this.bordereauFactureService.addToTable(objectEdit);
-
+        
         // console.log(this.editObject.bordereau)
 
        
@@ -608,17 +630,58 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
     this.popupVisible=false
     this.popupScrollViewVisible = true;
   }
+  /*
   generatePDF(data: any): void {
     const documentDefinition = data;
     pdfMake.createPdf(documentDefinition).open();
   }
+  **/
   //getter
   get f(): { [key: string]: AbstractControl } {
     return this.updateBordereauForm.controls;
   }
-  updateFacture(){
-    this.submmited=true
+  
+  // pdf 
+  generatePDF() {  
+    let docDefinition = {  
+      header: 'C#Corner PDF Header',  
+      content: 'Sample PDF generated with Angular and PDFMake for C#Corner Blog'  
+    };  
+   
+    pdfMake.createPdf(docDefinition).print();  
+  }  
+  @ViewChild('content') content!: ElementRef;
+  Data = [  
+    { Id: 101, Name: 'Nitin', Salary: 1234 },  
+    { Id: 102, Name: 'Sonu', Salary: 1234 },  
+    { Id: 103, Name: 'Mohit', Salary: 1234 },  
+    { Id: 104, Name: 'Rahul', Salary: 1234 },  
+    { Id: 105, Name: 'Kunal', Salary: 1234 }  
+  ];  
+
+   SavePDF(){  
+    const contentElement = this.content.nativeElement;
+
+    html2canvas(contentElement).then((canvas) => {
+      const imgData = canvas.toDataURL('image/png');
+      const doc = new jsPDF();
+      const imgProps = doc.getImageProperties(imgData);
+      const pdfWidth = doc.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+      doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      doc.save('test.pdf');
+    });
+  }  
+  //open 2eme popup
+  openImprimer(){
+    this.popupVisible=false
+    this.popupScrollViewVisible=true
   }
+  
+
+  
+  
 
   //#endregion
 }

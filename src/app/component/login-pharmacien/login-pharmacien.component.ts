@@ -81,7 +81,7 @@ export class LoginPharmacienComponent implements OnInit {
             this.isLoggedIn = true;
             this.isLoginFailed = false;
             this.roles = this.tokenStorage.getUser().roles;
-            if(res.body.user.role==="PHARMACIEN"){
+            if(res.body.user.role==="PHARMACIEN" || res.body.user.role==="OPTICIEN" ){
                this.router.navigate(['/DashboardPharmacien']);
             }else if(res.body.user.role==="ADMIN"){
               this.router.navigate(['/VerifPharmacien']);

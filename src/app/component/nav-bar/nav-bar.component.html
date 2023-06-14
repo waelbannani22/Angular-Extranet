@@ -92,6 +92,24 @@
                 
             </ul>
            </div>
+           <div *ngIf="role=='OPTICIEN' ">
+            <ul class="navbar-nav ml-auto">
+             <li (click)=toggleDisplayDivIf()  class="nav-item" routerLinkActive="active">
+                 <a class="nav-link" style="cursor: pointer;" (click)="toActeOptique()">Acte Optique
+                 
+                 </a>
+             </li>
+            
+             
+             <li (click)=toggleDisplayDivIf() class="nav-item" routerLinkActive="active">
+                 <a class="nav-link" style="cursor: pointer;" (click)="ToReclamation()">Réclamation/Suggestions</a>
+             </li>
+            
+            
+             
+             
+         </ul>
+        </div>
            <div *ngIf="role=='ADMIN' " style="text-align: right;">
             <ul class="navbar-nav ml-auto" style="text-align: right;">
              <li (click)=toggleDisplayDivIf()  class="nav-item" routerLinkActive="active">
@@ -100,7 +118,7 @@
                  </a>
              </li>
              <li (click)=toggleDisplayDivIf()  class="nav-item" routerLinkActive="active">
-              <a class="nav-link" style="cursor: pointer;" (click)="ToOrdonnance()">Statistiques
+              <a class="nav-link" style="cursor: pointer;" (click)="toPOwerBiDashboard()">Statistiques
               
               </a>
           </li>

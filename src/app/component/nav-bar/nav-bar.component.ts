@@ -61,4 +61,10 @@ export class NavBarComponent implements OnInit {
     this.router.navigate(['/VerifPharmacien'], { replaceUrl: true });
     
   }
+  toPOwerBiDashboard(){
+    this.router.navigate(['/PowerBiDashboard'], { replaceUrl: true });
+  }
+  toActeOptique(){
+    this.router.navigate(['/ActeOptique'], { replaceUrl: true });
+  }
 }

@@ -15,6 +15,8 @@ import { VerifMedicamentComponent } from './component/verif-medicament/verif-med
 import { VerifPharmacienComponent } from './component/verif-pharmacien/verif-pharmacien.component';
 import { AuthGuardService as AuthGuard } from './services/auth-guard.service';
 import { RoleGuardService } from './services/role-guard.service';
+import { PowerBiDashboardComponent } from './component/PowerBiDashboard/power-bi-dashboard/power-bi-dashboard.component';
+import { ActeOptiqueComponent } from './component/acte-optique/acte-optique.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginPharmacienComponent },
@@ -41,7 +43,8 @@ const routes: Routes = [
   { path: 'VerifMed', component: VerifMedicamentComponent },
   { path: 'Reclamations', component: ReclamationsComponent },
   { path: 'VerifPharmacien', component: VerifPharmacienComponent },
-  
+  { path: 'PowerBiDashboard', component: PowerBiDashboardComponent },
+  { path: 'ActeOptique', component: ActeOptiqueComponent },
   
 
 ];
