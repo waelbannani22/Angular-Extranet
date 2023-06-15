@@ -29,6 +29,7 @@ import { LigneFacture } from 'src/app/models/ligne-facture.model';
 import { HistoriqueActeCircuitMixteService } from 'src/app/services/historiqueActeMixte/historique-acte-circuit-mixte-service';
 import { HistoriqueAdherentService } from 'src/app/services/historiqueAdherent/historique-adherent-service';
 import { ConsultationHistoriqueActeMixte } from 'src/app/models/Consultation/consultation-historique-acte-mixte.model';
+import { TokenStorageService } from 'src/app/services/token-storage-service.service';
 
 @Component({
   selector: 'app-ordonnance',
@@ -87,6 +88,7 @@ export class OrdonnanceComponent implements OnInit {
   historiqueAdherent:ConsultationHistoriqueActeMixte[]=[]
   dataNgx:any
   benefData:Benef[]=[]
+  role=""
   //ajout facture
   numPolice!:string
   idBeneficiare!:string
@@ -140,13 +142,15 @@ export class OrdonnanceComponent implements OnInit {
     private ajoutActeService: AjoutActeService,
     private http:HttpClient,
     private historiqueActeMixtetService:HistoriqueActeCircuitMixteService,
-    private  historiqueAdherentService:HistoriqueAdherentService
+    private  historiqueAdherentService:HistoriqueAdherentService,
+    private tokenStorage:TokenStorageService
   ) {
     // isStillValide(this.loginService)
     if (!loginService.isAuthenticated()) {
       loginService.logOut();
     }
-
+    this.role = this.tokenStorage.getUser().role;
+   
     this.dataSource = this.service.getEmployees();
     this.states = this.service.getStates();
     this.profileService

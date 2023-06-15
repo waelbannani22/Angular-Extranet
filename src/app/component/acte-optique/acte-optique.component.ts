@@ -45,9 +45,36 @@ export class ActeOptiqueComponent implements OnInit {
   selectedValueQte: any = null;
   selectedValueNature: any = null;
 
-  matriculeAdherent=""
+  matriculeAdherent = '';
 
-  constructor(private http: HttpClient, private cdr: ChangeDetectorRef) {
+  EcartBox: number = 0;
+  natureBox: number = 0;
+  typeBox: number = 0;
+  colorBox: number = 0;
+  traitementBox: number = 0;
+  specialBox: number = 0;
+
+  EcartBoxL: string = '';
+  natureBoxL: string = '';
+  typeBoxL: string = '';
+  colorBoxL: string = '';
+  traitementBoxL: string = '';
+  specialBoxL: string = '';
+
+          logs:number=0
+          logc:number=0
+          loga:number=0
+          lods:number=0
+          lodc:number=0
+          loda:number=0
+          pods:number=0
+          podc:number=0
+          poda:number=0
+          pogs:number=0
+          pogc:number=0
+          poga:number=0
+
+  constructor(private http: HttpClient) {
     this.refreshMode = 'full';
     this.refreshModes = ['full', 'reshape', 'repaint'];
 
@@ -74,14 +101,44 @@ export class ActeOptiqueComponent implements OnInit {
       insert: (values) => {
         const postData = {
           date: values.date,
-          matriculeAdherent: this.matriculeAdherent,
+          matriculeAdherent: values.matriculeAdherent,
           type: this.selectedValue,
+          qte: values.qte,
+          mntDepense: values.mntDepense,
+          mntRevise: values.mntRevise,
+          decompteRO: values.decompteRO,
+          nature: values.nature,
+          OGOD: values.OGOD,
         };
 
         return this.sendRequest(this.url + '/add-acte', 'POST', {
           date: values.date,
           matriculeAdherent: values.matriculeAdherent,
           type: this.selectedValue,
+          qte: this.selectedValueQte,
+          mntDepense: values.mntDepense,
+          mntRevise: values.mntRevise,
+          decompteRO: values.decompteRO,
+          logs:this.logs,
+          logc:this.logc,
+          loga:this.loga,
+          lods:this.lods,
+          lodc:this.lodc,
+          loda:this.loda,
+          pods:this.pods,
+          podc:this.podc,
+          poda:this.poda,
+          pogs:this.pogs,
+          pogc:this.pogc,
+          poga:this.poga,
+          nature: this.selectedValueNature,
+          ogod: this.selectedValueGD,
+          ecart:this.EcartBoxL,
+          natureVerres:this.natureBoxL,
+          typesVerres:this.typeBoxL,
+          colorverres:this.colorBoxL,
+          traitementVerres:this.traitementBoxL,
+          verresSpec:this.specialBoxL
         });
       },
       //update
@@ -89,6 +146,19 @@ export class ActeOptiqueComponent implements OnInit {
         this.sendRequest(this.url + '/updateActe/' + key, 'PUT', {
           date: values.date,
           matriculeAdherent: values.matriculeAdherent,
+          type: this.selectedValue,
+          qte: this.selectedValueQte,
+          mntDepense: values.mntDepense,
+          mntRevise: values.mntRevise,
+          decompteRO: values.decompteRO,
+          nature: this.selectedValueNature,
+          ogod: this.selectedValueGD,
+          ecart:this.EcartBoxL,
+          natureVerres:this.natureBoxL,
+          typesVerres:this.typeBoxL,
+          colorverres:this.colorBoxL,
+          traitementVerres:this.traitementBoxL,
+          verresSpec:this.specialBoxL
         }),
     });
 
@@ -104,14 +174,12 @@ export class ActeOptiqueComponent implements OnInit {
     this.lookupDataGD = [
       { id: 'OD', name: 'OD' },
       { id: 'OG', name: 'OG' },
-     
     ];
     this.selectedValueGD = '';
     //for Qte
     this.lookupDataQte = [
       { id: '1', name: '1' },
       { id: '2', name: '2' },
-     
     ];
     this.selectedValueQte = '';
     //nature
@@ -119,12 +187,10 @@ export class ActeOptiqueComponent implements OnInit {
       { id: 'De Loin', name: 'De Loin' },
       { id: 'De prés', name: 'De prés' },
       { id: 'Double Foyé', name: 'Double Foyé' },
-     
     ];
     this.selectedValueNature = '';
-
-   
   }
+ 
 
   ngOnInit(): void {}
 
@@ -162,13 +228,14 @@ export class ActeOptiqueComponent implements OnInit {
       result = this.http.get(url);
     } else if (method === 'PUT') {
       httpOptions2 = data;
+      console.log(data);
       result = this.http.put(url, httpOptions2);
     } else if (method === 'POST') {
       httpOptions2 = data;
-      console.log(data)
+      console.log(data);
       console.log(this.lookupData);
       result = this.http.post(url, httpOptions2);
-      /*
+
       result = result.pipe(
         tap(() => {
           if (method === 'POST') {
@@ -176,7 +243,6 @@ export class ActeOptiqueComponent implements OnInit {
           }
         })
       );
-      */
     } else if (method === 'DELETE') {
       httpOptions2 = { body: data };
       result = this.http.delete(url, httpOptions);
@@ -192,29 +258,173 @@ export class ActeOptiqueComponent implements OnInit {
   clearRequests() {
     this.requests = [];
   }
-  isODOGHidden(){
-    if(this.selectedValue=="Monture" ||this.selectedValueQte==2){
+  isODOGHidden() {
+    if (this.selectedValue == 'Monture' || this.selectedValueQte == 2) {
       return true;
-    }else return false;
+    } else return false;
   }
-  isNatureHidden(){
-    if(this.selectedValue=="Monture" ||this.selectedValue=="Lentille de contact"  ){
+  isNatureHidden() {
+    if (
+      this.selectedValue == 'Monture' ||
+      this.selectedValue == 'Lentille de contact'
+    ) {
       return true;
     }
-    
-    return false
+
+    return false;
   }
-  isQteHidden(){
-    if(this.selectedValue=="Monture"){
+  
+  isQteHidden() {
+    if (this.selectedValue == 'Monture') {
+      return true;
+    }
+    return false;
+  }
+  isPresGVIsible(){
+    if((this.selectedValueGD=="OG" || this.selectedValueQte==2) && this.selectedValueNature =="De prés"){
+      return true;
+    }
+    if(this.selectedValueQte==2 && this.selectedValueNature =="Double Foyé" ){
       return true
     }
     return false;
   }
+  isPresDVisible(){
+    if((this.selectedValueGD=="OD" || this.selectedValueQte==2) && this.selectedValueNature =="De prés"){
+      return true;
+    }
+    if(this.selectedValueQte==2 && this.selectedValueNature =="Double Foyé" ){
+      return true
+    }
+    return false;
+  }
+  isLoinGHidden(){
+    if((this.selectedValueGD=="OG"|| this.selectedValueQte==2) && this.selectedValueNature =="De Loin"){
+      return true
+    }
+    if(this.selectedValueQte==2 && this.selectedValueNature =="Double Foyé" ){
+      return true
+    }
+    return false
+  }
+  isLoinDHidden(){
+    if((this.selectedValueGD=="OD" || this.selectedValueQte==2) && this.selectedValueNature =="De Loin"){
+      return true
+    }
+    if(this.selectedValueQte==2 && this.selectedValueNature =="Double Foyé" ){
+      return true
+    }
+    return false
+  }
   onPopupHiding() {
-    console.log("canceled")
-    this.selectedValue=""
-    this.selectedValueGD=""
-    this.selectedValueNature=""
-    this.selectedValueQte=""
+    console.log('canceled');
+    this.selectedValue = '';
+    this.selectedValueGD = '';
+    this.selectedValueNature = '';
+    this.selectedValueQte = '';
+  }
+
+  checkboxChanged(checkboxValue: number) {
+    this.EcartBox = this.EcartBox === checkboxValue ? 0 : checkboxValue;
+    switch (this.EcartBox) {
+      case 1:
+        this.EcartBoxL = 'Binoculaire';
+        break;
+      case 2:
+        this.EcartBoxL = 'Monoculaire';
+        break
+      default:
+        
+        break;
+    }
+  }
+  natureboxChanged(checkboxValue: number) {
+    this.natureBox = this.natureBox === checkboxValue ? 0 : checkboxValue;
+    switch (this.natureBox) {
+      case 1:
+        this.natureBoxL = 'Minéral';
+        break;
+      case 2:
+        this.natureBoxL = 'Organique';
+        break;
+      default:
+       
+        break;
+    }
+  }
+  typeboxChanged(checkboxValue: number) {
+    this.typeBox = this.typeBox === checkboxValue ? 0 : checkboxValue;
+    switch (this.typeBox) {
+      case 1:
+        this.typeBoxL = 'Simple';
+        break;
+      case 2:
+        this.typeBoxL = 'Bifocaux';
+        break;
+      case 3:
+        this.typeBoxL = 'Demi-lune';
+        break;
+      case 4:
+        this.typeBoxL = 'Varilux';
+        break;
+
+      default:
+        
+        break;
+    }
+  }
+  colorboxChanged(checkboxValue: number) {
+    this.colorBox = this.colorBox === checkboxValue ? 0 : checkboxValue;
+    switch (this.colorBox) {
+      case 1:
+        this.colorBoxL = 'Teinté';
+        break;
+      case 2:
+        this.colorBoxL = 'Photochromique';
+        break;
+      case 3:
+        this.colorBoxL = 'Blanc';
+        break;
+
+      default:
+        
+        break;
+    }
+  }
+  traitboxChanged(checkboxValue: number) {
+    this.traitementBox =
+      this.traitementBox === checkboxValue ? 0 : checkboxValue;
+    switch (this.traitementBox) {
+      case 1:
+        this.traitementBoxL = 'U.V & X';
+        break;
+      case 2:
+        this.traitementBoxL = 'Anti griffe';
+        break;
+      default:
+        
+        break;
+    }
+  }
+
+  specialboxChanged(checkboxValue: number) {
+    this.specialBox = this.specialBox === checkboxValue ? 0 : checkboxValue;
+    switch (this.specialBox) {
+      case 1:
+        this.specialBoxL = 'Sphero';
+        break;
+      case 2:
+        this.specialBoxL = 'Omega';
+        break;
+      case 3:
+        this.specialBoxL = 'Hypéral';
+        break;
+        case 4:
+          this.specialBoxL = 'Precal';
+          break;  
+      default:
+        
+        break;
+    }
   }
 }

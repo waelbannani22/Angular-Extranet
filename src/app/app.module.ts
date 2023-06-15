@@ -38,6 +38,7 @@ import { DxBulletModule, DxButtonModule, DxCheckBoxModule, DxDataGridModule, DxD
 import { VerifPharmacienComponent } from './component/verif-pharmacien/verif-pharmacien.component';
 import { PowerBiDashboardComponent } from './component/PowerBiDashboard/power-bi-dashboard/power-bi-dashboard.component';
 import { ActeOptiqueComponent } from './component/acte-optique/acte-optique.component';
+import { DxiItemModule, DxoItemModule } from 'devextreme-angular/ui/nested';
 export function tokenGetter() {
   return sessionStorage.getItem("token");
 }
@@ -99,7 +100,9 @@ export function tokenGetter() {
     DxListModule,
     DxScrollViewModule,
     DxTextBoxModule,
-    DxLookupModule
+    DxLookupModule,
+    DxiItemModule,
+    DxoItemModule
    
   ],
   providers: [authInterceptorProviders],
