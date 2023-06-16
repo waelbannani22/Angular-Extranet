@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { formatDate } from 'devextreme/localization';
 import DxDataGrid from 'devextreme/ui/data_grid';
 import { DxDataGridComponent, DxDataGridModule } from 'devextreme-angular';
-
-import { lastValueFrom } from 'rxjs';
+import CustomStore from 'devextreme/data/custom_store';
+import { Observable, lastValueFrom, tap } from 'rxjs';
+import Swal from 'sweetalert2';
 import {
   Employee,
   ServiceFetchDATA,
@@ -30,6 +31,8 @@ import { HistoriqueActeCircuitMixteService } from 'src/app/services/historiqueAc
 import { HistoriqueAdherentService } from 'src/app/services/historiqueAdherent/historique-adherent-service';
 import { ConsultationHistoriqueActeMixte } from 'src/app/models/Consultation/consultation-historique-acte-mixte.model';
 import { TokenStorageService } from 'src/app/services/token-storage-service.service';
+import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
+
 
 @Component({
   selector: 'app-ordonnance',
@@ -130,6 +133,61 @@ export class OrdonnanceComponent implements OnInit {
     numContrat:"",
     numConsultation:""
   };
+  dataSource2: any;
+
+  customersData: any;
+
+  shippersData: any;
+
+  refreshModes!: string[];
+
+  refreshMode!: string;
+
+  requests: string[] = [];
+
+  url = 'http://localhost:8089/Stage/acte-optique';
+
+  lookupData!: any[];
+  lookupDataGD!: any[];
+  lookupDataQte!: any[];
+  lookupDataNature!: any[];
+
+  selectedValue: any = null;
+  selectedValueGD: any = null;
+  selectedValueQte: any = null;
+  selectedValueNature: any = null;
+
+  
+   matriculeAdherentSearch ="";
+   numPoilceSearch=""
+
+  EcartBox: number = 0;
+  natureBox: number = 0;
+  typeBox: number = 0;
+  colorBox: number = 0;
+  traitementBox: number = 0;
+  specialBox: number = 0;
+
+  EcartBoxL: string = '';
+  natureBoxL: string = '';
+  typeBoxL: string = '';
+  colorBoxL: string = '';
+  traitementBoxL: string = '';
+  specialBoxL: string = '';
+
+          logs:number=0
+          logc:number=0
+          loga:number=0
+          lods:number=0
+          lodc:number=0
+          loda:number=0
+          pods:number=0
+          podc:number=0
+          poda:number=0
+          pogs:number=0
+          pogc:number=0
+          poga:number=0
+
   constructor(
     private router: Router,
     private service: ServiceFetchDATA,
@@ -150,13 +208,80 @@ export class OrdonnanceComponent implements OnInit {
       loginService.logOut();
     }
     this.role = this.tokenStorage.getUser().role;
-   
+   console.log(this.role)
     this.dataSource = this.service.getEmployees();
     this.states = this.service.getStates();
-    this.profileService
-      .getMemberProfileData('00655', 'A70220033')
+   
+
+      this.historiqueAdherentCircuitMite=[]
+      
+
+      //
+      this.refreshMode = 'full';
+      this.refreshModes = ['full', 'reshape', 'repaint'];
+  
+   
+  
+      this.lookupData = [
+        { id: 'Lentille de contact', name: 'Lentille de contact' },
+        { id: 'Monture', name: 'Monture' },
+        { id: 'Verre Optique', name: 'Verre Optique' },
+        { id: 'Verre Varilux ', name: 'Verre Varilux' },
+      ];
+      this.selectedValue = '';
+  
+      //for OD/OG
+      this.lookupDataGD = [
+        { id: 'OD', name: 'OD' },
+        { id: 'OG', name: 'OG' },
+      ];
+      this.selectedValueGD = '';
+      //for Qte
+      this.lookupDataQte = [
+        { id: '1', name: '1' },
+        { id: '2', name: '2' },
+      ];
+      this.selectedValueQte = '';
+      //nature
+      this.lookupDataNature = [
+        { id: 'De Loin', name: 'De Loin' },
+        { id: 'De prés', name: 'De prés' },
+        { id: 'Double Foyé', name: 'Double Foyé' },
+      ];
+      this.selectedValueNature = '';
+  }
+
+  recherche() {
+  
+   
+    const myButton = document.getElementById('myButton');
+    const myDiv = document.getElementById('myDiv');
+    const myDiv1 = document.getElementById('myDiv1');
+   const mat= this.matriculeAdherentSearch
+   var idA=""
+    if(this.matriculeAdherentSearch==""){
+      alert("Ecrivez un matricule svp")
+      myDiv!.style.display = 'initial';
+      myDiv1!.style.display = 'none';
+      return
+    }else{
+      Swal.fire({
+        title: 'Veuillez patienter',
+  
+       
+        timerProgressBar: true,
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        
+        },
+       
+      })
+      this.profileService
+      .getMemberProfileData(this.matriculeAdherentSearch, this.numPoilceSearch)
       .subscribe(async (res: any) => {
         try {
+         Swal.hideLoading()
           const jsonResult = this.xmlToJson.xmlToJson(res);
           console.log(jsonResult);
           const obj =
@@ -170,9 +295,11 @@ export class OrdonnanceComponent implements OnInit {
           this.numCin = obj['personnePhysique']['numeroPieceId'];
           this.villeDeNaissance = obj['personnePhysique']['gouvNaissance'];
           this.idAdherant = obj['roles'][0]['tiers']['id'];
+          idA= obj['roles'][0]['tiers']['id'];
           this.ordonnace.numContrat = obj['numContrat']
           this.benefData= obj['roles']
          this.ordonnace.idAdherent=this.idAdherant
+         this.getAdherentHistorique(idA)
          this.benefData.forEach((el:any)=>{
             if(el!==null){
               this.listBenef.push({
@@ -185,22 +312,96 @@ export class OrdonnanceComponent implements OnInit {
             
 
           })
+          myDiv!.style.display = 'none';
+          myDiv1!.style.display = 'initial';
           console.log(this.benefData)
         } catch (error) {
           console.log(error);
         }
       });
-
-      this.historiqueAdherentCircuitMite=[]
-      this.getAdherentHistorique()
-  }
-
-  recherche() {
-    const myButton = document.getElementById('myButton');
-    const myDiv = document.getElementById('myDiv');
-    const myDiv1 = document.getElementById('myDiv1');
-    myDiv!.style.display = 'none';
-    myDiv1!.style.display = 'initial';
+     
+      
+      Swal.hideLoading()
+        console.log(this.matriculeAdherentSearch)
+        this.dataSource2 = new CustomStore({
+          key: 'id',
+          //load
+          load: async () => {
+            try {
+              const data = await this.sendRequest(this.url + '/getActesByMatricule/'+mat);
+              return {
+                data: data,
+              };
+            } catch (error) {
+              console.error('Error loading data:', error);
+              throw error;
+            }
+          },
+          //delete
+          remove: (key: string) =>
+            this.sendRequest(this.url + '/deleteActe/' + key, 'DELETE', {
+              key,
+            }),
+          //add
+          insert: (values: { date: any; matriculeAdherent: any; qte: any; mntDepense: any; mntRevise: any; decompteRO: any; nature: any; OGOD: any; }) => {
+          
+    
+            return this.sendRequest(this.url + '/add-acte', 'POST', {
+              date: values.date,
+              matriculeAdherent:mat,
+              type: this.selectedValue,
+              qte: this.selectedValueQte,
+              mntDepense: values.mntDepense,
+              mntRevise: values.mntRevise,
+              decompteRO: values.decompteRO,
+              logs:this.logs,
+              logc:this.logc,
+              loga:this.loga,
+              lods:this.lods,
+              lodc:this.lodc,
+              loda:this.loda,
+              pods:this.pods,
+              podc:this.podc,
+              poda:this.poda,
+              pogs:this.pogs,
+              pogc:this.pogc,
+              poga:this.poga,
+              nature: this.selectedValueNature,
+              ogod: this.selectedValueGD,
+              ecart:this.EcartBoxL,
+              natureVerres:this.natureBoxL,
+              typesVerres:this.typeBoxL,
+              colorverres:this.colorBoxL,
+              traitementVerres:this.traitementBoxL,
+              verresSpec:this.specialBoxL,
+             
+            });
+          },
+          //update
+          update: (key: string, values: { date: any; matriculeAdherent: any; mntDepense: any; mntRevise: any; decompteRO: any; }) =>
+            this.sendRequest(this.url + '/updateActe/' + key, 'PUT', {
+              date: values.date,
+              matriculeAdherent: values.matriculeAdherent,
+              type: this.selectedValue,
+              qte: this.selectedValueQte,
+              mntDepense: values.mntDepense,
+              mntRevise: values.mntRevise,
+              decompteRO: values.decompteRO,
+              nature: this.selectedValueNature,
+              ogod: this.selectedValueGD,
+              ecart:this.EcartBoxL,
+              natureVerres:this.natureBoxL,
+              typesVerres:this.typeBoxL,
+              colorverres:this.colorBoxL,
+              traitementVerres:this.traitementBoxL,
+              verresSpec:this.specialBoxL
+            }),
+        });
+      
+    }
+    this.numPoilceSearch=""
+    this.matriculeAdherentSearch=""
+   
   }
 
   ngOnInit(): void {
@@ -209,7 +410,7 @@ export class OrdonnanceComponent implements OnInit {
     const myDiv1 = document.getElementById('myDiv1');
 
     //this.getHistorique();
-
+/*
     myDiv1!.style.display = 'none';
     if (myButton && myDiv) {
       myButton.addEventListener('click', () => {
@@ -217,7 +418,7 @@ export class OrdonnanceComponent implements OnInit {
         myDiv.style.display = 'none';
         myDiv1!.style.display = 'initial';
       });
-    }
+    }*/
     //off canvas
     const canvas = document.getElementById('offcanvasBoth');
     canvas!.style.visibility = 'block';
@@ -516,8 +717,8 @@ export class OrdonnanceComponent implements OnInit {
    **/
   }
   //get adherent historique
-  getAdherentHistorique(){
-    this.historiqueAdherentService.getFactureBordereauByIdAdherent("104088","4462",0,200).subscribe(dataFactBordAdherent=>{
+  getAdherentHistorique(em:string){
+    this.historiqueAdherentService.getFactureBordereauByIdAdherent(em,"4462",0,200).subscribe(dataFactBordAdherent=>{
       const jsonHistorique = this.xmlToJson.xmlToJson(dataFactBordAdherent)
      
       
@@ -549,4 +750,237 @@ export class OrdonnanceComponent implements OnInit {
   }
 
   //fin
+  logRequest(method: string, url: string | any[], data: { [x: string]: any }) {
+    const args = data
+      ? Object.keys(data)
+          .map((key) => `${key}=${data[key]}`)
+          .join(' ')
+      : '';
+
+    const time = formatDate(new Date(), 'HH:mm:ss');
+
+    this.requests.unshift(`${time} ${method} ${url.slice(URL.length)} ${args}`);
+  }
+
+  sendRequest(url: string, method = 'GET', data: any = {}): Promise<any> {
+    this.logRequest(method, url, data);
+
+    const httpParams = new HttpParams({ fromObject: data });
+    const httpOptions = { withCredentials: false, body: httpParams };
+    let result: Observable<any>;
+    const params: { id: number } = {
+      id: data,
+    };
+
+    const options: { params: { [param: string]: number } } = {
+      params: {
+        id: params.id,
+      },
+    };
+
+    let httpOptions2: any;
+
+    if (method === 'GET') {
+      result = this.http.get(url);
+      console
+    } else if (method === 'PUT') {
+      httpOptions2 = data;
+      console.log(data);
+      result = this.http.put(url, httpOptions2);
+    } else if (method === 'POST') {
+      httpOptions2 = data;
+      console.log(data);
+      console.log(this.lookupData);
+      result = this.http.post(url, httpOptions2);
+
+      result = result.pipe(
+        tap(() => {
+          if (method === 'POST') {
+            this.selectedValue = null; // Clear the selected value only for POST request
+          }
+        })
+      );
+    } else if (method === 'DELETE') {
+      httpOptions2 = { body: data };
+      result = this.http.delete(url, httpOptions);
+    }
+
+    return lastValueFrom(result!)
+      .then((data: any) => (method === 'GET' ? data : data))
+      .catch((e) => {
+        throw e?.error?.message;
+      });
+  }
+  isODOGHidden() {
+    if (this.selectedValue == 'Monture' || this.selectedValueQte == 2) {
+      return true;
+    } else return false;
+  }
+  isNatureHidden() {
+    if (
+      this.selectedValue == 'Monture' ||
+      this.selectedValue == 'Lentille de contact'
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+  
+  isQteHidden() {
+    if (this.selectedValue == 'Monture') {
+      return true;
+    }
+    return false;
+  }
+  isPresGVIsible(){
+    if((this.selectedValueGD=="OG" || this.selectedValueQte==2) && this.selectedValueNature =="De prés"){
+      return true;
+    }
+    if(this.selectedValueQte==2 && this.selectedValueNature =="Double Foyé" ){
+      return true
+    }
+    return false;
+  }
+  isPresDVisible(){
+    if((this.selectedValueGD=="OD" || this.selectedValueQte==2) && this.selectedValueNature =="De prés"){
+      return true;
+    }
+    if(this.selectedValueQte==2 && this.selectedValueNature =="Double Foyé" ){
+      return true
+    }
+    return false;
+  }
+  isLoinGHidden(){
+    if((this.selectedValueGD=="OG"|| this.selectedValueQte==2) && this.selectedValueNature =="De Loin"){
+      return true
+    }
+    if(this.selectedValueQte==2 && this.selectedValueNature =="Double Foyé" ){
+      return true
+    }
+    return false
+  }
+  isLoinDHidden(){
+    if((this.selectedValueGD=="OD" || this.selectedValueQte==2) && this.selectedValueNature =="De Loin"){
+      return true
+    }
+    if(this.selectedValueQte==2 && this.selectedValueNature =="Double Foyé" ){
+      return true
+    }
+    return false
+  }
+  onPopupHiding() {
+    console.log('canceled');
+    this.selectedValue = '';
+    this.selectedValueGD = '';
+    this.selectedValueNature = '';
+    this.selectedValueQte = '';
+  }
+
+  checkboxChanged(checkboxValue: number) {
+    this.EcartBox = this.EcartBox === checkboxValue ? 0 : checkboxValue;
+    switch (this.EcartBox) {
+      case 1:
+        this.EcartBoxL = 'Binoculaire';
+        break;
+      case 2:
+        this.EcartBoxL = 'Monoculaire';
+        break
+      default:
+        
+        break;
+    }
+  }
+  natureboxChanged(checkboxValue: number) {
+    this.natureBox = this.natureBox === checkboxValue ? 0 : checkboxValue;
+    switch (this.natureBox) {
+      case 1:
+        this.natureBoxL = 'Minéral';
+        break;
+      case 2:
+        this.natureBoxL = 'Organique';
+        break;
+      default:
+       
+        break;
+    }
+  }
+  typeboxChanged(checkboxValue: number) {
+    this.typeBox = this.typeBox === checkboxValue ? 0 : checkboxValue;
+    switch (this.typeBox) {
+      case 1:
+        this.typeBoxL = 'Simple';
+        break;
+      case 2:
+        this.typeBoxL = 'Bifocaux';
+        break;
+      case 3:
+        this.typeBoxL = 'Demi-lune';
+        break;
+      case 4:
+        this.typeBoxL = 'Varilux';
+        break;
+
+      default:
+        
+        break;
+    }
+  }
+  colorboxChanged(checkboxValue: number) {
+    this.colorBox = this.colorBox === checkboxValue ? 0 : checkboxValue;
+    switch (this.colorBox) {
+      case 1:
+        this.colorBoxL = 'Teinté';
+        break;
+      case 2:
+        this.colorBoxL = 'Photochromique';
+        break;
+      case 3:
+        this.colorBoxL = 'Blanc';
+        break;
+
+      default:
+        
+        break;
+    }
+  }
+  traitboxChanged(checkboxValue: number) {
+    this.traitementBox =
+      this.traitementBox === checkboxValue ? 0 : checkboxValue;
+    switch (this.traitementBox) {
+      case 1:
+        this.traitementBoxL = 'U.V & X';
+        break;
+      case 2:
+        this.traitementBoxL = 'Anti griffe';
+        break;
+      default:
+        
+        break;
+    }
+  }
+
+  specialboxChanged(checkboxValue: number) {
+    this.specialBox = this.specialBox === checkboxValue ? 0 : checkboxValue;
+    switch (this.specialBox) {
+      case 1:
+        this.specialBoxL = 'Sphero';
+        break;
+      case 2:
+        this.specialBoxL = 'Omega';
+        break;
+      case 3:
+        this.specialBoxL = 'Hypéral';
+        break;
+        case 4:
+          this.specialBoxL = 'Precal';
+          break;  
+      default:
+        
+        break;
+    }
+  }
+  clearRequests() {
+    this.requests = [];
+  }
 }

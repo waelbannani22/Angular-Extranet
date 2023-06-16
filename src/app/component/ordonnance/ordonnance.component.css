@@ -108,5 +108,100 @@ option{
     }
   }
 
+
+  ::ng-deep #grid {
+    height: 440px;
+  }
+  
+  ::ng-deep .options {
+    padding: 20px;
+    margin-top: 20px;
+    background-color: rgba(191, 191, 191, 0.15);
+  }
+  
+  ::ng-deep .caption {
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 18px;
+  }
+  
+  ::ng-deep .option {
+    margin-bottom: 10px;
+  }
+  
+  ::ng-deep .option > span {
+    position: relative;
+    top: 2px;
+    margin-right: 10px;
+  }
+  
+  ::ng-deep .option > .dx-widget {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
+  ::ng-deep #requests .caption {
+    float: left;
+    padding-top: 7px;
+  }
+  
+  ::ng-deep #requests > div {
+    padding-bottom: 5px;
+  }
+  
+  ::ng-deep #requests > div::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  ::ng-deep #requests #clear {
+    float: right;
+  }
+  
+  ::ng-deep #requests ul {
+    list-style: none;
+    max-height: 100px;
+    overflow: auto;
+    margin: 0;
+  }
+  
+  ::ng-deep #requests ul li {
+    padding: 7px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  ::ng-deep #requests ul li:last-child {
+    border-bottom: none;
+  }
+  ::ng-deep #data-grid-demo {
+    min-height: 530px;
+  }
+  .lookup-select {
+    width: 100%;
+    height: 40px; /* Adjust the height as needed */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath fill='%23666' d='M0 0h10L5 6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 8px center;
+    background-size: 8px 6px;
+  }
+  
+  .lookup-select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+  }
+  
+  
+
   
   

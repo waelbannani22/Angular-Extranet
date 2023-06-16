@@ -119,31 +119,21 @@
                       class="form-control2"
                       tabindex="-1"
                       aria-hidden="true"
+                      [(ngModel)]="numpolice"
                     >
-                      <option value="AK" data-select2-id="2">Alaska</option>
+                      <option value="A70230001" data-select2-id="2">TESLA</option>
                       <option value="HI" data-select2-id="46">Hawaii</option>
                       <option value="CA" data-select2-id="47">
                         California
                       </option>
                     </select>
-                    <label style="font-size: medium" for="select-option"
-                      >Nom de médicament:</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control2"
-                      style="margin: 10px"
-                      formControlName="email"
-                      id="email"
-                      name="email"
-                      placeholder="entrez le nom de médicament"
-                      autofocus
-                    />
+                   
                     <button
                       id="myButton"
                       type="button"
                       style="justify-content: right"
                       class="btn rounded-pill btn-primary"
+                      (click)="rechercher()"
                     >
                       Rechercher
                     </button>

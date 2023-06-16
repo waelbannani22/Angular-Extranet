@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 import { CHAINE_VIDE } from 'src/app.constants';
 import { fileSizeValidator } from 'src/app/helper/Validation';
 import { XMLTOJSON } from 'src/app/helper/xml-tojson.service';
@@ -8,7 +9,7 @@ import { LoginPharmacienService } from 'src/app/services/login-pharmacien.servic
 import { SuggestionsReclamation } from 'src/app/services/models/suggestions-reclamation.model';
 import { SuggestionsReclamationsService } from 'src/app/services/reclamation.service';
 import { TokenStorageService } from 'src/app/services/token-storage-service.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-reclamations',
   templateUrl: './reclamations.component.html',
@@ -100,7 +101,7 @@ export class ReclamationsComponent implements OnInit {
 
 
 
-        this.suggesReclamService.createReclamation(byteFile,CHAINE_VIDE,CHAINE_VIDE,"EMPLOYEUR_X",CHAINE_VIDE
+        this.suggesReclamService.createReclamation(byteFile,CHAINE_VIDE,CHAINE_VIDE,CHAINE_VIDE,"4462"
         ,CHAINE_VIDE,CHAINE_VIDE,description,"0",titre,"réclamation",qualitfication).subscribe((async (res:any) => {
          try {
            window.location.reload()
@@ -119,6 +120,18 @@ export class ReclamationsComponent implements OnInit {
   }
   Click() {
     console.log('clicked');
+    Swal.fire({
+      title: 'Veuillez patienter',
+  
+     
+      timerProgressBar: true,
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      
+      }
+     
+    })
     this.suggesReclamService
       .getListReclamationByMatricule(
         0,
@@ -133,12 +146,13 @@ export class ReclamationsComponent implements OnInit {
         CHAINE_VIDE,
         CHAINE_VIDE,
         CHAINE_VIDE,
-       CHAINE_VIDE
+       "4462"
       )
       .subscribe(
         async (data) => {
           try {
             if (data != null) {
+              Swal.hideLoading()
             //console.log(data)
               const jsonObj = this.xmlToJson.xmlToJson(data);
              // console.log('jsonobj=', jsonObj);
@@ -147,7 +161,7 @@ export class ReclamationsComponent implements OnInit {
                 console.log(resultJson)
                
                const filteredResult= resultJson.filter(rec=>rec.matriculeAdherent=="EMPLOYEUR_X")
-               this.dataSource=filteredResult
+               this.dataSource=resultJson
                 console.log(filteredResult.length)
                 
               }else{

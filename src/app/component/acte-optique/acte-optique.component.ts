@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import {
   ChangeDetectorRef,
   Component,
+  Input,
   OnChanges,
   OnInit,
   SimpleChanges,
@@ -45,7 +46,8 @@ export class ActeOptiqueComponent implements OnInit {
   selectedValueQte: any = null;
   selectedValueNature: any = null;
 
-  matriculeAdherent = '';
+  
+   matriculeAdherent !:string;
 
   EcartBox: number = 0;
   natureBox: number = 0;

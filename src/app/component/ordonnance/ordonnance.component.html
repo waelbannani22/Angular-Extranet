@@ -114,8 +114,9 @@
                           data-select2-id="select2Basic"
                           tabindex="-1"
                           aria-hidden="true"
+                          [(ngModel)]="numPoilceSearch"
                         >
-                          <option value="AK" data-select2-id="2">Alaska</option>
+                          <option value="A70220033" data-select2-id="2">TESLA</option>
                           <option value="HI" data-select2-id="46">
                             Hawaii
                           </option>
@@ -133,6 +134,7 @@
                         class="form-control border-0 shadow-none"
                         placeholder="Search..."
                         aria-label="Search..."
+                        [(ngModel)]="matriculeAdherentSearch"
                       />
                     </div>
 
@@ -340,7 +342,7 @@
                     <!--/ User Pills -->
 
                     <!-- Project table -->
-                    <div class="card mb-4">
+                    <div class="card mb-4" *ngIf="role=='PHARMACIEN'">
                       <h5 class="card-header">Historique</h5>
                       <dx-data-grid
                       #grid2
@@ -412,7 +414,7 @@
                     </dx-data-grid>
                       <!-- pop up de montants-->
                     <dx-popup 
-                    *ngIf="role=='PHARMACIEN'"
+                  
                     [width]="700"
                     [height]="550"
                     [hideOnOutsideClick]="true"
@@ -676,9 +678,7 @@
                                     </button>
                                   </div>
                                 </div>
-                                <div *ngIf="role=='OPTICIEN'">
-                                    <app-acte-optique></app-acte-optique>
-                                </div>
+                               
                               </div>
                             </div>
                              <!-- confirmation de ordonnace ajout-->
@@ -958,6 +958,399 @@
                           </div>
                         </div>
                       </div>
+                    </div>
+                    <div class="card mb-4" *ngIf="role=='OPTICIEN'">
+                      <h5 class="card-header">Historique</h5>
+                      <dx-data-grid
+id="grid"
+[dataSource]="dataSource2"
+[repaintChangesOnly]="true"
+[showBorders]="true"
+[rowAlternationEnabled]="true"
+[hoverStateEnabled]="true"
+[columnHidingEnabled]="true"
+>
+<dxo-search-panel
+[visible]="true"
+[highlightCaseSensitive]="false"
+></dxo-search-panel>
+ <dxo-group-panel [visible]="true"></dxo-group-panel>
+ <dxo-grouping [autoExpandAll]="false"></dxo-grouping>
+<dxo-scrolling mode="virtual"></dxo-scrolling>
+<dxo-editing
+  mode="popup"
+  [refreshMode]="refreshMode"
+  [allowAdding]="true"
+  [allowUpdating]="true"
+  [allowDeleting]="true"
+>
+  <dxo-popup
+    title="Details"
+    [showTitle]="true"
+    [width]="700"
+    [height]="525"
+  >
+  </dxo-popup>
+  <dxo-form class="form-container">
+    <dxi-item itemType="group" [colCount]="3" [colSpan]="2">
+      <dxi-item dataField="date" class="form-item">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+       
+      </dxi-item>
+      
+      <dxi-item dataField="type" caption="Type" class="form-item">
+        <div class="lookup-container">
+          <select class="lookup-select" [(ngModel)]="selectedValue" name="type" required>
+            <option value="" disabled selected hidden>- Choisissez -</option>
+            <option *ngFor="let item of lookupData" [value]="item.id">{{ item.name }}</option>
+          </select>
+          <dxi-validation-rule type="required" message="Type is required"></dxi-validation-rule>
+        </div>
+      </dxi-item>
+      
+      
+      <dxi-item dataField="mntDepense" class="form-item">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+      </dxi-item>
+      <dxi-item dataField="mntRevise" class="form-item">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+       
+      </dxi-item>
+      <dxi-item dataField="decompteRO" class="form-item">
+        <dxi-validation-rule type="required"></dxi-validation-rule>
+      </dxi-item>
+    
+      
+      
+    </dxi-item>
+ 
+
+   <!-- caracteriqtque-->
+    <dxi-item
+      itemType="group"
+      caption="Caractéristiques"
+      [colCount]="2"
+      [colSpan]="2"
+      [visible]="!isQteHidden()"
+    
+    >
+    <dxi-item
+    dataField="qte"
+    caption="Qte"
+    class="form-item"
+    [hidden]="isQteHidden()"
+  >
+    <div class="lookup-container">
+      <select
+        class="lookup-select"
+        [(ngModel)]="selectedValueQte"
+      >
+      <option value="" disabled selected hidden>
+        - Choisissez -
+      </option>
+        <option
+          *ngFor="let item of lookupDataQte"
+          [value]="item.id"
+        >
+          {{ item.name }}
+        </option>
+      </select>
+    </div>
+  </dxi-item>
+    <dxi-item
+    dataField="ogod"
+   
+    class="form-item"
+    [hidden]="isODOGHidden()"
+  >
+    <div class="lookup-container">
+      <select
+        class="lookup-select"
+        [(ngModel)]="selectedValueGD"
+      >
+      <option value="" disabled selected hidden>
+        - Choisissez -
+      </option>
+        <option
+          *ngFor="let item of lookupDataGD"
+          [value]="item.id"
+        >
+          {{ item.name }}
+        </option>
+      </select>
+    </div>
+  </dxi-item>
+ 
+  <dxi-item
+  dataField="nature"
+  caption="Nature"
+  class="form-item"
+  [hidden]="isNatureHidden()"
+>
+  <div class="lookup-container">
+    <select
+      class="lookup-select"
+      [(ngModel)]="selectedValueNature"
+    >
+      <option value="" disabled selected hidden>
+        - Choisissez -
+      </option>
+      <option
+        *ngFor="let item of lookupDataNature"
+        [value]="item.id"
+      >
+        {{ item.name }}
+      </option>
+    </select>
+  </div>
+</dxi-item>
+
+    </dxi-item>
+  <!-- infor principales-->
+    <dxi-item
+    itemType="group"
+    caption="Informations Principales"
+    [colCount]="2"
+    [colSpan]="2"
+    [visible]=" !isNatureHidden()"
+  >
+  <dxi-item itemType="group" caption="Vision de loin OG" [visible]="isLoinGHidden()" [colCount]="3">
+
+    <dxi-item caption="Sphère" dataField="logs" class="form-item" [colSpan]="1">
+      <div class="lookup-container">
+        <input type="text" class="lookup-select" [(ngModel)]="logs" />
+      </div>
+    </dxi-item>
+    
+  <dxi-item caption="Sphère" dataField="logc" class="form-item" [colSpan]="1">
+  <div class="lookup-container">
+    <input type="text" class="lookup-select" [(ngModel)]="logc" />
+  </div>
+</dxi-item>
+
+<dxi-item caption="Sphère" dataField="loga" class="form-item" [colSpan]="1">
+  <div class="lookup-container">
+    <input type="text" class="lookup-select" [(ngModel)]="loga" />
+  </div>
+</dxi-item>
+
+  </dxi-item>
+
+  <dxi-item itemType="group" caption="Vision de loin OD" [visible]="isLoinDHidden()" [colCount]="3">
+    <dxi-item caption="Sphère" dataField="lods" class="form-item" [colSpan]="1">
+      <div class="lookup-container">
+        <input type="text" class="lookup-select" [(ngModel)]="lods" />
+      </div>
+    </dxi-item>
+    <dxi-item caption="Sphère" dataField="lodc" class="form-item" [colSpan]="1">
+      <div class="lookup-container">
+        <input type="text" class="lookup-select" [(ngModel)]="lodc" />
+      </div>
+    </dxi-item>
+    <dxi-item caption="Sphère" dataField="loda" class="form-item" [colSpan]="1">
+      <div class="lookup-container">
+        <input type="text" class="lookup-select" [(ngModel)]="loda" />
+      </div>
+    </dxi-item>
+  </dxi-item>
+  <dxi-item itemType="group" caption="Vision de prés OD" [visible]="isPresDVisible()" [colCount]="3">
+
+    <dxi-item caption="Sphère" dataField="pods" class="form-item" [colSpan]="1">
+      <div class="lookup-container">
+        <input type="text" class="lookup-select" [(ngModel)]="pods" />
+      </div>
+    </dxi-item>
+    <dxi-item caption="Sphère" dataField="podc" class="form-item" [colSpan]="1">
+      <div class="lookup-container">
+        <input type="text" class="lookup-select" [(ngModel)]="podc" />
+      </div>
+    </dxi-item>
+    <dxi-item caption="Sphère" dataField="poda" class="form-item" [colSpan]="1">
+      <div class="lookup-container">
+        <input type="text" class="lookup-select" [(ngModel)]="poda" />
+      </div>
+    </dxi-item>
+  </dxi-item>
+  <dxi-item itemType="group" caption="Vision de prés OG" [visible]="isPresGVIsible()" [colCount]="3">
+    <dxi-item caption="Sphère" dataField="pogs" class="form-item" [colSpan]="1">
+      <div class="lookup-container">
+        <input type="text" class="lookup-select" [(ngModel)]="pogs" />
+      </div>
+    </dxi-item>
+    <dxi-item caption="Sphère" dataField="pogc" class="form-item" [colSpan]="1">
+      <div class="lookup-container">
+        <input type="text" class="lookup-select" [(ngModel)]="pogc" />
+      </div>
+    </dxi-item>
+    <dxi-item caption="Sphère" dataField="poga" class="form-item" [colSpan]="1">
+      <div class="lookup-container">
+        <input type="text" class="lookup-select" [(ngModel)]="poga" />
+      </div>
+    </dxi-item>
+  </dxi-item>
+
+  </dxi-item>
+  <!-- info supplememntaires-->
+  <dxi-item
+  itemType="group"
+  caption="Informations supplémentaires"
+  [colCount]="2"
+  [colSpan]="2"
+  [visible]=" !isNatureHidden()"
+>
+<div class="form-row">
+  <div class="form-group col-md-3">
+    <label><b>Ecart populaire</b></label>
+  </div>
+  <div class="form-group col-md-3">
+    <label>Binoculaire</label>
+    <input type="checkbox" [checked]="EcartBox === 1" (change)="checkboxChanged(1)">
+  </div>
+  <div class="form-group col-md-3">
+    <label>Monoculaire</label>
+    <input type="checkbox" [checked]="EcartBox === 2" (change)="checkboxChanged(2)">
+  </div>
+  
+</div>
+
+
+<div class="form-row">
+  <div class="form-group col-md-3">
+    <label><b>Nature des verres</b></label>
+  </div>
+  <div class="form-group col-md-3">
+    <label>Minéral</label>
+    <input type="checkbox"[checked]="natureBox === 1" (change)="natureboxChanged(1)">
+  </div>
+  <div class="form-group col-md-3">
+    <label>Organique</label>
+    <input type="checkbox" [checked]="natureBox === 2" (change)="natureboxChanged(2)">
+  </div>
+  
+</div>
+
+
+<div class="form-row">
+  <div class="form-group col-md-2">
+    <label><b>Type des verres</b></label>
+  </div>
+  <div class="form-group col-md-2">
+    <label>Simple</label>
+    <input type="checkbox" [checked]="typeBox === 1" (change)="typeboxChanged(1)">
+  </div>
+  <div class="form-group col-md-2">
+    <label>Bifocaux</label>
+    <input type="checkbox" [checked]="typeBox === 2" (change)="typeboxChanged(2)">
+  </div>
+  <div class="form-group col-md-2">
+    <label>Demi-lune</label>
+    <input type="checkbox"[checked]="typeBox === 3" (change)="typeboxChanged(3)">
+  </div>
+  <div class="form-group col-md-2">
+    <label>Varilux</label>
+    <input type="checkbox"[checked]="typeBox === 4" (change)="typeboxChanged(4)">
+  </div>
+  
+</div>
+
+
+<div class="form-row">
+  <div class="form-group col-md-3">
+    <label><b>Coloration des verres</b></label>
+  </div>
+  <div class="form-group col-md-3">
+    <label>Teinté</label>
+    <input type="checkbox" [checked]="colorBox === 1" (change)="colorboxChanged(1)">
+  </div>
+  <div class="form-group col-md-3">
+    <label>Photochromique</label>
+    <input type="checkbox" [checked]="colorBox === 2" (change)="colorboxChanged(2)">
+  </div>
+  <div class="form-group col-md-3">
+    <label>Blanc</label>
+    <input type="checkbox"[checked]="colorBox === 3" (change)="colorboxChanged(3)">
+  </div>
+  
+</div>
+
+<div class="form-row">
+  <div class="form-group col-md-3">
+    <label><b>Traitement des verres</b></label>
+  </div>
+  <div class="form-group col-md-3">
+    <label>U.V & X</label>
+    <input type="checkbox" [checked]="traitementBox === 1" (change)="traitboxChanged(1)">
+  </div>
+  <div class="form-group col-md-3">
+    <label>Anti griffe</label>
+    <input type="checkbox" [checked]="traitementBox === 2" (change)="traitboxChanged(2)">
+  </div>
+ 
+  
+</div>
+
+<div class="form-row">
+  <div class="form-group col-md-2">
+    <label><b>Verres spéciaux</b></label>
+  </div>
+  <div class="form-group col-md-2">
+    <label>Sphero</label>
+    <input type="checkbox" [checked]="specialBox === 1" (change)="specialboxChanged(1)">
+  </div>
+  <div class="form-group col-md-2">
+    <label>Omega</label>
+    <input type="checkbox" [checked]="specialBox === 2" (change)="specialboxChanged(2)">
+  </div>
+  <div class="form-group col-md-2">
+    <label>Hypéral</label>
+    <input type="checkbox" [checked]="specialBox === 3" (change)="specialboxChanged(3)">
+  </div>
+  <div class="form-group col-md-2">
+    <label>Precal</label>
+    <input type="checkbox"[checked]="specialBox === 4" (change)="specialboxChanged(4)">
+  </div>
+ 
+  
+</div>
+
+
+  </dxi-item>
+
+  </dxo-form>
+</dxo-editing>
+
+<dxi-column dataField="date" dataType="date"></dxi-column>
+<dxi-column dataField="matriculeAdherent"></dxi-column>
+<dxi-column caption="Type" dataField="type"></dxi-column>
+<dxi-column dataField="mntDepense"></dxi-column>
+<dxi-column dataField="mntRevise"></dxi-column>
+<dxi-column dataField="decompteRO"></dxi-column>
+<dxi-column dataField="qte" [hidingPriority]="2"></dxi-column>
+<dxi-column dataField="ogod"></dxi-column>
+<dxi-column dataField="nature" [hidingPriority]="3"></dxi-column>
+<dxi-column dataField="ecart" [hidingPriority]="4"></dxi-column>
+<dxi-column dataField="natureVerres" [hidingPriority]="5"></dxi-column>
+<dxi-column dataField="typesVerres" [width]="20" [hidingPriority]="6"></dxi-column>
+<dxi-column dataField="colorverres" [width]="20" [hidingPriority]="7"></dxi-column>
+<dxi-column dataField="traitementVerres" [width]="20" [hidingPriority]="8"></dxi-column>
+<dxi-column dataField="verresSpec" [hidingPriority]="1"></dxi-column>
+
+</dx-data-grid>
+
+<div class="options">
+
+<div id="requests">
+  <div>
+    <div class="caption">Network Requests</div>
+    <dx-button id="clear" text="Clear" (onClick)="clearRequests()">
+    </dx-button>
+  </div>
+  <ul>
+    <li *ngFor="let request of requests">{{ request }}</li>
+  </ul>
+</div>
+
+</div>
                     </div>
                     <!-- /Project table -->
 

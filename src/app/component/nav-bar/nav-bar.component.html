@@ -94,11 +94,12 @@
            </div>
            <div *ngIf="role=='OPTICIEN' ">
             <ul class="navbar-nav ml-auto">
+           
              <li (click)=toggleDisplayDivIf()  class="nav-item" routerLinkActive="active">
-                 <a class="nav-link" style="cursor: pointer;" (click)="toActeOptique()">Acte Optique
-                 
-                 </a>
-             </li>
+              <a class="nav-link" style="cursor: pointer;" (click)="ToOrdonnance()">Ajout Ordonnance
+              
+              </a>
+          </li>
             
              
              <li (click)=toggleDisplayDivIf() class="nav-item" routerLinkActive="active">
