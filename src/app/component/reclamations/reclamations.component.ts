@@ -101,7 +101,7 @@ export class ReclamationsComponent implements OnInit {
 
 
 
-        this.suggesReclamService.createReclamation(byteFile,CHAINE_VIDE,CHAINE_VIDE,CHAINE_VIDE,"4462"
+        this.suggesReclamService.createReclamation(byteFile,CHAINE_VIDE,CHAINE_VIDE,sessionStorage.getItem("matriculePs")!,sessionStorage.getItem("matriculePs")!
         ,CHAINE_VIDE,CHAINE_VIDE,description,"0",titre,"réclamation",qualitfication).subscribe((async (res:any) => {
          try {
            window.location.reload()
@@ -145,8 +145,8 @@ export class ReclamationsComponent implements OnInit {
         CHAINE_VIDE,
         CHAINE_VIDE,
         CHAINE_VIDE,
-        CHAINE_VIDE,
-       "4462"
+        sessionStorage.getItem("matriculePs")!,
+       sessionStorage.getItem("matriculePs")!
       )
       .subscribe(
         async (data) => {
@@ -160,8 +160,8 @@ export class ReclamationsComponent implements OnInit {
                 const resultJson= this.suggesReclamService.getDataListReclamationByMatricule(jsonObj)
                 console.log(resultJson)
                
-               const filteredResult= resultJson.filter(rec=>rec.matriculeAdherent=="EMPLOYEUR_X")
-               this.dataSource=resultJson
+               const filteredResult= resultJson.filter(rec=>rec.matriculeAdherent==sessionStorage.getItem("matriculePs")!)
+               this.dataSource=filteredResult
                 console.log(filteredResult.length)
                 
               }else{

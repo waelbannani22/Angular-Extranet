@@ -99,7 +99,7 @@
                 <div class="mb-3 form-password-toggle">
                   <div class="d-flex justify-content-between">
                     <label class="form-label" for="password">mot de passe</label>
-                    <a (click)="OnNavigate()">
+                    <a (click)="OnNavigate()" style="cursor: pointer;">
                       <small>Mot de passe oublié?</small>
                     </a>
                   </div>
@@ -126,8 +126,8 @@
 
               <p class="text-center">
                 <span>Vous n'avez pas de compte?</span>
-                <a href="sign-up">
-                  <span>Créez-en un</span>
+                <a (click)="goSignUP()" style="cursor: pointer; ">
+                  <b>Créez-en un</b>
                 </a>
               </p>
             </div>

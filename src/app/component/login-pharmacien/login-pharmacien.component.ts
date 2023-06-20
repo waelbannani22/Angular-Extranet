@@ -21,6 +21,9 @@ export class LoginPharmacienComponent implements OnInit {
   OnNavigate() {
     this.router.navigate(['/forget-password'], { replaceUrl: true });
   }
+  goSignUP() {
+    this.router.navigate(['/sign-up'], { replaceUrl: true });
+  }
 
   submitted = false;
 
@@ -78,6 +81,8 @@ export class LoginPharmacienComponent implements OnInit {
 
             this.tokenStorage.saveToken(res.body.token);
             this.tokenStorage.saveUser(res.body.user);
+            sessionStorage.setItem("matriculePs",res.body.user.matricule)
+            sessionStorage.setItem("role",res.body.user.role)
             this.isLoggedIn = true;
             this.isLoginFailed = false;
             this.roles = this.tokenStorage.getUser().roles;

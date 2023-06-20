@@ -16,7 +16,9 @@ export class DashboardPharmacienComponent implements OnInit {
   imageChemin: any = '/assets/img/avatars/1.png';
   iamSure: boolean = false;
   disabled:boolean=true;
+  role=""
   buttonLabel:string="modifier le formulaire"
+  nomPrenom!:string
   detailPharmacien: FormGroup = new FormGroup({
     id:new FormControl(this.tokenStorage.getUser().id),
     password:new FormControl(this.tokenStorage.getUser().password),
@@ -38,7 +40,10 @@ export class DashboardPharmacienComponent implements OnInit {
     private pharmacienService:LoginPharmacienService,
     private http:HttpClient,
     private dynamicScriptLoader:DynamicScriptLoaderService
-  ) {}
+  ) {
+    this.role = sessionStorage.getItem("role")!
+    this.nomPrenom=this.tokenStorage.getUser().nom+" "+this.tokenStorage.getUser().prenom
+  }
 
   pharamacien: Pharmacien = new Pharmacien();
 

@@ -27,8 +27,8 @@ export class SignupPharmacienComponent implements OnInit {
     matricule: new FormControl(''),
     password: new FormControl(''),
     email: new FormControl(''),
-    confirmPassword:new FormControl('')
-
+    confirmPassword:new FormControl(''),
+    role:new FormControl('')
    
    
   });
@@ -49,7 +49,8 @@ export class SignupPharmacienComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(7)]],
       nom: ['', [Validators.required, Validators.minLength(3)]],
       prenom: ['', [Validators.required, Validators.minLength(4)]],
-      matricule: ['', [Validators.required, Validators.minLength(5)]],
+      matricule: ['', [Validators.required, Validators.minLength(4)]],
+      role:['PHARMACIEN',[Validators.required]],
       confirmPassword:['', [Validators.required]],
     },{
       validators: [Validation.match('password', 'confirmPassword')]
@@ -67,11 +68,12 @@ export class SignupPharmacienComponent implements OnInit {
     this.pharmacien.matricule=this.detailUser.value.matricule
     this.pharmacien.password=this.detailUser.value.password
     this.pharmacien.email=this.detailUser.value.email
+    this.pharmacien.role=this.detailUser.value.role
    
     if (this.detailUser.invalid) {
       return;
     }
-    this.pharmacien.role="PHARMACIEN"
+   // this.pharmacien.role="PHARMACIEN"
     //console.log(this.pharmacien)
 
     this.pharmacieService.signup(this.pharmacien).subscribe(async(res:any)=>{

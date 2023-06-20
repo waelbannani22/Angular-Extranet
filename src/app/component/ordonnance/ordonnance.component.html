@@ -116,13 +116,14 @@
                           aria-hidden="true"
                           [(ngModel)]="numPoilceSearch"
                         >
-                          <option value="A70220033" data-select2-id="2">TESLA</option>
-                          <option value="HI" data-select2-id="46">
-                            Hawaii
-                          </option>
-                          <option value="CA" data-select2-id="47">
-                            California
-                          </option>
+                        <option value="A70220033" data-select2-id="2">COMPAGNIE TUNISIENNE DE FORAGE "C.T.F"</option>
+                        <option value="A70230014" data-select2-id="46">SOQUIBAT</option>
+                        <option value="A70230001" data-select2-id="47">
+                          BANQUE TUNISIENNE DE SOLIDARITE
+                        </option>
+                        <option value="A70220011" data-select2-id="46">SERGAZ</option>
+                        <option value="A70830047" data-select2-id="46"> BANQUE DE TUNISIE</option>
+                        <option value="A70140004" data-select2-id="46"> PFIZER TUNISIE</option>
                         </select>
                       </div>
                     </div>
@@ -501,8 +502,7 @@
                                       point d'ajouter une
                                       ordonnace pour
                                       l'adhérent<br />
-                                      MOHAMED NAOUAR avec
-                                      la matricule 00139
+                                      {{ordonnace.nomAssure}} 
                                     </p>
                                   </div>
                                 </div>
@@ -511,15 +511,59 @@
                           </div>
                         </form>
                           <div class="modal-footer">
-                            <button
-                            type="button"
-                            class="btn  btn-outline-primary "
-                            data-bs-toggle="modal"
-                            data-bs-target="#modalCenterMED"
-                            (click)="CloseMontantPopup()"
-                          >
-                            Ajouter une ordonnace manuellement
-                          </button>
+                           
+                          <button
+                          type="button"
+                          class="btn  btn-outline-primary "
+                         
+                          (click)="OcrPopupVisivle()"
+                        >
+                          Importer une ordonnace
+                        </button>
+                        <!-- popup ocr-->
+                        <dx-popup 
+                  
+                        [width]="500"
+                        [height]="300"
+                        [hideOnOutsideClick]="true"
+                        [showCloseButton]="true"
+                        [(visible)]="ocrPopup"
+                       
+                      >
+                        <div *dxTemplate="let data of 'content'">
+                          <dx-scroll-view width="100%" height="100%">
+                            <div class="modal-content">
+                              
+                              <div class="modal-body">
+                               
+                                <form class="mb-3" (ngSubmit)="uploadFile()" enctype="multipart/form-data">
+                                  <div class="input-group">
+                                    <input type="file" class="form-control" name="file" accept=".pdf" (change)="onFileSelected($event)">
+                                    <button type="submit" class="btn btn-primary" [disabled]="!selectedFile">Upload</button>
+                                  </div>
+                                </form>
+                                
+                                
+                              
+                              </div>
+                          
+                              <div class="modal-footer">
+                               
+                                <button
+                                  type="button"
+                                  class="btn btn-primary"
+
+                                  (click)="OcrPopupHidden()"
+                                >
+                                  OK
+                                </button>
+                              </div>
+                            </div>
+                           
+                          </dx-scroll-view>
+                        </div>
+                       
+                      </dx-popup>
                            
                             <button
                               type="button"
@@ -777,7 +821,7 @@
                                                               Ordonnance:</strong
                                                             >
                                                           </td>
-                                                          <td>{{ordonnace.totalOrdanance}}</td>
+                                                          <td>{{ordonnace.totalOrdanance || ocrM}} </td>
                                                         </tr>
                                                       </tbody>
                                                     </table>
@@ -946,6 +990,7 @@
                                                   <button
                                                     type="button"
                                                     class="btn btn-primary"
+                                                    data-bs-dismiss="modal"
                                                     (click)="onSubmited()"
                                                   >
                                                     Confirmer
@@ -981,7 +1026,7 @@ id="grid"
   mode="popup"
   [refreshMode]="refreshMode"
   [allowAdding]="true"
-  [allowUpdating]="true"
+  
   [allowDeleting]="true"
 >
   <dxo-popup

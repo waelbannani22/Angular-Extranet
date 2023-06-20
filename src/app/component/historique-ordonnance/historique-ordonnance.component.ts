@@ -41,6 +41,9 @@ import html2canvas from 'html2canvas';
   preserveWhitespaces: true,
 })
 export class HistoriqueOrdonnanceComponent implements OnInit {
+closeUpdate() {
+  this.popupVisible = false
+}
   isShowDivIf = true;
   dataSourceConsultationHistory: any;
   NonfactureListeSelectionees: HistoriqueActeNonFacture[] = [];
@@ -110,7 +113,7 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
   commentaire!:string
 
   bookButtonOptions!:any
-
+  selectedPolice=""
   /*
   startDatee = new Date('2022-04-01');
   endDatee = new Date('2022-12-31');
@@ -132,9 +135,8 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
       loginService.logOut();
     }
     this.scrollingConfig = { mode: 'horizontal' };
-    this.getHistorique();
-    this.getNonFacture()
-    this.getAllBordereau();
+   //getters were here
+   
    
     this.isLoadIndicatorVisible = true;
     this.allMode = 'allPages';
@@ -178,24 +180,24 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
     console.log(this.selectedItems);
   }
   // historique
-  getHistorique() {
+  getHistorique(em:string) {
     // appel au service
-    this.paramsBord.idTiers = '4462';
+    this.paramsBord.idTiers =sessionStorage.getItem("matriculePs")!;
     this.paramsBord.nature = CHAINE_VIDE;
     this.paramsBord.dateDeb = CHAINE_VIDE;
     this.paramsBord.dateFin = CHAINE_VIDE;
-    this.paramsBord.numPolice = '2022701000001';
+    this.paramsBord.numPolice = this.selectedPolice;
     this.paramsBord.refFact = CHAINE_VIDE;
     this.paramsBord.pagesize = 200;
     this.paramsBord.type = CHAINE_VIDE;
     this.paramsBord.page = 0;
 
     const params: BordereauByIdTierParams = {
-      idTiers: '4462',
+      idTiers: sessionStorage.getItem("matriculePs")!,
       nature: '',
       dateDeb: '',
       dateFin: '',
-      numPolice: '',
+      numPolice: em,
       refFact: '',
       pagesize: 200,
       type: '',
@@ -297,7 +299,7 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
     
       this.historiqueActeService
       .createFacture(
-        '4462',
+        sessionStorage.getItem("matriculePs")!,
         this.montantFacture,
         this.gBOrdereauForm.value.numFacture,
         this.dateFacture,
@@ -330,15 +332,15 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
     
   }
   // non facturées
-  getNonFacture(): void {
+  getNonFacture(em:string): void {
     //this.edited = false;
     // appel au service
     const params1: BordereauByIdTierParams = {
-      idTiers: '4462',
+      idTiers: sessionStorage.getItem("matriculePs")!,
       nature: '',
       dateDeb: '',
       dateFin: '',
-      numPolice: 'A70220033',
+      numPolice: em,
       refFact: '',
       pagesize: 99,
       type: '0',
@@ -444,6 +446,7 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
       allowOutsideClick: false,
       didOpen: () => {
         Swal.showLoading();
+      
       },
       willClose: () => {
         clearInterval(timerInterval);
@@ -458,13 +461,13 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
   }
 
   //#region  "bodereau facture "
-  getAllBordereau() {
+  getAllBordereau(em:string) {
     const params1: BordereauByIdTierParams = {
-      idTiers: '4462',
+      idTiers: sessionStorage.getItem("matriculePs")!,
       nature: '',
       dateDeb: '',
       dateFin: '',
-      numPolice: 'A70220033',
+      numPolice: em,
       refFact: '',
       pagesize: 50,
       type: '',
@@ -527,7 +530,7 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
   //open update
   openUpdate(details: any, action: string, nbPrestation: string) {
     const params1: BordereauByIdTierParams = {
-      idTiers: '4462',
+      idTiers: sessionStorage.getItem("matriculePs")!,
       nature: '',
       dateDeb: '',
       dateFin: '',
@@ -677,6 +680,12 @@ export class HistoriqueOrdonnanceComponent implements OnInit {
   openImprimer(){
     this.popupVisible=false
     this.popupScrollViewVisible=true
+  }
+  rechercher(){
+  
+   this.getHistorique(this.selectedPolice);
+   this.getNonFacture(this.selectedPolice)
+   this.getAllBordereau(this.selectedPolice);
   }
   
 

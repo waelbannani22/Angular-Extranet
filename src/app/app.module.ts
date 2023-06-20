@@ -34,11 +34,12 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { VerifMedicamentComponent } from './component/verif-medicament/verif-medicament.component';
 import { ReclamationsComponent } from './component/reclamations/reclamations.component';
 //
-import { DxBulletModule, DxButtonModule, DxCheckBoxModule, DxDataGridModule, DxDateBoxModule, DxListModule, DxLoadIndicatorModule, DxLookupModule, DxPopupModule, DxScrollViewModule, DxSelectBoxModule, DxTextBoxModule } from 'devextreme-angular';
+import { DxBulletModule, DxButtonModule, DxCheckBoxModule, DxDataGridModule, DxDateBoxModule, DxFileUploaderModule, DxListModule, DxLoadIndicatorModule, DxLookupModule, DxPopupModule, DxScrollViewModule, DxSelectBoxModule, DxTextBoxModule } from 'devextreme-angular';
 import { VerifPharmacienComponent } from './component/verif-pharmacien/verif-pharmacien.component';
 import { PowerBiDashboardComponent } from './component/PowerBiDashboard/power-bi-dashboard/power-bi-dashboard.component';
 import { ActeOptiqueComponent } from './component/acte-optique/acte-optique.component';
 import { DxiItemModule, DxoItemModule } from 'devextreme-angular/ui/nested';
+import { ForbiddenPageComponent } from './component/forbidden-page/forbidden-page.component';
 export function tokenGetter() {
   return sessionStorage.getItem("token");
 }
@@ -64,7 +65,8 @@ export function tokenGetter() {
   ReclamationsComponent,
   VerifPharmacienComponent,
   PowerBiDashboardComponent,
-  ActeOptiqueComponent
+  ActeOptiqueComponent,
+  ForbiddenPageComponent
   
   ],
   imports: [
@@ -102,7 +104,8 @@ export function tokenGetter() {
     DxTextBoxModule,
     DxLookupModule,
     DxiItemModule,
-    DxoItemModule
+    DxoItemModule,
+    DxFileUploaderModule
    
   ],
   providers: [authInterceptorProviders],

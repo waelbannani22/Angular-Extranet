@@ -50,7 +50,7 @@ export class LoginPharmacienService {
         matricule: pharmacien.matricule,
         password: pharmacien.password,
         email: pharmacien.email,
-        role: 'PHARMACIEN',
+        role: pharmacien.role,
       },
       { observe: 'response' }
     );

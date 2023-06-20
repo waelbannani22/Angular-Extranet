@@ -33,6 +33,9 @@ submitted: any;
   get f(): { [key: string]: AbstractControl } {
     return this.details.controls;
   }
+  goToLogin(){
+    this.router.navigate(['/login'], { replaceUrl: true })
+  }
   // method to trigger
   ChangePassword() {
     // this.disabled =true
@@ -54,8 +57,8 @@ submitted: any;
           
       },
       err => {
-        if( err.status ==403){
-          this.toastr.warning('Erreur!!','',{
+        if( err.status ==400){
+          this.toastr.warning('token non valide!!','',{
             timeOut:3500
           });
           setTimeout(()=>{

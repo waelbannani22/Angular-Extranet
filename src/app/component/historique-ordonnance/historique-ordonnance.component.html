@@ -402,18 +402,24 @@
                       data-select2-id="select2Basic"
                       tabindex="-1"
                       aria-hidden="true"
+                      [(ngModel)]="selectedPolice"
                     >
-                      <option value="AK" data-select2-id="2">Alaska</option>
-                      <option value="HI" data-select2-id="46">Hawaii</option>
-                      <option value="CA" data-select2-id="47">
-                        California
+                      <option value="A70220033" data-select2-id="2">COMPAGNIE TUNISIENNE DE FORAGE "C.T.F"</option>
+                      <option value="A70230014" data-select2-id="46">SOQUIBAT</option>
+                      <option value="A70230001" data-select2-id="47">
+                        BANQUE TUNISIENNE DE SOLIDARITE
                       </option>
+                      <option value="A70220011" data-select2-id="46">SERGAZ</option>
+                      <option value="A70830047" data-select2-id="46"> BANQUE DE TUNISIE</option>
+                      <option value="A70140004" data-select2-id="46"> PFIZER TUNISIE</option>
+                      
                     </select>
                     <button
                       id="myButton"
                       type="button"
                       style="justify-content: right"
                       class="btn rounded-pill btn-primary"
+                      (click)="rechercher()"
                     >
                       Rechercher
                     </button>
@@ -1203,7 +1209,7 @@
                             <button
                               type="button"
                               class="btn btn-success justify-content-end"
-                              
+                             (click)="closeUpdate()"
                               (click)="edit2(grid2.instance.getSelectedRowsData()[0]
                               .OpenUpdate)"
                             >

@@ -43,10 +43,15 @@ export class ForgetPasswordComponent implements OnInit {
   get f(): { [key: string]: AbstractControl } {
     return this.details.controls;
   }
+  goToLogin(){
+    this.router.navigate(['/login'], { replaceUrl: true })
+  }
   forgetPass() {
     this.disabled =true
-    this.isLoading=true
-    this.ema = this.details.value.email;
+   
+    if(this.details.valid){
+      this.isLoading=true
+       this.ema = this.details.value.email;
     this.loginService.forgetPassword(this.ema).subscribe(
       res => {
         console.log(res.status)
@@ -76,4 +81,6 @@ export class ForgetPasswordComponent implements OnInit {
       }
     );
   }
+    }
+   
 }

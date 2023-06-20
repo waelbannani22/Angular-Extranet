@@ -10,11 +10,14 @@ export class PassComponent implements OnInit {
   password: string = '';
   passwordShown: boolean = false;
   Cpassword: string = '';
+  role!:string
   togglePasswordVisibility() {
     this.passwordShown = !this.passwordShown;
   }
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    this.role = sessionStorage.getItem("role")!
+  }
 
   Profile() {
     this.router.navigate(['/DashboardPharmacien'], { replaceUrl: false });

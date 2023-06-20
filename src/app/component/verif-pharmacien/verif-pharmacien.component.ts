@@ -69,53 +69,7 @@ export class VerifPharmacienComponent implements OnInit {
 
     //this.dataSource = service.getDataSource();
   }
-  Click() {
-    console.log('clicked');
-    this.suggesReclamService
-      .getListReclamationByMatricule(
-        0,
-        99,
-        CHAINE_VIDE,
-        CHAINE_VIDE,
-        CHAINE_VIDE,
-        8,
-        CHAINE_VIDE,
-        CHAINE_VIDE,
-        CHAINE_VIDE,
-        CHAINE_VIDE,
-        CHAINE_VIDE,
-        CHAINE_VIDE,
-       CHAINE_VIDE
-      )
-      .subscribe(
-        async (data) => {
-          try {
-            if (data != null) {
-            // console.log(data)
-              const jsonObj = this.xmlToJson.xmlToJson(data);
-              console.log('jsonobj=', jsonObj);
-              if(jsonObj !=null ){
-                const resultJson= this.suggesReclamService.getDataListReclamationByMatricule(jsonObj)
-                //console.log(resultJson)
-                this.exportExcel.exportToExcel( resultJson,"Reclamation")
-               const filteredResult= resultJson.filter(rec=>rec.matriculeAdherent=="EMPLOYEUR_X")
-                console.log(filteredResult)
-                
-              }else{
-                console.log('erreur');
-              }
-            } else {
-              console.log('data null');
-            }
-          } catch (error) {
-            console.log('error convert' + error);
-          }
-        },
-        (err) => {
-          console.log('erreur');
-        }
-      );
-  }
+ 
 
   ngOnInit(): void {}
   ValiderUser(id: any) {

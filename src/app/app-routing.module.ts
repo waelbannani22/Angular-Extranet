@@ -17,6 +17,7 @@ import { AuthGuardService as AuthGuard } from './services/auth-guard.service';
 import { RoleGuardService } from './services/role-guard.service';
 import { PowerBiDashboardComponent } from './component/PowerBiDashboard/power-bi-dashboard/power-bi-dashboard.component';
 import { ActeOptiqueComponent } from './component/acte-optique/acte-optique.component';
+import { ForbiddenPageComponent } from './component/forbidden-page/forbidden-page.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginPharmacienComponent },
@@ -26,12 +27,13 @@ const routes: Routes = [
   {
     path: 'DashboardPharmacien',
     component: DashboardPharmacienComponent,
-    /*
+    
     canActivate: [RoleGuardService],
     data: {
-      expectedRole: 'PHARMACIEN',
+      expectedRole:  ['OPTICIEN', 'PHARMACIEN']
       
-    },**/
+    },
+    
   },
   { path: 'forget-password', component: ForgetPasswordComponent },
   { path: 'change-password', component: ChangePasswordComponent },
@@ -39,12 +41,35 @@ const routes: Routes = [
   { path: 'menu', component: MenuComponent },
   { path: 'Pass', component: PassComponent },
   { path: 'Conjoints', component: ConjointsComponent },
-  { path: 'HistoriqueOrdonnance', component: HistoriqueOrdonnanceComponent },
-  { path: 'VerifMed', component: VerifMedicamentComponent },
+  { path: 'HistoriqueOrdonnance',
+   component: HistoriqueOrdonnanceComponent,
+   canActivate: [RoleGuardService],
+    data: {
+      expectedRole:   'PHARMACIEN'
+      
+    },
+   },
+  { path: 'VerifMed', component: VerifMedicamentComponent ,
+  canActivate: [RoleGuardService],
+  data: {
+    expectedRole:   'PHARMACIEN'
+    
+  },},
   { path: 'Reclamations', component: ReclamationsComponent },
-  { path: 'VerifPharmacien', component: VerifPharmacienComponent },
-  { path: 'PowerBiDashboard', component: PowerBiDashboardComponent },
+  { path: 'VerifPharmacien', component: VerifPharmacienComponent,
+  canActivate: [RoleGuardService],
+  data: {
+    expectedRole:   'ADMIN'
+    
+  }, },
+  { path: 'PowerBiDashboard', component: PowerBiDashboardComponent,
+  canActivate: [RoleGuardService],
+  data: {
+    expectedRole:   'ADMIN'
+    
+  }, },
   { path: 'ActeOptique', component: ActeOptiqueComponent },
+  { path: 'ForbiddenPage', component: ForbiddenPageComponent },
   
 
 ];

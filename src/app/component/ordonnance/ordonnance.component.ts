@@ -32,6 +32,7 @@ import { HistoriqueAdherentService } from 'src/app/services/historiqueAdherent/h
 import { ConsultationHistoriqueActeMixte } from 'src/app/models/Consultation/consultation-historique-acte-mixte.model';
 import { TokenStorageService } from 'src/app/services/token-storage-service.service';
 import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -105,6 +106,7 @@ export class OrdonnanceComponent implements OnInit {
   json!:string
   idMedecin!:string
   reference!:string
+  selectedFile!: File;
   natureActe!:string
   idPrestation!:string
   ordonnace = {
@@ -112,7 +114,7 @@ export class OrdonnanceComponent implements OnInit {
     idAdherent:'',
     idBeneficiare:'',
     nomMedecin:"",
-    idTiers: '4462',
+    idTiers: sessionStorage.getItem("matriculePs")!,
     dateVisite:'',
     totalMedRemb:'',
     totalMedNonRemb:'',
@@ -124,7 +126,7 @@ export class OrdonnanceComponent implements OnInit {
     idPrestation: "",
     natureActe:'',
     reference:'0',
-    idMedecin:'4462',
+    idMedecin:sessionStorage.getItem("matriculePs")!,
     nid:'0',
     json:'',
     numPolice:'A70220033',
@@ -145,6 +147,8 @@ export class OrdonnanceComponent implements OnInit {
 
   requests: string[] = [];
 
+  ocrPopup=false
+
   url = 'http://localhost:8089/Stage/acte-optique';
 
   lookupData!: any[];
@@ -159,7 +163,7 @@ export class OrdonnanceComponent implements OnInit {
 
   
    matriculeAdherentSearch ="";
-   numPoilceSearch=""
+   numPoilceSearch!:string
 
   EcartBox: number = 0;
   natureBox: number = 0;
@@ -187,6 +191,7 @@ export class OrdonnanceComponent implements OnInit {
           pogs:number=0
           pogc:number=0
           poga:number=0
+  ocrM: any;
 
   constructor(
     private router: Router,
@@ -201,7 +206,8 @@ export class OrdonnanceComponent implements OnInit {
     private http:HttpClient,
     private historiqueActeMixtetService:HistoriqueActeCircuitMixteService,
     private  historiqueAdherentService:HistoriqueAdherentService,
-    private tokenStorage:TokenStorageService
+    private tokenStorage:TokenStorageService,
+    private toastr: ToastrService,
   ) {
     // isStillValide(this.loginService)
     if (!loginService.isAuthenticated()) {
@@ -258,6 +264,7 @@ export class OrdonnanceComponent implements OnInit {
     const myDiv = document.getElementById('myDiv');
     const myDiv1 = document.getElementById('myDiv1');
    const mat= this.matriculeAdherentSearch
+   const numPo=this.numPoilceSearch
    var idA=""
     if(this.matriculeAdherentSearch==""){
       alert("Ecrivez un matricule svp")
@@ -277,6 +284,8 @@ export class OrdonnanceComponent implements OnInit {
         },
        
       })
+      window.sessionStorage.setItem("matricule",this.matriculeAdherentSearch)
+      window.sessionStorage.setItem("numPolice",this.numPoilceSearch)
       this.profileService
       .getMemberProfileData(this.matriculeAdherentSearch, this.numPoilceSearch)
       .subscribe(async (res: any) => {
@@ -466,73 +475,7 @@ export class OrdonnanceComponent implements OnInit {
     }
   };
   //get historique de x
-  getHistorique() {
-    // appel au service
-    this.paramsBord.idTiers = '4462';
-    this.paramsBord.nature = CHAINE_VIDE;
-    this.paramsBord.dateDeb = CHAINE_VIDE;
-    this.paramsBord.dateFin = CHAINE_VIDE;
-    this.paramsBord.numPolice = 'A70220033';
-    this.paramsBord.refFact = CHAINE_VIDE;
-    this.paramsBord.pagesize = 10;
-    this.paramsBord.type = CHAINE_VIDE;
-    this.paramsBord.page = 0;
-
-    const params: BordereauByIdTierParams = {
-      idTiers: '4462',
-      nature: '',
-      dateDeb: '',
-      dateFin: '',
-      numPolice: 'A70220033',
-      refFact: '',
-      pagesize: 100,
-      type: '',
-      page: 0,
-      natureDent: '',
-      filtre: '',
-      columnSort: '',
-      sortDir: '',
-    };
-
-    console.log('params' + this.paramsBord);
-    // last CHAINE VIDE : this.typeFacture
-    this.historiqueActeService.getFactureBordereauByIdTier(params).subscribe(
-      (data) => {
-        const jsonObjfact = this.xmlToJson.xmlToJson(data);
-        // this.AddToTableHistorique(jsonObjfact); // historique
-        this.listHistorique =
-          this.historiqueService.createElementHistorique(jsonObjfact);
-
-        this.listHistoriquefiltre = this.listHistorique.filter(
-          (p) => p.matriculeAssure == '00655'
-        );
-
-        console.log(this.listHistoriquefiltre);
-        /*
-        this.listBenef = this.listHistoriquefiltre.reduce(
-          (beneficiaries: Benef[], acte) => {
-            const existingBeneficiary = beneficiaries.find(
-              (b) => b.nom === acte.nombeneficiaire
-            );
-            if (!existingBeneficiary) {
-              beneficiaries.push({
-                nom: acte.nombeneficiaire,
-                qualite: acte.qualite,
-                idbenef:""
-              });
-            }
-            return beneficiaries;
-          },
-          []
-        );
-        **/
-       // console.log(this.listBenef);
-      },
-      (err) => {
-        console.error(err);
-      }
-    );
-  }
+ 
   //on row db click
   onRowDoubleClick() {
     this.popupScrollViewVisible = true;
@@ -568,12 +511,13 @@ export class OrdonnanceComponent implements OnInit {
   //calculer mntRemb//tikt moder
 
   calculer(): void {
+    console.log(this.numPoilceSearch)
     // calculer MntRemboursementPs , get mnt ticket mod , mnt reste payer
     if (this.addOrdonnancePharDialogForm.valid) {
       this.loading = true;
       // get id ps
       this.ajoutActeService
-        .getPrestationsPsByIdTierPSData('4462', 'A70220033')
+        .getPrestationsPsByIdTierPSData(sessionStorage.getItem("matriculePs")!, sessionStorage.getItem("numPolice")!)
         .subscribe((data) => {
           const jsonPrestationsPsByIdTierPS = this.xmlToJson.xmlToJson(data);
           if (jsonPrestationsPsByIdTierPS != null) {
@@ -616,6 +560,7 @@ export class OrdonnanceComponent implements OnInit {
                     this.ordonnace['mntRestePayer'] =
                       jsonMntRemb['mntRestePayer'];
                     this.idPs = this.ordonnace.idTiers;
+                    this.ordonnace.idPrestation=idPrestation
                     this.ajoutActeService
                       .getMontantDisponibleByBenef(
                         '00655',
@@ -674,6 +619,18 @@ export class OrdonnanceComponent implements OnInit {
   }
   //confirm ordonnance
   onSubmited(){
+    Swal.fire({
+      title: 'Veuillez patienter',
+
+     
+      timerProgressBar: true,
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      
+      },
+     
+    })
     const date_ob = new Date();
 
     // adjust 0 before single digit date
@@ -691,14 +648,16 @@ export class OrdonnanceComponent implements OnInit {
     });
      **/
     const jsonData= new LigneFacture(this.ordonnace.matriculeAdherent,this.ordonnace.numConsultation,this.ordonnace.idAdherent,
-      this.ordonnace.numPolice,"wael",this.ordonnace.idBeneficiare,this.ordonnace.matriculeAdherent,this.ordonnace.dateVisite,this.ordonnace.ticketModerateur,this.ordonnace.mntRestePayer,
+      sessionStorage.getItem("numPolice")!,"wael",this.ordonnace.idBeneficiare,sessionStorage.getItem("matricule")!,this.ordonnace.dateVisite,this.ordonnace.ticketModerateur,this.ordonnace.mntRestePayer,
       this.ordonnace.idTiers,this.ordonnace.totalOrdanance,this.ordonnace.totalMedRemb,this.ordonnace.totalMedNonRemb,CHAINE_VIDE,this.ordonnace.dateVisite,
       this.ordonnace.reference,this.ordonnace.idMedecin,"Pharmacie",CHAINE_VIDE,"0",CHAINE_VIDE,CHAINE_VIDE,"0","D","CONS",CHAINE_VIDE,1,this.ordonnace.nomMedecin,
       "wael",this.ordonnace.idPrestation)
 
       this.http.post("http://localhost:8089/Stage/acte/createLigneFactureTemporaire",jsonData,{responseType:'text'}).subscribe(res=>{
         console.log("facture temp cree")
+        Swal.hideLoading()
       },err=>{
+        Swal.hideLoading()
         console.error(err)
       })
   
@@ -718,7 +677,7 @@ export class OrdonnanceComponent implements OnInit {
   }
   //get adherent historique
   getAdherentHistorique(em:string){
-    this.historiqueAdherentService.getFactureBordereauByIdAdherent(em,"4462",0,200).subscribe(dataFactBordAdherent=>{
+    this.historiqueAdherentService.getFactureBordereauByIdAdherent(em,sessionStorage.getItem("matriculePs")!,0,200).subscribe(dataFactBordAdherent=>{
       const jsonHistorique = this.xmlToJson.xmlToJson(dataFactBordAdherent)
      
       
@@ -983,4 +942,47 @@ export class OrdonnanceComponent implements OnInit {
   clearRequests() {
     this.requests = [];
   }
+ 
+  OcrPopupVisivle(){
+    this.ocrPopup=true
+    this.addOrdonnancePharDialogForm.controls['totalOrdonnance'].setValue("")
+    this.addOrdonnancePharDialogForm.controls['totalMedNonRemboursable'].setValue("")
+    this.addOrdonnancePharDialogForm.controls['totalMedRemboursable'].setValue("")
+
+  }
+  OcrPopupHidden(){
+    this.ocrPopup=false
+  }
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
+  uploadFile() {
+    if (this.selectedFile) {
+      const formData: FormData = new FormData();
+      formData.append('file', this.selectedFile);
+
+      this.http.post("http://localhost:8050/Ocr", formData, {responseType: 'text'}).subscribe(
+        (response:any) => {
+          // File uploade'd successfully
+          this.toastr.success('Succees!', '', {
+            timeOut: 2500,
+          });
+          console.log('File uploaded:', response);
+          this.addOrdonnancePharDialogForm.controls['totalOrdonnance'].setValue(response)
+          this.addOrdonnancePharDialogForm.controls['totalMedRemboursable'].setValue(response)
+          this.addOrdonnancePharDialogForm.controls['totalMedNonRemboursable'].setValue("0")
+          this.ocrM =response
+        },
+        error => {
+          // Handle error
+          this.toastr.error('error!', '', {
+            timeOut: 2500,
+          });
+          console.error('Error uploading file:', error);
+        }
+      );
+    }
+  }
+  
 }
