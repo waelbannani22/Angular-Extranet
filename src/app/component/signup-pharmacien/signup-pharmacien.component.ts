@@ -78,6 +78,7 @@ export class SignupPharmacienComponent implements OnInit {
 
     this.pharmacieService.signup(this.pharmacien).subscribe(async(res:any)=>{
       console.log(res.status)
+      console.log(res)
       if(res.status==200){
         this.toastr.success('Bienvenue', '', {
           timeOut: 3500,

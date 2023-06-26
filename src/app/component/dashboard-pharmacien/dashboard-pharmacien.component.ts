@@ -104,6 +104,7 @@ export class DashboardPharmacienComponent implements OnInit {
     this.pharamacien.ville = this.detailPharmacien.value.ville;
     this.pharamacien.isActivated=true
     this.pharamacien.zip=this.detailPharmacien.value.zip;
+    this.pharamacien.matricule=this.detailPharmacien.value.matricule
 
     console.log(JSON.stringify(this.pharamacien))
     this.pharmacienService.updateInfo(this.pharamacien).subscribe(res=>{
